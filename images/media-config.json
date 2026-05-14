@@ -1,0 +1,53 @@
+{
+  "hero": [
+    "bfex-haulage-yarraman-road-coffs-harbour-machinery-transport-001.jpeg",
+    "bfex-site-clear-yarraman-road-coffs-harbour-in-progress-004.jpeg",
+    "bfex-green-waste-thompsons-road-coffs-harbour-palm-removal-001.jpeg"
+  ],
+  "svc-01-excavation": [
+    "svc-01-excavation.jpg",
+    "bfex-excavation-old-coast-road-bellingen-in-progress-001.jpeg",
+    "bfex-access-road-old-coast-road-bellingen-in-progress-005.jpeg",
+    "bfex-excavation-old-coast-road-bellingen-in-progress-002.jpeg",
+    "bfex-access-road-north-boambee-road-coffs-harbour-steep-slope-001.jpeg",
+    "bfex-drainage-coramba-road-coffs-harbour-in-progress-002.jpeg",
+    "bfex-excavation-yarraman-road-coffs-harbour-erosion-control-002.jpeg",
+    "bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg",
+    "bfex-erosion-control-yarraman-road-coffs-harbour-steep-slope-002.jpeg"
+  ],
+  "svc-02-clearing": [
+    "svc-02-clearing.jpg",
+    "bfex-stump-removal-roselands-drive-coffs-harbour-in-progress-002.jpeg",
+    "bfex-stump-removal-roselands-drive-coffs-harbour-large-stump-004.jpeg"
+  ],
+  "svc-03-mulching": [
+    "bfex-weed-clearing-yarraman-road-coffs-harbour-dense-scrub-001.jpeg",
+    "bfex-site-clear-yarraman-road-coffs-harbour-in-progress-003.jpeg",
+    "bfex-weed-clearing-yarraman-road-coffs-harbour-rural-paddock-003.jpeg",
+    "bfex-drainage-north-boambee-road-coffs-harbour-waterway-management-001.jpeg"
+  ],
+  "svc-04-haulage": [
+    "svc-04-haulage.jpg",
+    "bfex-haulage-smiths-road-bellingen-rocky-load-001.jpeg"
+  ],
+  "svc-05-firebreaks": [
+    "bfex-access-road-north-boambee-road-coffs-harbour-steep-slope-001.jpeg",
+    "bfex-erosion-control-north-boambee-road-coffs-harbour-slope-fencing-001.jpeg",
+    "bfex-erosion-control-north-boambee-road-coffs-harbour-steep-slope-003.jpeg"
+  ],
+  "svc-06-civil": [
+    "bfex-excavation-dillon-street-sawtell-in-progress-004.jpeg",
+    "bfex-excavation-dillon-street-sawtell-drainage-trench-001.jpeg",
+    "bfex-access-road-old-coast-road-bellingen-in-progress-003.jpeg",
+    "bfex-access-road-old-coast-road-bellingen-in-progress-004.jpeg",
+    "bfex-access-road-north-boambee-road-coffs-harbour-rural-property-002.jpeg",
+    "bfex-works-dillon-street-sawtell-in-progress-001.jpeg"
+  ],
+  "about-machine": [
+    "about-machine.jpg",
+    "bfex-haulage-yarraman-road-coffs-harbour-machinery-transport-001.jpeg"
+  ],
+  "about-reel": [
+    "about-reel.mp4"
+  ]
+}

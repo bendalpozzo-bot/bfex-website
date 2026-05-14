@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" fill="none">
+  <!-- ============================================================
+       BFEx Logo — SVG recreation
+       Yellow excavator + Bonville wordmark + FORESTRY & EXCAVATIONS
+       Transparent background — works on any colour
+  ============================================================ -->
+
+  <!-- ── EXCAVATOR ─────────────────────────────────────────── -->
+
+  <!-- Undercarriage / tracks -->
+  <rect x="118" y="183" width="162" height="28" rx="14" fill="#f5c200"/>
+  <rect x="124" y="189" width="150" height="16" rx="8" fill="#c9a000"/>
+  <!-- Track detail lines -->
+  <line x1="148" y1="189" x2="148" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <line x1="168" y1="189" x2="168" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <line x1="188" y1="189" x2="188" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <line x1="208" y1="189" x2="208" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <line x1="228" y1="189" x2="228" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <line x1="248" y1="189" x2="248" y2="205" stroke="#f5c200" stroke-width="2.5"/>
+  <!-- Drive sprocket -->
+  <circle cx="136" cy="197" r="10" fill="#f5c200" stroke="#c9a000" stroke-width="2"/>
+  <circle cx="136" cy="197" r="4" fill="#c9a000"/>
+  <!-- Idler wheel -->
+  <circle cx="262" cy="197" r="10" fill="#f5c200" stroke="#c9a000" stroke-width="2"/>
+  <circle cx="262" cy="197" r="4" fill="#c9a000"/>
+
+  <!-- Main body / carbody -->
+  <rect x="148" y="148" width="118" height="42" rx="5" fill="#f5c200"/>
+
+  <!-- Cab -->
+  <rect x="218" y="118" width="52" height="48" rx="5" fill="#f5c200"/>
+  <!-- Cab window -->
+  <rect x="226" y="124" width="36" height="28" rx="3" fill="#c9a000"/>
+  <rect x="229" y="127" width="30" height="22" rx="2" fill="#1b3428" opacity="0.6"/>
+
+  <!-- Counterweight (rear bump) -->
+  <path d="M148 152 Q130 152 128 168 L148 168 Z" fill="#f5c200"/>
+
+  <!-- Boom (main arm from cab upward-left) -->
+  <path d="M228 130 L170 62 L162 70 L222 138 Z" fill="#f5c200"/>
+  <!-- Boom pin -->
+  <circle cx="224" cy="134" r="5" fill="#c9a000"/>
+
+  <!-- Stick (forearm from boom tip) -->
+  <path d="M168 64 L118 118 L126 126 L176 72 Z" fill="#f5c200"/>
+  <!-- Stick pin -->
+  <circle cx="170" cy="66" r="4" fill="#c9a000"/>
+
+  <!-- Bucket -->
+  <path d="M116 116 C100 124 88 138 90 158 C92 172 106 178 118 172 C132 166 138 148 132 132 Z" fill="#f5c200"/>
+  <!-- Bucket curl detail -->
+  <path d="M94 152 C96 164 108 174 118 170" stroke="#c9a000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Bucket teeth -->
+  <path d="M90 158 L84 164 M94 164 L90 171 M102 168 L100 176" stroke="#f5c200" stroke-width="3" stroke-linecap="round"/>
+  <!-- Bucket pin -->
+  <circle cx="120" cy="120" r="4" fill="#c9a000"/>
+
+  <!-- Boom cylinder -->
+  <line x1="230" y1="145" x2="196" y2="92" stroke="#c9a000" stroke-width="5" stroke-linecap="round"/>
+  <!-- Stick cylinder -->
+  <line x1="175" y1="72" x2="145" y2="102" stroke="#c9a000" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- ── TEXT ───────────────────────────────────────────────── -->
+
+  <!-- "Bonville" — serif style via text -->
+  <text
+    x="200"
+    y="240"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="42"
+    font-weight="700"
+    fill="white"
+    letter-spacing="1">Bonville</text>
+
+  <!-- "FORESTRY & EXCAVATIONS" — spaced caps -->
+  <text
+    x="200"
+    y="268"
+    text-anchor="middle"
+    font-family="'Segoe UI', Arial, sans-serif"
+    font-size="15"
+    font-weight="400"
+    fill="white"
+    letter-spacing="6">FORESTRY &amp; EXCAVATIONS</text>
+
+</svg>

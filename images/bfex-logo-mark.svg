@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 96" role="img" aria-label="BFEx logo mark">
+  <!--
+    Single closed polygon.
+    Top: 3-tier spruce silhouette — branch steps get progressively wider
+         and flatter (upper branches steep, lower branches droop).
+    Base: 4 triangular bucket teeth — same path, no separate elements.
+    Symmetric around x=60. Aspect ratio ~0.9:1.
+  -->
+  <polygon
+    fill="#f7c708"
+    points="
+      60,6
+      74,26  68,36
+      82,48  73,58
+      96,70
+      90,86  84,70  76,70  70,86  64,70
+      56,70  50,86  44,70  36,70  30,86  24,70
+      47,58  38,48
+      52,36  46,26
+    "
+  />
+</svg>

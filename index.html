@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFEx — Earthmoving, Clearing & Haulage · Coffs Coast</title>
+  <meta name="description" content="Bonville Forestry and Excavations. Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="announce">
+      <div class="announce-left">
+        <span class="dot">●</span>
+        <span>Coffs Harbour · Bellingen · Nambucca · Grafton</span>
+      </div>
+      <div class="announce-right">
+        <span>Emergency clearing &nbsp;<span class="ph">0448 482 321</span></span>
+        <span>Fully insured · NSW Lic. 493682C</span>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <a href="index.html"><img src="images/logo.png" alt="BFEx — Bonville Forestry and Excavations" style="height:38px;display:block"></a>
+          <ul class="nav-links">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="nav-right">
+          <div>
+            <div class="nav-call-label">Call us</div>
+            <div class="nav-call-num">0448 482 321</div>
+          </div>
+          <a href="contact.html#quote" class="btn-gold nav-btn">Get a quote</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero B -->
+  <section class="hero">
+    <!-- Replace background-image with 1440px hero photo, subject right-of-centre -->
+    <div class="hero-bg" data-slot="hero" style="background-image:url('images/hero.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="eyebrow eyebrow-muted">Bonville · Coffs Harbour · NSW</span>
+      <h1>We clear,<br>we cut,<br>we <em>cart it away.</em></h1>
+      <p class="hero-lede">Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast. Owner-operated. On site when we say.</p>
+      <div class="hero-ctas">
+        <a href="contact.html#quote" class="btn-gold">Request a quote →</a>
+      </div>
+    </div>
+    <div class="stat-ribbon">
+      <div class="stat-cell"><div class="stat-num">493682C</div><div class="stat-lbl">NSW contractor's licence</div></div>
+      <div class="stat-cell"><div class="stat-num">A$20M</div><div class="stat-lbl">Public liability</div></div>
+      <div class="stat-cell"><div class="stat-num">Mecalac 6MCR</div><div class="stat-lbl">Earthworks &amp; mulching</div></div>
+      <div class="stat-cell"><div class="stat-num">Hino 700</div><div class="stat-lbl">Tipper &amp; haulage</div></div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section section-dark">
+    <div class="sec-head-2col">
+      <div>
+        <span class="eyebrow">What we do</span>
+        <h2 class="sec-h2">Six trades.<br><em>One crew.</em></h2>
+      </div>
+      <div style="padding-top:24px">
+        <p style="font-size:18px;line-height:1.65;color:rgba(255,255,255,0.75);max-width:540px">We don't subcontract. The operator who clears your pad is on the payroll and on next week's job. Every quote is one phone number, one invoice, one crew.</p>
+        <a href="services.html" class="link-gold" style="display:inline-block;margin-top:24px">View capability statement →</a>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">01 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Excavation &amp; earthmoving</h3>
+          <p>House pads, dam construction, bulk earthworks, trenching and detailed grading.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">Pads</span><span class="tag">Dams</span><span class="tag">Trenching</span></div>
+      </div>
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">02 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Vegetation clearing</h3>
+          <p>Selective clearing, scrub knockdown and post-bushfire clean-up under NSW PVP / 10/50 rules.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">10/50</span><span class="tag">Selective</span><span class="tag">Scrub</span></div>
+      </div>
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">03 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Mulching &amp; slashing</h3>
+          <p>FAE forestry mulching and tractor slashing for hazard reduction and pasture renewal.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">Forestry head</span><span class="tag">FAE</span></div>
+      </div>
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">04 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Haulage &amp; tipper hire</h3>
+          <p>Hino 700 tipper and beavertail trailer for spoil removal, gravel cartage and material supply.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">Tipper</span><span class="tag">Beavertail</span></div>
+      </div>
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">05 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Firebreaks &amp; hazard reduction</h3>
+          <p>RFS-compliant firebreak grading and asset-protection zones around rural properties.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">RFS</span><span class="tag">APZ</span></div>
+      </div>
+      <div class="svc-card">
+        <div>
+          <div class="svc-meta"><span class="svc-num mono">06 / 06</span><span class="svc-arrow">→</span></div>
+          <h3>Civil works</h3>
+          <p>Driveways, culverts, retaining and stormwater for rural subdivision and small civil contracts.</p>
+        </div>
+        <div class="svc-tags"><span class="tag">Driveways</span><span class="tag">Drainage</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service area -->
+  <section class="section section-green">
+    <div class="area-grid">
+      <div>
+        <span class="eyebrow">Service area</span>
+        <h2 class="sec-h2" style="font-size:clamp(32px,3.5vw,56px)">Coffs Coast and the<br>Bellingen Shire.</h2>
+        <p style="margin-top:22px;font-size:16px;line-height:1.7;color:rgba(255,255,255,0.75);max-width:440px">Based on the Coffs Coast. We work from Grafton to Kempsey, inland to the Dorrigo Plateau. Beyond that radius, call us to discuss mobilisation.</p>
+        <div class="area-distances">
+          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 60 km</span><p>Same-week mobilisation</p></div>
+          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 120 km</span><p>Quoted on a per-job basis</p></div>
+          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 200 km</span><p>Tender enquiries welcome</p></div>
+          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Emergency</span><p>24/7 — storm &amp; fire clean-up</p></div>
+        </div>
+      </div>
+      <div id="service-map" class="area-map" style="height:480px;border-radius:4px;overflow:hidden"></div>
+    </div>
+  </section>
+
+  <!-- Quote form -->
+  <section class="section section-cream" id="quote">
+    <div class="quote-grid">
+      <div>
+        <span class="eyebrow eyebrow-green">Get a quote</span>
+        <h2 class="quote-h2">Tell us about<br><em>the job.</em></h2>
+        <p class="quote-lede">Fill in the form and we'll call you back within one business day to confirm the brief and book a site visit if needed. No obligation.</p>
+        <div class="prefer-talk">
+          <span class="eyebrow eyebrow-green">Prefer to talk?</span>
+          <div class="prefer-ph">0448 482 321</div>
+          <div class="prefer-hrs">Mon–Sat · 6:00 – 17:00 AEST</div>
+        </div>
+      </div>
+      <div class="form-panel">
+        <form id="quote-form">
+          <div class="form-group">
+            <label class="form-label">What do you need?</label>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation</label>
+              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Veg clearing</label>
+              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Mulching</label>
+              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
+              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks</label>
+              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil works</label>
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="fname">Your name</label>
+              <input class="form-input" type="text" id="fname" name="name" placeholder="Your name" required>
+            </div>
+            <div>
+              <label class="form-label" for="fphone">Phone</label>
+              <input class="form-input" type="tel" id="fphone" name="phone" placeholder="04xx xxx xxx" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fmsg">Tell us about the job</label>
+            <textarea class="form-textarea" id="fmsg" name="message" placeholder="Location, rough size, any access notes…"></textarea>
+          </div>
+          <div class="form-foot">
+            <button type="submit" class="btn-gold">Send enquiry →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA strip -->
+  <div class="cta-strip">
+    <div>
+      <span class="eyebrow eyebrow-muted">Get in touch</span>
+      <h2>Got a block that needs <em>moving?</em></h2>
+    </div>
+    <div class="cta-right">
+      <div class="cta-ph">
+        <div class="cta-ph-lbl">Call us</div>
+        <div class="cta-ph-num">0448 482 321</div>
+      </div>
+      <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <img src="images/logo.png" alt="BFEx" style="height:48px;display:block">
+        <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Services</div>
+        <ul class="footer-links">
+          <li><a href="services.html">Excavation</a></li>
+          <li><a href="services.html">Vegetation clearing</a></li>
+          <li><a href="services.html">Mulching &amp; slashing</a></li>
+          <li><a href="services.html">Haulage &amp; tipper hire</a></li>
+          <li><a href="services.html">Firebreaks</a></li>
+          <li><a href="services.html">Civil works</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About BFEx</a></li>
+          <li><a href="about.html#licences">Insurance &amp; licences</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Get in touch</div>
+        <ul class="footer-links">
+          <li>info@bfex.com.au</li>
+          <li><a href="contact.html#quote">Request a quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd · ABN 83 654 611 364</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    /* Header scroll */
+    const hdr = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* Service area map */
+    const map = L.map('service-map', {
+      scrollWheelZoom: false,
+      zoomControl: true
+    }).setView([-30.38, 153.0], 9);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    }).addTo(map);
+
+    /* Enable scroll zoom on click, disable on mouse leave */
+    map.on('click', () => map.scrollWheelZoom.enable());
+    map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+
+    /* Service area polygon */
+    L.polygon([
+      [-29.60, 152.87], [-29.50, 153.18], [-30.10, 153.28],
+      [-30.47, 153.12], [-30.75, 153.02], [-31.12, 152.84],
+      [-30.90, 152.52], [-30.35, 152.62], [-29.95, 152.78]
+    ], {
+      color: '#f5c200', weight: 2, opacity: 0.7,
+      fillColor: '#1b3428', fillOpacity: 0.18,
+      dashArray: '6 4'
+    }).addTo(map).bindPopup('BFEx service area');
+
+    /* Custom icons */
+    const hqIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:14px;height:14px;border-radius:50%;background:#f5c200;box-shadow:0 0 0 5px rgba(245,194,0,0.3);border:2px solid #fff"></div>',
+      iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -10]
+    });
+    const townIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div>',
+      iconSize: [9, 9], iconAnchor: [4, 4], popupAnchor: [0, -8]
+    });
+
+    const places = [
+      { name: 'BFEx · Bonville', lat: -30.470, lng: 153.055, icon: hqIcon },
+      { name: 'Coffs Harbour',   lat: -30.296, lng: 153.115, icon: townIcon },
+      { name: 'Sawtell',         lat: -30.371, lng: 153.066, icon: townIcon },
+      { name: 'Woolgoolga',      lat: -30.109, lng: 153.199, icon: townIcon },
+      { name: 'Bellingen',       lat: -30.452, lng: 152.899, icon: townIcon },
+      { name: 'Dorrigo',         lat: -30.341, lng: 152.715, icon: townIcon },
+      { name: 'Nambucca Heads',  lat: -30.644, lng: 152.979, icon: townIcon },
+      { name: 'Macksville',      lat: -30.701, lng: 152.917, icon: townIcon },
+      { name: 'Grafton',         lat: -29.689, lng: 152.933, icon: townIcon },
+      { name: 'Kempsey',         lat: -31.082, lng: 152.837, icon: townIcon }
+    ];
+
+    places.forEach(p => {
+      L.marker([p.lat, p.lng], { icon: p.icon })
+        .addTo(map)
+        .bindPopup(`<strong>${p.name}</strong>`);
+    });
+  </script>
+
+  <script src="js/carousel.js" defer></script>
+</body>
+</html>
