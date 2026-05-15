@@ -5,6 +5,11 @@
   <meta name="description" content="Bonville Forestry and Excavations. Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
+    .form-status-ok{color:#2a7a4b}
+    .form-status-err{color:#b94040}
+  </style>
 </head>
 <body>
 
@@ -185,8 +190,9 @@
             <textarea class="form-textarea" id="fmsg" name="message" placeholder="Location, rough size, any access notes…"></textarea>
           </div>
           <div class="form-foot">
-            <button type="submit" class="btn-gold">Send enquiry →</button>
+            <button type="submit" class="btn-gold" id="form-submit">Send enquiry →</button>
           </div>
+          <div id="form-status" class="form-status"></div>
         </form>
       </div>
     </div>
@@ -251,6 +257,38 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    /* Quote form — AJAX submission */
+    document.getElementById('quote-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const btn = document.getElementById('form-submit');
+      const status = document.getElementById('form-status');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'form-status';
+      try {
+        const r = await fetch('https://formspree.io/f/mkoyygbv', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        const json = await r.json();
+        if (r.ok) {
+          status.textContent = "Thanks — we'll call you back within one business day.";
+          status.className = 'form-status form-status-ok';
+          form.reset();
+        } else {
+          throw new Error(json.error || 'Submission failed');
+        }
+      } catch(err) {
+        status.textContent = 'Something went wrong — please call us on 0448 482 321 or email info@bfex.com.au.';
+        status.className = 'form-status form-status-err';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Send enquiry →';
+    });
+
     /* Header scroll */
     const hdr = document.getElementById('site-header');
     window.addEventListener('scroll', () => {
