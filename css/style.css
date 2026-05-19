@@ -123,6 +123,43 @@ p { margin: 0; }
 .site-header.scrolled .announce { display: none; }
 .site-header.scrolled .nav-inner { padding-top: 14px; padding-bottom: 14px; }
 
+/* --- Mobile nav ------------------------------------------- */
+
+.nav-hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer; padding: 8px;
+  flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+  width: 40px; height: 40px; flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--white);
+  border-radius: 1px; transition: transform .25s, opacity .2s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none; background: var(--green);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 8px var(--px) 28px;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu ul { list-style: none; }
+.mobile-menu ul li a {
+  display: block; padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-family: var(--font-serif); font-size: 22px;
+  color: rgba(255,255,255,0.85);
+}
+.mobile-menu ul li a.active,
+.mobile-menu ul li a:hover { color: var(--gold); }
+.mobile-menu-foot {
+  margin-top: 24px; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.mobile-menu-phone { font-family: var(--font-serif); font-size: 28px; color: var(--gold); }
+
 /* --- Hero ------------------------------------------------- */
 
 .hero { position: relative; height: 760px; background: var(--bg); overflow: hidden; }
@@ -432,20 +469,51 @@ footer { background: var(--green); color: var(--white); padding: 80px var(--px) 
 }
 
 @media (max-width: 768px) {
-  :root { --px: 20px; }
+  :root { --px: 20px; --py: 56px; }
   .announce { display: none; }
   .nav-links { display: none; }
   .nav-call-label, .nav-call-num { display: none; }
-  .hero { height: 580px; }
+  .nav-btn { font-size: 11px; padding: 12px 16px; letter-spacing: 0.12em; }
+  .nav-hamburger { display: flex; }
+  .hero { height: 520px; }
+  .hero-bg { background-position: center center; }
+  .hero-content { right: var(--px); max-width: none; bottom: 80px; }
   .hero h1 { font-size: 48px; }
-  .stat-ribbon { grid-template-columns: repeat(3, 1fr); }
-  .stat-cell:nth-child(n+4) { display: none; }
+  .hero-lede { font-size: 16px; }
+  .stat-ribbon { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell:nth-child(n+3) { display: none; }
   .trust-items { gap: 20px; flex-wrap: wrap; justify-content: flex-start; }
   .trust-item { font-size: 14px; }
   .services-grid { grid-template-columns: 1fr; }
+  .svc-block { padding: var(--py) var(--px); }
+  .svc-block-grid { grid-template-columns: 1fr; gap: 28px; }
+  .svc-block-grid > :first-child { grid-column: 1; }
+  .svc-bullets { grid-template-columns: 1fr; }
+  .contact-channel { padding: 32px 24px; }
+  .channel-val { font-size: 28px; }
   .form-2col { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .timeline { grid-template-columns: repeat(2, 1fr); }
   .form-panel { padding: 28px 24px; }
   .quote-form-panel { padding: 28px 24px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .cta-ph-num { font-size: 26px; }
+  .prefer-ph { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+  :root { --px: 16px; --py: 48px; }
+  .hero { height: 480px; }
+  .hero h1 { font-size: 38px; line-height: 1.05; }
+  .hero-lede { font-size: 15px; }
+  .hero-content { bottom: 72px; }
+  .stat-ribbon { grid-template-columns: 1fr 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .licence-cells { grid-template-columns: 1fr; }
+  .chips { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; }
+  .mobile-menu-phone { font-size: 24px; }
+  .mobile-menu ul li a { font-size: 20px; }
+  .footer-legal { flex-wrap: wrap; gap: 8px 16px; }
+  .page-header h1 { font-size: clamp(36px, 10vw, 56px); }
 }

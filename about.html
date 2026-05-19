@@ -30,9 +30,23 @@
         <div class="nav-right">
           <div><div class="nav-call-label">Call us</div><div class="nav-call-num">0448 482 321</div></div>
           <a href="contact.html#quote" class="btn-gold nav-btn">Get a quote</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
     </nav>
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <ul>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="mobile-menu-foot">
+        <a href="tel:0448482321" class="mobile-menu-phone">0448 482 321</a>
+        <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
+      </div>
+    </div>
   </header>
 
   <!-- Page header -->
@@ -164,6 +178,14 @@
   <script>
     const hdr = document.getElementById('site-header');
     window.addEventListener('scroll', () => { hdr.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+    });
   </script>
 
   <script src="js/carousel.js" defer></script>
