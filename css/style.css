@@ -437,6 +437,8 @@ footer { background: var(--green); color: var(--white); padding: 80px var(--px) 
 .yard-key { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); font-weight: 600; align-self: center; }
 .yard-map { position: relative; aspect-ratio: 4/3; background: var(--cream-warm); border: 1px solid var(--border); overflow: hidden; }
 
+.faq-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; }
+
 .faq-item { border-top: 1px solid rgba(255,255,255,0.15); }
 .faq-q {
   display: flex; justify-content: space-between; align-items: center;
@@ -449,7 +451,7 @@ footer { background: var(--green); color: var(--white); padding: 80px var(--px) 
   font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); max-width: 720px;
   max-height: 0; overflow: hidden; transition: max-height .3s ease-out, padding .3s;
 }
-.faq-item.open .faq-a { max-height: 200px; padding-bottom: 24px; }
+.faq-item.open .faq-a { max-height: 2400px; padding-bottom: 24px; }
 
 /* --- Responsive ------------------------------------------- */
 
@@ -503,6 +505,7 @@ footer { background: var(--green); color: var(--white); padding: 80px var(--px) 
   .timeline { grid-template-columns: repeat(2, 1fr); }
   .cta-ph-num { font-size: 26px; }
   .prefer-ph { font-size: 28px; }
+  .faq-grid { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (max-width: 480px) {
