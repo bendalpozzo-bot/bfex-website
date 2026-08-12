@@ -1,53 +1,213 @@
 {
   "hero": [
-    "bfex-haulage-yarraman-road-coffs-harbour-machinery-transport-001.jpeg",
-    "bfex-site-clear-yarraman-road-coffs-harbour-in-progress-004.jpeg",
-    "bfex-green-waste-thompsons-road-coffs-harbour-palm-removal-001.jpeg"
+    "bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg",
+    "bfex-excavation-north-boambee-road-coffs-harbour-in-progress-007.jpg",
+    "bfex-mulching-yarraman-road-sawtell-slashed-edge-001.jpg"
   ],
   "svc-01-excavation": [
-    "svc-01-excavation.jpg",
-    "bfex-excavation-old-coast-road-bellingen-in-progress-001.jpeg",
-    "bfex-access-road-old-coast-road-bellingen-in-progress-005.jpeg",
-    "bfex-excavation-old-coast-road-bellingen-in-progress-002.jpeg",
-    "bfex-access-road-north-boambee-road-coffs-harbour-steep-slope-001.jpeg",
-    "bfex-drainage-coramba-road-coffs-harbour-in-progress-002.jpeg",
-    "bfex-excavation-yarraman-road-coffs-harbour-erosion-control-002.jpeg",
     "bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg",
-    "bfex-erosion-control-yarraman-road-coffs-harbour-steep-slope-002.jpeg"
+    "work-pad-yarraman.jpg",
+    "work-trench-coramba.jpg"
   ],
   "svc-02-clearing": [
-    "svc-02-clearing.jpg",
-    "bfex-stump-removal-roselands-drive-coffs-harbour-in-progress-002.jpeg",
-    "bfex-stump-removal-roselands-drive-coffs-harbour-large-stump-004.jpeg"
+    "card-clearing.jpg",
+    "work-stump-roselands.jpg"
   ],
   "svc-03-mulching": [
-    "bfex-weed-clearing-yarraman-road-coffs-harbour-dense-scrub-001.jpeg",
-    "bfex-site-clear-yarraman-road-coffs-harbour-in-progress-003.jpeg",
-    "bfex-weed-clearing-yarraman-road-coffs-harbour-rural-paddock-003.jpeg",
-    "bfex-drainage-north-boambee-road-coffs-harbour-waterway-management-001.jpeg"
+    "card-mulching.jpg"
   ],
   "svc-04-haulage": [
-    "svc-04-haulage.jpg",
-    "bfex-haulage-smiths-road-bellingen-rocky-load-001.jpeg"
+    "card-haulage.jpg"
   ],
   "svc-05-firebreaks": [
-    "bfex-access-road-north-boambee-road-coffs-harbour-steep-slope-001.jpeg",
-    "bfex-erosion-control-north-boambee-road-coffs-harbour-slope-fencing-001.jpeg",
-    "bfex-erosion-control-north-boambee-road-coffs-harbour-steep-slope-003.jpeg"
+    "card-firebreaks.jpg"
   ],
   "svc-06-civil": [
-    "bfex-excavation-dillon-street-sawtell-in-progress-004.jpeg",
-    "bfex-excavation-dillon-street-sawtell-drainage-trench-001.jpeg",
-    "bfex-access-road-old-coast-road-bellingen-in-progress-003.jpeg",
-    "bfex-access-road-old-coast-road-bellingen-in-progress-004.jpeg",
-    "bfex-access-road-north-boambee-road-coffs-harbour-rural-property-002.jpeg",
-    "bfex-works-dillon-street-sawtell-in-progress-001.jpeg"
+    "card-driveways.jpg",
+    "work-driveway-oldcoast.jpg",
+    "work-gravel-yarraman.jpg"
   ],
   "about-machine": [
     "about-machine.jpg",
-    "bfex-haulage-yarraman-road-coffs-harbour-machinery-transport-001.jpeg"
+    "bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg"
   ],
   "about-reel": [
     "about-reel.mp4"
+  ],
+  "gallery": [
+    {
+      "f": "bfex-mulching-yarraman-road-coffs-harbour-mulcher-parked-004.jpeg",
+      "c": "mulching",
+      "s": "Forestry mulching",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-mulching-north-boambee-road-coffs-harbour-dam-bank-slopes-002.jpg",
+      "c": "mulching",
+      "s": "Dam bank mulching",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-mulching-yarraman-road-sawtell-slashed-edge-001.jpg",
+      "c": "mulching",
+      "s": "Scrub clearing",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-site-clear-yarraman-road-coffs-harbour-jungle-to-paddock-overview-001.jpeg",
+      "c": "mulching",
+      "s": "Cleared to paddock",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-access-road-yarraman-road-sawtell-in-progress-007.jpg",
+      "c": "driveways",
+      "s": "Driveway build",
+      "l": "Yarraman Rd, Sawtell"
+    },
+    {
+      "f": "bfex-access-road-yarraman-road-sawtell-gravel-base-006.jpg",
+      "c": "driveways",
+      "s": "Gravel over geofabric",
+      "l": "Yarraman Rd, Sawtell"
+    },
+    {
+      "f": "bfex-access-road-old-coast-road-bellingen-honeycomb-matting-001.jpeg",
+      "c": "driveways",
+      "s": "Ground-grid driveway",
+      "l": "Old Coast Rd, Bellingen"
+    },
+    {
+      "f": "bfex-gravel-driveway-tuckers-rock-road-bellingen-gravel-finished-006.jpg",
+      "c": "driveways",
+      "s": "Finished gravel driveway",
+      "l": "Tuckers Rock Rd, Bellingen"
+    },
+    {
+      "f": "bfex-access-road-north-boambee-road-coffs-harbour-rural-driveway-001.jpg",
+      "c": "driveways",
+      "s": "Rural access road",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-excavation-north-boambee-road-coffs-harbour-in-progress-007.jpg",
+      "c": "excavation",
+      "s": "Earthworks bench",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg",
+      "c": "excavation",
+      "s": "House pad strip",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-excavation-old-coast-road-bellingen-2021-01-in-progress-003.jpeg",
+      "c": "excavation",
+      "s": "Shed pad earthworks",
+      "l": "Old Coast Rd, Bellingen"
+    },
+    {
+      "f": "bfex-drainage-coramba-road-coffs-harbour-in-progress-001.jpeg",
+      "c": "drainage",
+      "s": "Drainage trench",
+      "l": "Coramba Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-drainage-yarraman-road-coffs-harbour-2025-01-driveway-swale-001.jpeg",
+      "c": "drainage",
+      "s": "Driveway swale",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-erosion-control-yarraman-road-sawtell-bank-stabilization-002.jpg",
+      "c": "drainage",
+      "s": "Dam bank repair",
+      "l": "Yarraman Rd, Sawtell"
+    },
+    {
+      "f": "bfex-stump-removal-roselands-drive-coffs-harbour-in-progress-002.jpeg",
+      "c": "removal",
+      "s": "Stump removal",
+      "l": "Roselands Dr, Coffs Harbour"
+    },
+    {
+      "f": "bfex-demolition-dillon-street-sawtell-timber-bundle-lift-002.jpg",
+      "c": "removal",
+      "s": "Timber salvage lift",
+      "l": "Dillon St, Sawtell"
+    },
+    {
+      "f": "bfex-stump-removal-roselands-drive-coffs-harbour-in-progress-001.jpeg",
+      "c": "removal",
+      "s": "Stump and root ball",
+      "l": "Roselands Dr, Coffs Harbour"
+    },
+    {
+      "f": "bfex-demolition-dillon-street-sawtell-timber-stacks-002.jpeg",
+      "c": "removal",
+      "s": "Demolition and salvage",
+      "l": "Dillon St, Sawtell"
+    },
+    {
+      "f": "bfex-machinery-delivery-north-boambee-road-coffs-harbour-excavator-transport-001.jpeg",
+      "c": "haulage",
+      "s": "Machinery float",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "about-machine.jpg",
+      "c": "haulage",
+      "s": "Mecalac 6MCR and Hino 700",
+      "l": "On the move"
+    },
+    {
+      "f": "bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg",
+      "c": "haulage",
+      "s": "Excavator transport",
+      "l": "Yarraman Rd"
+    },
+    {
+      "f": "bfex-machinery-delivery-north-boambee-road-coffs-harbour-transport-setup-001.jpg",
+      "c": "haulage",
+      "s": "Loaded and chained",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-machinery-delivery-north-boambee-road-coffs-harbour-trailer-transport-002.jpeg",
+      "c": "haulage",
+      "s": "Mini excavator delivery",
+      "l": "North Boambee Rd, Coffs Harbour"
+    },
+    {
+      "f": "bfex-access-road-old-coast-road-bellingen-2025-09-in-progress-002.jpg",
+      "c": "driveways",
+      "s": "09 In Progress",
+      "l": "Old Coast Rd Bellingen"
+    },
+    {
+      "f": "bfex-haulage-smiths-road-bellingen-loaded-tipper-002.mp4",
+      "c": "haulage",
+      "s": "Bellingen Loaded Tipper",
+      "l": "Smiths Rd Bellingen"
+    },
+    {
+      "f": "bfex-haulage-smiths-road-bellingen-root-ball-truck-load-005.mp4",
+      "c": "haulage",
+      "s": "Ball Truck Load",
+      "l": "Smiths Rd Bellingen"
+    },
+    {
+      "f": "bfex-access-road-north-boambee-road-coffs-harbour-bench-cut-excavator-004.mp4",
+      "c": "driveways",
+      "s": "Bench Cut Excavator",
+      "l": "North Boambee Rd Coffs Harbour"
+    },
+    {
+      "f": "bfex-access-road-north-boambee-road-coffs-harbour-track-forming-001.mp4",
+      "c": "driveways",
+      "s": "Harbour Track Forming",
+      "l": "North Boambee Rd Coffs Harbour"
+    }
   ]
 }

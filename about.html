@@ -5,31 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — BFEx Earthmoving, Clearing & Haulage</title>
   <meta name="description" content="BFEx is an owner-operated earthmoving business on the Coffs Coast. Excavation, vegetation clearing and haulage across the NSW Mid North Coast.">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+  <link rel="apple-touch-icon" href="images/favicon-192.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BFEx — Bonville Forestry and Excavations">
+  <meta property="og:title" content="About BFEx — Bonville Forestry and Excavations">
+  <meta property="og:description" content="BFEx is an owner-operated earthmoving business on the Coffs Coast. Excavation, vegetation clearing and haulage across the NSW Mid North Coast.">
+  <meta property="og:image" content="https://bfex.com.au/images/og-image.png">
+  <meta property="og:url" content="https://bfex.com.au/about.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
+    .form-status-ok{color:#8fdcae}
+    .form-status-err{color:#ff9d8f}
+  </style>
 </head>
 <body>
 
-  <header class="site-header" id="site-header">
-    <div class="announce">
-      <div class="announce-left"><span class="dot">●</span><span>Coffs Harbour · Bellingen · Nambucca · Grafton</span></div>
-      <div class="announce-right">
-        <span>Emergency clearing &nbsp;<span class="ph">0448 482 321</span></span>
-        <span>Fully insured · NSW Lic. 493682C</span>
-      </div>
-    </div>
+  <div class="site-bg" aria-hidden="true"></div>
+  <div class="page-frame" aria-hidden="true"></div>
+
+  <header class="site-header scrolled" id="site-header">
     <nav class="site-nav">
       <div class="nav-inner">
         <div class="nav-left">
-          <a href="index.html"><img src="images/logo.png" alt="BFEx — Bonville Forestry and Excavations" style="height:38px;display:block"></a>
+          <a href="index.html"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Our work</a></li>
             <li><a href="about.html" class="active">About</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
         <div class="nav-right">
-          <div><div class="nav-call-label">Call us</div><div class="nav-call-num">0448 482 321</div></div>
-          <a href="contact.html#quote" class="btn-gold nav-btn">Get a quote</a>
+          <a href="tel:0448482321" class="nav-phone">
+            <span class="nav-call-label">Call Ben</span>
+            <span class="nav-call-num">0448 482 321</span>
+          </a>
+          <a href="#quote" class="btn-gold nav-btn">Get a fast quote</a>
+          <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
           <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -39,12 +56,13 @@
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Our work</a></li>
         <li><a href="about.html" class="active">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="mobile-menu-foot">
         <a href="tel:0448482321" class="mobile-menu-phone">0448 482 321</a>
-        <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
+        <a href="#quote" class="btn-gold">Get a fast quote →</a>
       </div>
     </div>
   </header>
@@ -57,8 +75,7 @@
         <h1>A family <em>business.</em></h1>
       </div>
       <div>
-        <p class="page-header-sub">BFEx is an owner-operated earthmoving business on the NSW Mid North Coast. We work commercial and rural jobs across the Coffs Coast and surrounds.</p>
-        <div class="page-header-idx">↓ THE STORY · THE LICENCES</div>
+        <p class="page-header-sub">Owner-operated earthmoving, working commercial and rural jobs across the Coffs Coast.</p>
       </div>
     </div>
   </div>
@@ -71,16 +88,16 @@
         <h2 class="sec-h2 on-cream" style="font-size:clamp(32px,3.5vw,56px)">Owner-operated,<br>on the <em>Coffs Coast.</em></h2>
         <div class="about-body">
           <p>BFEx is an owner-operated earthmoving business serving the NSW Mid North Coast. When you call, you're dealing directly with the person on the machine.</p>
-          <p>For larger or longer-duration projects, we scale. Through a network of trusted subcontract operators and dry-hire machinery, we can mobilise multiple crews without losing the direct oversight that comes with owner-management. One phone number. Any job size.</p>
+          <p>Quotes, machine work and invoices all come from the same person, so nothing gets lost between a sales rep and a crew.</p>
         </div>
       </div>
       <div>
         <div class="about-photo" data-slot="about-machine" style="background-image:url('images/about-machine.jpg');background-size:cover;background-position:center">
-          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.35);padding-top:6px;color:rgba(255,255,255,0.75)">Mecalac 6MCR · North Boambee Rd · Coffs Harbour</span>
+          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.35);padding-top:6px;color:rgba(255,255,255,0.75)">Mecalac 6MCR · on the beavertail</span>
         </div>
         <div class="about-stats">
           <div class="about-stat"><div class="about-stat-num">A$20M</div><span class="eyebrow eyebrow-dim" style="font-size:10px;margin-top:4px">Public liability</span></div>
-          <div class="about-stat"><div class="about-stat-num">493682C</div><span class="eyebrow eyebrow-dim" style="font-size:10px;margin-top:4px">NSW licence</span></div>
+          <div class="about-stat"><div class="about-stat-num">Current</div><span class="eyebrow eyebrow-dim" style="font-size:10px;margin-top:4px">NSW licence</span></div>
           <div class="about-stat"><div class="about-stat-num">Coffs Coast</div><span class="eyebrow eyebrow-dim" style="font-size:10px;margin-top:4px">Home ground</span></div>
         </div>
       </div>
@@ -101,56 +118,111 @@
     </div>
   </section>
 
+  <!-- Equipment -->
+  <section class="section section-green">
+    <span class="eyebrow">The gear</span>
+    <h2 class="sec-h2" style="margin-top:12px;font-size:clamp(28px,3vw,48px)">Two machines. <em>Most jobs.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:36px">
+      <div>
+        <img loading="lazy" src="images/card-mulching.jpg" alt="Mecalac 6MCR compact crawler excavator" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
+        <h3 style="margin-top:16px;font-size:20px">Mecalac 6MCR</h3>
+        <p style="margin-top:8px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7)">Compact crawler excavator. Digs, grades, loads and runs the FAE mulcher head. One machine, many trades.</p>
+      </div>
+      <div>
+        <img loading="lazy" src="images/card-haulage.jpg" alt="Hino 700 tipper truck with beavertail trailer" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
+        <h3 style="margin-top:16px;font-size:20px">Hino 700</h3>
+        <p style="margin-top:8px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7)">Tipper truck with beavertail trailer. Carts spoil out, brings gravel in, and moves the machine between jobs.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Licences -->
   <section class="section section-green" id="licences">
     <div class="licences">
       <div>
         <span class="eyebrow">Insurance &amp; licences</span>
         <h2 class="sec-h2" style="font-size:clamp(32px,3.5vw,56px)">The paperwork<br>in <em>order.</em></h2>
-        <p style="margin-top:24px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7);max-width:340px">Full COIs available on request. Tender packs ready inside 48 hours.</p>
+        <p style="margin-top:24px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7);max-width:340px">Full COIs and tender packs available on request.</p>
       </div>
       <div class="licence-cells">
         <div class="licence-cell">
           <span class="eyebrow" style="font-size:10px">NSW Contractor Licence</span>
-          <div class="licence-val">493682C</div>
+          <div class="licence-val">Current</div>
         </div>
         <div class="licence-cell">
           <span class="eyebrow" style="font-size:10px">Public Liability</span>
           <div class="licence-val">A$20,000,000</div>
         </div>
       </div>
-      <p style="margin-top:32px;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);max-width:480px">Full COI available on request. Additional accreditations — Workers Compensation, Plant Insurance, Master Builders NSW, CCF membership, NSW EPA, and RFS approval — are in progress and will be added as obtained. Tender packs ready inside 48 hours.</p>
     </div>
   </section>
 
-  <!-- CTA strip -->
-  <div class="cta-strip">
-    <div>
-      <span class="eyebrow eyebrow-muted">Get in touch</span>
-      <h2>Ready to <em>get started?</em></h2>
+  <!-- Quote form — the page ends here -->
+  <section class="section section-cream" id="quote">
+    <div class="quote-grid">
+      <div>
+        <span class="eyebrow eyebrow-green">Get a fast quote</span>
+        <h2 class="quote-h2">Tell us about<br><em>the job.</em></h2>
+        <p class="quote-lede">We'll call you back to talk through the job. No obligation.</p>
+        <div class="prefer-talk">
+          <span class="eyebrow eyebrow-green">Prefer to talk?</span>
+          <a href="tel:0448482321" class="prefer-ph" style="display:block">0448 482 321</a>
+          <div class="prefer-hrs">Straight to Ben's mobile</div>
+        </div>
+      </div>
+      <div class="form-panel">
+        <form id="quote-form">
+          <div class="form-group">
+            <label class="form-label">What do you need?</label>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation</label>
+              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Veg clearing</label>
+              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Mulching</label>
+              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
+              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks</label>
+              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil works</label>
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="fname">Your name</label>
+              <input class="form-input" type="text" id="fname" name="name" placeholder="Your name" required="">
+            </div>
+            <div>
+              <label class="form-label" for="fphone">Phone</label>
+              <input class="form-input" type="tel" id="fphone" name="phone" placeholder="04xx xxx xxx" required="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fmsg">What needs doing?</label>
+            <textarea class="form-textarea" id="fmsg" name="message" placeholder="Location, rough size, any access notes…"></textarea>
+          </div>
+          <div class="form-foot">
+            <button type="submit" class="btn-gold" id="form-submit">Get my quote →</button>
+          </div>
+          <div id="form-status" class="form-status"></div>
+        </form>
+      </div>
     </div>
-    <div class="cta-right">
-      <div class="cta-ph"><div class="cta-ph-lbl">Call us</div><div class="cta-ph-num">0448 482 321</div></div>
-      <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
-    </div>
-  </div>
+  </section>
 
   <!-- Footer -->
   <footer>
     <div class="footer-grid">
       <div>
-        <img src="images/logo.png" alt="BFEx" style="height:48px;display:block">
+        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
         <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
+        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
       </div>
       <div>
         <div class="eyebrow footer-col-head">Services</div>
         <ul class="footer-links">
+          <li><a href="forestry-mulching.html">Forestry mulching</a></li>
+          <li><a href="gravel-driveways.html">Gravel driveways</a></li>
           <li><a href="services.html">Excavation</a></li>
           <li><a href="services.html">Vegetation clearing</a></li>
-          <li><a href="services.html">Mulching &amp; slashing</a></li>
           <li><a href="services.html">Haulage &amp; tipper hire</a></li>
-          <li><a href="services.html">Firebreaks</a></li>
-          <li><a href="services.html">Civil works</a></li>
+          <li><a href="services.html">Firebreaks &amp; civil works</a></li>
         </ul>
       </div>
       <div>
@@ -165,17 +237,59 @@
         <div class="eyebrow footer-col-head">Get in touch</div>
         <ul class="footer-links">
           <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
-          <li><a href="contact.html#quote">Request a quote</a></li>
+          <li><a href="#quote">Request a quote</a></li>
+          <li>Bonville, NSW 2450</li>
         </ul>
+        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Sawtell, Bellingen, Woolgoolga, Nambucca, Grafton and Kempsey.</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd · ABN 83 654 611 364</div>
-      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety policy</a></div>
+      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety policy</a>
+      </div>
     </div>
   </footer>
 
+  <!-- Mobile call bar — one thumb-move away -->
+  <div class="call-bar" id="call-bar" aria-hidden="true">
+    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
+    <a href="#quote" class="call-bar-quote">Get a fast quote</a>
+  </div>
+
   <script>
+    /* Quote form — AJAX submission */
+    document.getElementById('quote-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const btn = document.getElementById('form-submit');
+      const status = document.getElementById('form-status');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'form-status';
+      try {
+        const r = await fetch('https://formspree.io/f/mkoyygbv', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        const json = await r.json();
+        if (r.ok) {
+          status.textContent = "Thanks. Ben will call you back.";
+          status.className = 'form-status form-status-ok';
+          form.reset();
+        } else {
+          throw new Error(json.error || 'Submission failed');
+        }
+      } catch(err) {
+        status.textContent = 'Something went wrong — please call us on 0448 482 321 or email info@bfex.com.au.';
+        status.className = 'form-status form-status-err';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Get my quote →';
+    });
+
     const hdr = document.getElementById('site-header');
     window.addEventListener('scroll', () => { hdr.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
     const hamburger = document.getElementById('nav-hamburger');
@@ -186,6 +300,15 @@
       hamburger.setAttribute('aria-expanded', open);
       mobileMenu.setAttribute('aria-hidden', !open);
     });
+
+    /* Mobile call bar — hide while the quote form (its own call path) is on screen */
+    const callBar = document.getElementById('call-bar');
+    const quoteSec = document.getElementById('quote');
+    if ('IntersectionObserver' in window && callBar && quoteSec) {
+      new IntersectionObserver((entries) => {
+        callBar.classList.toggle('call-bar-hidden', entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(quoteSec);
+    }
   </script>
 
   <script src="js/carousel.js" defer></script>

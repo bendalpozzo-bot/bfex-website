@@ -3,44 +3,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BFEx — Earthmoving, Clearing &amp; Haulage · Coffs Coast</title>
   <meta name="description" content="Bonville Forestry and Excavations. Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast.">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+  <link rel="apple-touch-icon" href="images/favicon-192.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BFEx — Bonville Forestry and Excavations">
+  <meta property="og:title" content="BFEx — Earthmoving, Clearing &amp; Haulage · Coffs Coast">
+  <meta property="og:description" content="Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast.">
+  <meta property="og:image" content="https://bfex.com.au/images/og-image.png">
+  <meta property="og:url" content="https://bfex.com.au/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/gallery.css">
   <style>
     .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
-    .form-status-ok{color:#2a7a4b}
-    .form-status-err{color:#b94040}
+    .form-status-ok{color:#8fdcae}
+    .form-status-err{color:#ff9d8f}
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <div class="site-bg" aria-hidden="true"></div>
+  <div class="page-frame" aria-hidden="true"></div>
+
+  <!-- Header — the only navigation; phone + one quote CTA -->
   <header class="site-header scrolled" id="site-header">
-    <div class="announce">
-      <div class="announce-left">
-        <span class="dot">●</span>
-        <span>Coffs Harbour · Bellingen · Nambucca · Grafton</span>
-      </div>
-      <div class="announce-right">
-        <span>Emergency clearing &nbsp;<span class="ph">0448 482 321</span></span>
-        <span>Fully insured · NSW Lic. 493682C</span>
-      </div>
-    </div>
     <nav class="site-nav">
       <div class="nav-inner">
         <div class="nav-left">
-          <a href="index.html"><img src="images/logo.png" alt="BFEx — Bonville Forestry and Excavations" style="height:38px;display:block"></a>
+          <a href="index.html"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Our work</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
         <div class="nav-right">
-          <div>
-            <div class="nav-call-label">Call us</div>
-            <div class="nav-call-num">0448 482 321</div>
-          </div>
-          <a href="contact.html#quote" class="btn-gold nav-btn">Get a quote</a>
+          <a href="tel:0448482321" class="nav-phone">
+            <span class="nav-call-label">Call Ben</span>
+            <span class="nav-call-num">0448 482 321</span>
+          </a>
+          <a href="#quote" class="btn-gold nav-btn">Get a fast quote</a>
+          <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
           <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -50,130 +56,117 @@
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Our work</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="mobile-menu-foot">
         <a href="tel:0448482321" class="mobile-menu-phone">0448 482 321</a>
-        <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
+        <a href="#quote" class="btn-gold">Get a fast quote →</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero B -->
+  <!-- Hero — one message, one action -->
   <section class="hero">
-    <!-- Replace background-image with 1440px hero photo, subject right-of-centre -->
-    <div class="hero-bg" data-slot="hero" style="background-image: url(&quot;images/bfex-haulage-yarraman-road-coffs-harbour-machinery-transport-001.jpeg&quot;); overflow: hidden;"></div>
+    <div class="hero-bg" data-slot="hero" style="background-image: url(&quot;images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg&quot;); overflow: hidden;"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <span class="eyebrow eyebrow-muted">Bonville · Coffs Harbour · NSW</span>
       <h1>We clear,<br>we cut,<br>we <em>cart it away.</em></h1>
-      <p class="hero-lede">Commercial earthmoving, vegetation clearing and haulage on the NSW Mid North Coast. Owner-operated. On site when we say.</p>
+      <p class="hero-lede">Owner-operated earthmoving, clearing and haulage on the Coffs Coast. Insured, licensed, fast quotes.</p>
       <div class="hero-ctas">
-        <a href="contact.html#quote" class="btn-gold">Request a quote →</a>
+        <a href="#quote" class="btn-gold">Get a fast quote →</a>
+        <a href="tel:0448482321" class="hero-phone">or call 0448 482 321</a>
       </div>
     </div>
+    <!-- Trust strip — the ONLY trust band on the page -->
     <div class="stat-ribbon">
       <div class="stat-cell"><div class="stat-num">493682C</div><div class="stat-lbl">NSW contractor's licence</div></div>
-      <div class="stat-cell"><div class="stat-num">A$20M</div><div class="stat-lbl">Public liability</div></div>
-      <div class="stat-cell"><div class="stat-num">Mecalac 6MCR</div><div class="stat-lbl">Earthworks &amp; mulching</div></div>
-      <div class="stat-cell"><div class="stat-num">Hino 700</div><div class="stat-lbl">Tipper &amp; haulage</div></div>
+      <div class="stat-cell"><div class="stat-num">A$20M</div><div class="stat-lbl">Public liability insured</div></div>
+      <div class="stat-cell"><div class="stat-num">Owner-operated</div><div class="stat-lbl">You deal with Ben</div></div>
+      <div class="stat-cell"><div class="stat-num">Coffs Coast</div><div class="stat-lbl">Grafton to Kempsey</div></div>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- Services — six doorways, one grammar -->
   <section class="section section-dark">
-    <div class="sec-head-2col">
-      <div>
-        <span class="eyebrow">What we do</span>
-        <h2 class="sec-h2">Six trades.<br><em>Any scale.</em></h2>
-      </div>
-      <div style="padding-top:24px">
-        <p style="font-size:18px;line-height:1.65;color:rgba(255,255,255,0.75);max-width:540px">Owner-operated at the core. For larger jobs, we scale — additional operators and dry-hire machinery on call. Every quote is one phone number, one invoice, one point of contact.</p>
-        <a href="services.html" class="link-gold" style="display:inline-block;margin-top:24px">View capability statement →</a>
-      </div>
-    </div>
+    <span class="eyebrow">What we do</span>
+    <h2 class="sec-h2" style="margin-bottom:14px">Six trades. <em>Any scale.</em></h2>
+    <p class="sec-intro">Every job is one phone number, one invoice, one point of contact.</p>
     <div class="services-grid">
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-arrow"><br></span></div>
-          <h3>Excavation &amp; earthmoving</h3>
-          <p>House pads, dam construction, bulk earthworks, trenching and detailed grading.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">Pads</span><span class="tag">Dams</span><span class="tag">Trenching</span></div>
-      </div>
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-num mono"><br><br></span></div>
-          <h3>Vegetation clearing</h3>
-          <p>Selective clearing, scrub knockdown and post-bushfire clean-up under NSW PVP / 10/50 rules.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">10/50</span><span class="tag">Selective</span><span class="tag">Scrub</span></div>
-      </div>
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-arrow"><br></span></div>
-          <h3>Mulching &amp; slashing</h3>
-          <p>FAE forestry mulching and tractor slashing for hazard reduction and pasture renewal.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">Forestry head</span><span class="tag">FAE</span></div>
-      </div>
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-arrow"><br></span></div>
-          <h3>Haulage &amp; tipper hire</h3>
-          <p>Hino 700 tipper and beavertail trailer for spoil removal, gravel cartage and material supply.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">Tipper</span><span class="tag">Beavertail</span></div>
-      </div>
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-arrow"><br></span></div>
-          <h3>Firebreaks &amp; hazard reduction</h3>
-          <p>RFS-compliant firebreak grading and asset-protection zones around rural properties.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">RFS</span><span class="tag">APZ</span></div>
-      </div>
-      <div class="svc-card" onclick="window.location='services.html'" style="cursor:pointer">
-        <div>
-          <div class="svc-meta"><span class="svc-arrow"><br></span></div>
-          <h3>Civil works</h3>
-          <p>Driveways, culverts, retaining and stormwater for rural subdivision and small civil contracts.</p>
-        </div>
-        <div class="svc-tags"><span class="tag">Driveways</span><span class="tag">Drainage</span></div>
-      </div>
+      <a class="svc-card" href="services.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg')" role="img" aria-label="Mecalac 6MCR on a freshly stripped house pad, Yarraman Rd"></div>
+        <h3>Excavation &amp; earthmoving <span class="svc-go">→</span></h3>
+        <p>Pads, dams, trenching and bulk earthworks.</p>
+      </a>
+      <a class="svc-card" href="services.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/card-clearing.jpg')" role="img" aria-label="CASE 850M dozer on freshly cleared hillside, North Boambee Rd Coffs Harbour"></div>
+        <h3>Vegetation clearing <span class="svc-go">→</span></h3>
+        <p>Selective clearing under NSW PVP and 10/50 rules.</p>
+      </a>
+      <a class="svc-card" href="forestry-mulching.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/card-mulching.jpg')" role="img" aria-label="Mecalac 6MCR with mulcher head slashing a dam bank, North Boambee Rd"></div>
+        <h3>Mulching &amp; slashing <span class="svc-go">→</span></h3>
+        <p>FAE forestry mulching, no burn pile, no cartage.</p>
+      </a>
+      <a class="svc-card" href="services.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/card-haulage.jpg')" role="img" aria-label="Hino tipper and beavertail trailer loaded with the Mecalac 6MCR"></div>
+        <h3>Haulage &amp; tipper hire <span class="svc-go">→</span></h3>
+        <p>Spoil out, gravel and materials in.</p>
+      </a>
+      <a class="svc-card" href="services.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/card-firebreaks.jpg')" role="img" aria-label="Cleared firebreak track along a pine forest edge with new fencing"></div>
+        <h3>Firebreaks &amp; hazard reduction&nbsp;<span class="svc-go">→</span></h3>
+        <p>RFS-compliant firebreaks and asset-protection zones.</p>
+      </a>
+      <a class="svc-card" href="gravel-driveways.html">
+        <div class="svc-photo-thumb" style="background-image:url('images/card-driveways.jpg')" role="img" aria-label="Mecalac 6MCR spreading blue-metal gravel on a tree-lined driveway, Yarraman Rd Sawtell"></div>
+        <h3>Gravel driveways &amp; civil <span class="svc-go">→</span></h3>
+        <p>Driveways, culverts, drainage and site works.</p>
+      </a>
     </div>
   </section>
 
-  <!-- Service area -->
+  <!-- Recent jobs — proof by photograph -->
+  <section class="section section-cream">
+    <span class="eyebrow">Our work</span>
+    <h2 class="sec-h2" style="margin-bottom:14px">Real jobs. <em>Real ground.</em></h2>
+    <p class="sec-intro">Every photo is a BFEx job — no stock, no filler.</p>
+    <div class="work-teaser work-teaser-6">
+      <a href="gallery.html"><img loading="lazy" src="images/work-stump-roselands.jpg" alt="Mecalac excavator lifting a large root ball, stump removal at Roselands Dr Coffs Harbour"><span class="work-cap">Stump removal — Roselands Dr, Coffs</span></a>
+      <a href="gallery.html"><img loading="lazy" src="images/work-siteclear-dillon.jpg" alt="Mecalac 6MCR chain-lifting salvaged timber during a site clear at Dillon St Sawtell"><span class="work-cap">Site clearing — Dillon St, Sawtell</span></a>
+      <a href="gallery.html"><img loading="lazy" src="images/work-trench-coramba.jpg" alt="Excavator digging a drainage trench beside a farm driveway, Coramba Rd Coffs Harbour"><span class="work-cap">Drainage trench — Coramba Rd, Coffs</span></a>
+      <a href="gallery.html"><img loading="lazy" src="images/work-driveway-oldcoast.jpg" alt="Ground-stabilisation grid laid over a new gravel driveway, Old Coast Rd Bellingen"><span class="work-cap">All-weather driveway — Old Coast Rd, Bellingen</span></a>
+      <a href="gallery.html"><img loading="lazy" src="images/work-pad-yarraman.jpg" alt="Mecalac 6MCR on a freshly stripped house pad with valley views, Yarraman Rd Coffs Harbour"><span class="work-cap">House pad cut — Yarraman Rd, Coffs</span></a>
+      <a href="gallery.html"><img loading="lazy" src="images/work-gravel-yarraman.jpg" alt="Mecalac 6MCR spreading gravel base on a driveway, Yarraman Rd Sawtell"><span class="work-cap">Gravel base — Yarraman Rd, Sawtell</span></a>
+    </div>
+    <a href="gallery.html" class="link-gold" style="display:inline-block;margin-top:28px">See more of our work →</a>
+  </section>
+
+  <!-- The operator + where we work -->
   <section class="section section-green">
-    <div class="area-grid">
+    <div class="operator-grid">
+      <div class="operator-photo" data-slot="about-machine" style="background-image:url('images/about-machine.jpg')"></div>
       <div>
-        <span class="eyebrow">Service area</span>
-        <h2 class="sec-h2" style="font-size:clamp(32px,3.5vw,56px)">Coffs Coast and the<br>Bellingen Shire.</h2>
-        <p style="margin-top:22px;font-size:16px;line-height:1.7;color:rgba(255,255,255,0.75);max-width:440px">Based on the Coffs Coast. We work from Grafton to Kempsey, inland to the Dorrigo Plateau. Beyond that radius, call us to discuss mobilisation.</p>
-        <div class="area-distances">
-          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 60 km</span><p>Same-week mobilisation</p></div>
-          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 120 km</span><p>Quoted on a per-job basis</p></div>
-          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Inside 200 km</span><p>Tender enquiries welcome</p></div>
-          <div class="area-dist"><span class="eyebrow" style="font-size:10px">Emergency</span><p>24/7 — storm &amp; fire clean-up</p></div>
-        </div>
+        <span class="eyebrow">Who you're dealing with</span>
+        <h2 class="sec-h2" style="font-size:clamp(30px,3.2vw,48px)">Ben runs the machine.<br><em>And answers the phone.</em></h2>
+        <p class="operator-blurb">BFEx is owner-operated from Bonville. Ben quotes every job, runs the gear and answers the calls — one person, start to finish.</p>
+        <p class="operator-towns">Coffs Harbour · Sawtell · Bellingen · Woolgoolga · Nambucca · Grafton to Kempsey, inland to Dorrigo</p>
       </div>
-      <div id="service-map" class="area-map leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" style="height:480px;border-radius:4px;overflow:hidden" tabindex="0"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(319px, 239px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://a.tile.openstreetmap.org/9/473/301.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-154px, -99px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/9/473/300.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-154px, -355px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/9/472/301.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-410px, -99px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/9/474/301.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(102px, -99px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/9/473/302.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-154px, 157px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/9/472/300.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-410px, -355px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/9/474/300.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(102px, -355px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/9/472/302.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-410px, 157px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/9/474/302.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(102px, 157px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" class="leaflet-zoom-animated" width="766" height="574" viewBox="-383 -287 766 574" style="transform: translate3d(-383px, -287px, 0px);"><g><path class="leaflet-interactive" stroke="#f5c200" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" fill="#1b3428" fill-opacity="0.18" fill-rule="evenodd" d="M-56 -289L77 -289L102 -118L43 38L7 156L-49 289L-90 289L-175 220L-139 -13L-80 -181z"></path></g></svg></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -7px; margin-top: -7px; width: 14px; height: 14px; transform: translate3d(20px, 38px, 0px); z-index: 38;"><div style="width:14px;height:14px;border-radius:50%;background:#f5c200;box-shadow:0 0 0 5px rgba(245,194,0,0.3);border:2px solid #fff"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(41px, -35px, 0px); z-index: -35;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(24px, -4px, 0px); z-index: -4;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(72px, -114px, 0px); z-index: -114;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-37px, 30px, 0px); z-index: 30;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-104px, -16px, 0px); z-index: -16;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-8px, 112px, 0px); z-index: 112;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-31px, 136px, 0px); z-index: 136;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-25px, -291px, 0px); z-index: -291;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -4px; margin-top: -4px; width: 9px; height: 9px; transform: translate3d(-60px, 297px, 0px); z-index: 297;"><div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(121242px, 77155px, 0px) scale(256);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
     </div>
   </section>
 
-  <!-- Quote form -->
+  <!-- Quote form — the page ends here -->
   <section class="section section-cream" id="quote">
     <div class="quote-grid">
       <div>
-        <span class="eyebrow eyebrow-green">Get a quote</span>
+        <span class="eyebrow eyebrow-green">Get a fast quote</span>
         <h2 class="quote-h2">Tell us about<br><em>the job.</em></h2>
-        <p class="quote-lede">Fill in the form and we'll call you back within one business day to confirm the brief and book a site visit if needed. No obligation.</p>
+        <p class="quote-lede">We'll call you back to talk through the job. No obligation.</p>
         <div class="prefer-talk">
           <span class="eyebrow eyebrow-green">Prefer to talk?</span>
-          <div class="prefer-ph">0448 482 321</div>
-          <div class="prefer-hrs">Mon–Sat · 6:00 – 17:00 AEST</div>
+          <a href="tel:0448482321" class="prefer-ph" style="display:block">0448 482 321</a>
+          <div class="prefer-hrs">Straight to Ben's mobile</div>
         </div>
       </div>
       <div class="form-panel">
@@ -200,11 +193,11 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="fmsg">Tell us about the job</label>
+            <label class="form-label" for="fmsg">What needs doing?</label>
             <textarea class="form-textarea" id="fmsg" name="message" placeholder="Location, rough size, any access notes…"></textarea>
           </div>
           <div class="form-foot">
-            <button type="submit" class="btn-gold" id="form-submit">Send enquiry →</button>
+            <button type="submit" class="btn-gold" id="form-submit">Get my quote →</button>
           </div>
           <div id="form-status" class="form-status"></div>
         </form>
@@ -212,37 +205,23 @@
     </div>
   </section>
 
-  <!-- CTA strip -->
-  <div class="cta-strip">
-    <div>
-      <span class="eyebrow eyebrow-muted">Get in touch</span>
-      <h2>Ready to <em>get started?</em></h2>
-    </div>
-    <div class="cta-right">
-      <div class="cta-ph">
-        <div class="cta-ph-lbl">Call us</div>
-        <div class="cta-ph-num">0448 482 321</div>
-      </div>
-      <a href="contact.html#quote" class="btn-gold">Get a quote →</a>
-    </div>
-  </div>
-
-  <!-- Footer -->
+  <!-- Footer — the dense zone -->
   <footer>
     <div class="footer-grid">
       <div>
-        <img src="images/logo.png" alt="BFEx" style="height:48px;display:block">
+        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
         <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
+        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
       </div>
       <div>
         <div class="eyebrow footer-col-head">Services</div>
         <ul class="footer-links">
+          <li><a href="forestry-mulching.html">Forestry mulching</a></li>
+          <li><a href="gravel-driveways.html">Gravel driveways</a></li>
           <li><a href="services.html">Excavation</a></li>
           <li><a href="services.html">Vegetation clearing</a></li>
-          <li><a href="services.html">Mulching &amp; slashing</a></li>
           <li><a href="services.html">Haulage &amp; tipper hire</a></li>
-          <li><a href="services.html">Firebreaks</a></li>
-          <li><a href="services.html">Civil works</a></li>
+          <li><a href="services.html">Firebreaks &amp; civil works</a></li>
         </ul>
       </div>
       <div>
@@ -257,19 +236,26 @@
         <div class="eyebrow footer-col-head">Get in touch</div>
         <ul class="footer-links">
           <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
-          <li><a href="contact.html#quote">Request a quote</a></li>
+          <li><a href="#quote">Request a quote</a></li>
+          <li>Bonville, NSW 2450</li>
         </ul>
+        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Sawtell, Bellingen, Woolgoolga, Nambucca, Grafton and Kempsey.</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd · ABN 83 654 611 364</div>
+      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd</div>
       <div class="footer-legal">
         <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety policy</a>
       </div>
     </div>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Mobile call bar — one thumb-move away -->
+  <div class="call-bar" id="call-bar" aria-hidden="true">
+    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
+    <a href="#quote" class="call-bar-quote">Get a fast quote</a>
+  </div>
+
   <script>
     /* Quote form — AJAX submission */
     document.getElementById('quote-form').addEventListener('submit', async function(e) {
@@ -289,7 +275,7 @@
         });
         const json = await r.json();
         if (r.ok) {
-          status.textContent = "Thanks — we'll call you back within one business day.";
+          status.textContent = "Thanks. Ben will call you back.";
           status.className = 'form-status form-status-ok';
           form.reset();
         } else {
@@ -300,7 +286,7 @@
         status.className = 'form-status form-status-err';
       }
       btn.disabled = false;
-      btn.textContent = 'Send enquiry →';
+      btn.textContent = 'Get my quote →';
     });
 
     /* Header scroll */
@@ -318,65 +304,16 @@
       mobileMenu.setAttribute('aria-hidden', !open);
     });
 
-    /* Service area map */
-    const map = L.map('service-map', {
-      scrollWheelZoom: false,
-      zoomControl: true
-    }).setView([-30.38, 153.0], 9);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 18
-    }).addTo(map);
-
-    /* Enable scroll zoom on click, disable on mouse leave */
-    map.on('click', () => map.scrollWheelZoom.enable());
-    map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
-
-    /* Service area polygon */
-    L.polygon([
-      [-29.60, 152.87], [-29.50, 153.18], [-30.10, 153.28],
-      [-30.47, 153.12], [-30.75, 153.02], [-31.12, 152.84],
-      [-30.90, 152.52], [-30.35, 152.62], [-29.95, 152.78]
-    ], {
-      color: '#f5c200', weight: 2, opacity: 0.7,
-      fillColor: '#1b3428', fillOpacity: 0.18,
-      dashArray: '6 4'
-    }).addTo(map).bindPopup('BFEx service area');
-
-    /* Custom icons */
-    const hqIcon = L.divIcon({
-      className: '',
-      html: '<div style="width:14px;height:14px;border-radius:50%;background:#f5c200;box-shadow:0 0 0 5px rgba(245,194,0,0.3);border:2px solid #fff"></div>',
-      iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -10]
-    });
-    const townIcon = L.divIcon({
-      className: '',
-      html: '<div style="width:9px;height:9px;border-radius:50%;background:#1b3428;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.4)"></div>',
-      iconSize: [9, 9], iconAnchor: [4, 4], popupAnchor: [0, -8]
-    });
-
-    const places = [
-      { name: 'BFEx · Bonville', lat: -30.470, lng: 153.055, icon: hqIcon },
-      { name: 'Coffs Harbour',   lat: -30.296, lng: 153.115, icon: townIcon },
-      { name: 'Sawtell',         lat: -30.371, lng: 153.066, icon: townIcon },
-      { name: 'Woolgoolga',      lat: -30.109, lng: 153.199, icon: townIcon },
-      { name: 'Bellingen',       lat: -30.452, lng: 152.899, icon: townIcon },
-      { name: 'Dorrigo',         lat: -30.341, lng: 152.715, icon: townIcon },
-      { name: 'Nambucca Heads',  lat: -30.644, lng: 152.979, icon: townIcon },
-      { name: 'Macksville',      lat: -30.701, lng: 152.917, icon: townIcon },
-      { name: 'Grafton',         lat: -29.689, lng: 152.933, icon: townIcon },
-      { name: 'Kempsey',         lat: -31.082, lng: 152.837, icon: townIcon }
-    ];
-
-    places.forEach(p => {
-      L.marker([p.lat, p.lng], { icon: p.icon })
-        .addTo(map)
-        .bindPopup(`<strong>${p.name}</strong>`);
-    });
+    /* Mobile call bar — hide while the quote form (its own call path) is on screen */
+    const callBar = document.getElementById('call-bar');
+    const quoteSec = document.getElementById('quote');
+    if ('IntersectionObserver' in window && callBar && quoteSec) {
+      new IntersectionObserver((entries) => {
+        callBar.classList.toggle('call-bar-hidden', entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(quoteSec);
+    }
   </script>
 
   <script src="js/carousel.js" defer=""></script>
-
 
 </body></html>
