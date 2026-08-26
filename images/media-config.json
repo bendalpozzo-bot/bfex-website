@@ -31,9 +31,7 @@
     "about-machine.jpg",
     "bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg"
   ],
-  "about-reel": [
-    "about-reel.mp4"
-  ],
+  "about-reel": [],
   "gallery": [
     {
       "f": "bfex-mulching-yarraman-road-coffs-harbour-mulcher-parked-004.jpeg",
@@ -156,22 +154,10 @@
       "l": ""
     },
     {
-      "f": "bfex-haulage-smiths-road-bellingen-loaded-tipper-002.mp4",
-      "c": "haulage",
-      "s": "Bellingen Loaded Tipper",
-      "l": ""
-    },
-    {
-      "f": "bfex-haulage-smiths-road-bellingen-root-ball-truck-load-005.mp4",
-      "c": "haulage",
-      "s": "Truck Load",
-      "l": ""
-    },
-    {
-      "f": "bfex-access-road-north-boambee-road-coffs-harbour-track-forming-001.mp4",
+      "f": "2026-05-fig-close-coffs-harbour-the-offspring-the-kids-aren-t-alright.mp4",
       "c": "driveways",
-      "s": "Harbour Track Forming",
-      "l": ""
+      "s": "Job reel",
+      "l": "Fig Close, Coffs Harbour"
     }
   ]
 }

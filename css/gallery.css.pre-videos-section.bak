@@ -1,0 +1,109 @@
+/* BFEx — gallery, trust block, reviews, homepage work-teaser.
+   Green-mono rebrand 2026-08-09: transparent sections over the fixed track background,
+   gold accents, no boxed panels. Uses tokens from style.css. Loaded on gallery.html + index.html. */
+
+/* ---- Page hero (gallery.html) ---- */
+.gal-hero{background:transparent;padding:calc(var(--py) * .7) var(--px) calc(var(--py) * .5);text-align:center}
+.gal-hero h1{font-size:clamp(34px,5vw,64px);color:var(--cream);margin-top:14px}
+.gal-hero h1 em{color:var(--gold);font-style:normal}
+.gal-hero p{max-width:620px;margin:20px auto 0;color:rgba(247,246,240,.72);font-size:17px;line-height:1.65}
+
+/* ---- Filter chips ---- */
+.gal-filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:36px var(--px) 0;background:transparent}
+.gal-filter{font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(247,246,240,.7);background:transparent;border:1px solid rgba(247,246,240,.22);
+  padding:10px 18px;border-radius:100px;cursor:pointer;transition:all .15s}
+.gal-filter:hover{border-color:var(--gold);color:var(--gold)}
+.gal-filter.active{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+/* ---- Grid ---- */
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:36px var(--px) var(--py);background:transparent}
+.gal-item{position:relative;overflow:hidden;border-radius:3px;cursor:pointer;aspect-ratio:4/3;background:rgba(0,0,0,.22)}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.gal-item:hover img{transform:scale(1.06)}
+.gal-cap{position:absolute;inset:auto 0 0 0;padding:26px 16px 14px;
+  background:linear-gradient(to top,rgba(15,26,20,.88),transparent);
+  color:#fff;font-size:13px;font-weight:600;letter-spacing:.02em;opacity:0;transform:translateY(8px);transition:all .2s}
+.gal-item:hover .gal-cap{opacity:1;transform:translateY(0)}
+.gal-cap span{display:block;color:var(--gold);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px}
+.gal-empty{grid-column:1/-1;text-align:center;color:rgba(247,246,240,.5);padding:40px}
+
+/* ---- Lightbox ---- */
+.lb{position:fixed;inset:0;background:rgba(10,16,12,.94);display:none;align-items:center;justify-content:center;z-index:2000}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:82vh;border-radius:3px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#fff;font-size:14px;padding:0 20px}
+.lb-cap span{color:var(--gold);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:0;color:#fff;
+  width:54px;height:54px;border-radius:50%;font-size:26px;cursor:pointer;transition:background .15s}
+.lb-btn:hover{background:var(--gold);color:var(--ink)}
+.lb-prev{left:18px}.lb-next{right:18px}
+.lb-close{position:absolute;top:20px;right:22px;background:none;border:0;color:#fff;font-size:34px;cursor:pointer;line-height:1}
+.lb-count{position:absolute;top:26px;left:26px;color:rgba(255,255,255,.6);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em}
+
+/* ---- Homepage work teaser ---- */
+.work-teaser{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+.work-teaser a{position:relative;overflow:hidden;border-radius:3px;aspect-ratio:1;background:rgba(0,0,0,.22)}
+.work-teaser img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.work-teaser a:hover img{transform:scale(1.07)}
+
+/* ---- Trust / credentials block ---- */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:52px;background:transparent}
+.trust-cell{padding:20px 0 0;border-top:2px solid var(--gold)}
+.trust-cell .t-num{font-family:var(--font-serif);font-size:30px;color:var(--gold);line-height:1.05}
+.trust-cell .t-lbl{font-family:var(--font-body);font-size:13px;color:rgba(247,246,240,.7);margin-top:8px;line-height:1.45}
+.trust-cell .t-tick{color:var(--gold);font-size:26px;line-height:1}
+
+/* ---- Reviews (ready to fill — no fake reviews) ---- */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px}
+.review-card{background:transparent;border-top:2px solid var(--gold);padding:24px 0 0;display:flex;flex-direction:column}
+.review-stars{color:var(--gold);font-size:18px;letter-spacing:3px;margin-bottom:14px}
+.review-body{color:var(--cream);font-size:16px;line-height:1.6;flex:1}
+.review-who{margin-top:20px;font-weight:700;color:var(--gold);font-size:14px}
+.review-where{color:rgba(247,246,240,.6);font-size:13px;margin-top:2px}
+.review-src{margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,246,240,.55)}
+
+/* ---- Responsive ---- */
+@media (max-width:900px){
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .work-teaser{grid-template-columns:repeat(2,1fr)}
+  .trust{grid-template-columns:repeat(2,1fr);gap:28px}
+  .reviews-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .gal-grid{grid-template-columns:1fr}
+  .work-teaser{grid-template-columns:repeat(2,1fr)}
+  .lb-btn{width:44px;height:44px;font-size:22px}
+}
+
+/* ---- Service+town pages (forestry-mulching.html, gravel-driveways.html) ---- */
+.tp-hero{position:relative;padding:calc(var(--py) * .8) var(--px);background:var(--green);overflow:hidden}
+.tp-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--green) 40%,rgba(27,52,40,.55));z-index:1}
+.tp-hero .tp-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5}
+.tp-hero .tp-hero-in{position:relative;z-index:2;max-width:760px}
+.tp-hero h1{font-size:clamp(32px,4.6vw,58px);color:#fff;margin-top:14px}
+.tp-hero h1 em{color:var(--gold);font-style:normal}
+.tp-hero .tp-lede{color:rgba(255,255,255,.82);font-size:19px;line-height:1.6;margin-top:20px;max-width:620px}
+.tp-hero .hero-ctas{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.tp-prose{max-width:760px;margin:0 auto}
+.tp-prose h2{font-family:var(--font-serif);font-size:clamp(26px,3vw,38px);color:var(--cream);margin:0 0 18px}
+.tp-prose h3{font-family:var(--font-serif);font-size:22px;color:var(--gold);margin:32px 0 10px}
+.tp-prose p{font-size:17px;line-height:1.72;color:rgba(247,246,240,.8);margin:0 0 16px}
+.tp-prose ul{margin:0 0 18px 20px}
+.tp-prose li{font-size:17px;line-height:1.7;color:rgba(247,246,240,.8);margin-bottom:8px}
+.tp-prose strong{color:var(--cream)}
+.tp-towns{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin:26px 0}
+.town-card{background:transparent;border-top:2px solid var(--gold);border-radius:0;padding:18px 0 0}
+.town-card h3{margin:0 0 8px;color:var(--gold);font-size:20px}
+.town-card p{font-size:15px;line-height:1.6;color:rgba(247,246,240,.75);margin:0}
+.tp-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 4px}
+.tp-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px}
+.tp-map{width:100%;height:360px;border:0;border-radius:4px;margin-top:8px;filter:grayscale(.15)}
+.tp-faq{border-top:1px solid var(--border);margin-top:14px}
+.tp-faq details{border-bottom:1px solid var(--border);padding:18px 0}
+.tp-faq summary{font-family:var(--font-serif);font-size:19px;color:var(--cream);cursor:pointer;list-style:none}
+.tp-faq summary::-webkit-details-marker{display:none}
+.tp-faq summary::before{content:'+';color:var(--gold);font-weight:700;margin-right:12px}
+.tp-faq details[open] summary::before{content:'–'}
+.tp-faq p{font-size:16px;line-height:1.7;color:rgba(247,246,240,.8);margin:14px 0 0;padding-left:24px}
+@media (max-width:760px){.tp-towns{grid-template-columns:1fr}.tp-strip{grid-template-columns:1fr 1fr}}

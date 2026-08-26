@@ -69,6 +69,15 @@
     <p>Clearing, mulching, driveways, excavation and drainage across Bonville, Coffs Harbour, Sawtell and the Bellingen Shire. Every photo below is a BFEx job — no stock, no filler.</p>
   </section>
 
+  <!-- Videos — job reels, always first (hidden when the gallery has no videos) -->
+  <section class="gal-videos" id="gal-videos" hidden>
+    <div class="gal-videos-head">
+      <span class="eyebrow eyebrow-muted">Watch</span>
+      <h2>Job <em>reels</em></h2>
+    </div>
+    <div class="gal-vgrid" id="gal-vgrid"></div>
+  </section>
+
   <!-- Filters -->
   <div class="gal-filters" id="gal-filters">
     <button class="gal-filter active" data-cat="all">All</button>
@@ -155,6 +164,7 @@
     <span class="lb-count" id="lb-count"></span>
     <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous">‹</button>
     <img id="lb-img" src="" alt="">
+    <video id="lb-vid" controls playsinline loop style="display:none;max-width:92vw;max-height:82vh"></video>
     <button class="lb-btn lb-next" id="lb-next" aria-label="Next">›</button>
     <div class="lb-cap" id="lb-cap"></div>
   </div>
@@ -196,11 +206,30 @@
 
     var grid = document.getElementById('gal-grid');
     var current = 'all';
-    var visible = [];
+    var visible = [];          /* photos currently in the grid (lightbox list for photos) */
+    var videos = [];           /* every video in the gallery, shown in the top section */
+    var lbList = visible;      /* whichever list the lightbox is paging through */
 
+    function isVid(f){ return /\.(mp4|webm|mov|m4v)$/i.test(f||''); }
+    function renderVideos(){
+      var sec = document.getElementById('gal-videos'), vg = document.getElementById('gal-vgrid');
+      videos = PHOTOS.filter(function(p){ return isVid(p.f); });
+      if(!videos.length){ sec.hidden = true; return; }
+      sec.hidden = false; vg.innerHTML = '';
+      videos.forEach(function(p, i){
+        var d = document.createElement('div');
+        d.className = 'gal-vitem';
+        var poster = 'images/'+p.f.replace(/\.[^.]+$/,'')+'.poster.jpg';
+        d.innerHTML = '<video src="images/'+p.f+'" poster="'+poster+'" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>'
+          + '<div class="gal-vplay" aria-hidden="true">&#9654;</div>'
+          + '<div class="gal-cap"><span>'+p.s+'</span>'+p.l+'</div>';
+        d.addEventListener('click', function(){ openLb(i, videos); });
+        vg.appendChild(d);
+      });
+    }
     function render(cat){
       current = cat;
-      visible = PHOTOS.filter(function(p){ return cat === 'all' || p.c === cat; });
+      visible = PHOTOS.filter(function(p){ return !isVid(p.f) && (cat === 'all' || p.c === cat); });
       grid.innerHTML = '';
       if(!visible.length){ grid.innerHTML = '<div class="gal-empty">No photos in this category yet.</div>'; return; }
       visible.forEach(function(p, i){
@@ -208,7 +237,7 @@
         d.className = 'gal-item';
         d.innerHTML = '<img loading="lazy" src="images/'+p.f+'" alt="BFEx — '+p.s+', '+p.l+'">'
           + '<div class="gal-cap"><span>'+p.s+'</span>'+p.l+'</div>';
-        d.addEventListener('click', function(){ openLb(i); });
+        d.addEventListener('click', function(){ openLb(i, visible); });
         grid.appendChild(d);
       });
     }
@@ -225,15 +254,22 @@
     var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'),
         lbCap = document.getElementById('lb-cap'), lbCount = document.getElementById('lb-count'), idx = 0;
     function showLb(){
-      var p = visible[idx];
-      lbImg.src = 'images/'+p.f; lbImg.alt = p.s+', '+p.l;
+      var p = lbList[idx];
+      var vid = document.getElementById('lb-vid');
+      if(isVid(p.f)){
+        lbImg.style.display='none'; vid.style.display='';
+        vid.src='images/'+p.f; vid.play().catch(function(){});
+      } else {
+        vid.pause(); vid.removeAttribute('src'); vid.style.display='none'; lbImg.style.display='';
+        lbImg.src = 'images/'+p.f; lbImg.alt = p.s+', '+p.l;
+      }
       lbCap.innerHTML = '<span>'+p.s+'</span>'+p.l;
-      lbCount.textContent = (idx+1)+' / '+visible.length;
+      lbCount.textContent = (idx+1)+' / '+lbList.length;
     }
-    function openLb(i){ idx = i; showLb(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeLb(){ lb.classList.remove('open'); document.body.style.overflow=''; }
-    function next(){ idx = (idx+1) % visible.length; showLb(); }
-    function prev(){ idx = (idx-1+visible.length) % visible.length; showLb(); }
+    function openLb(i, list){ lbList = list || visible; idx = i; showLb(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeLb(){ var v=document.getElementById('lb-vid'); if(v) v.pause(); lb.classList.remove('open'); document.body.style.overflow=''; }
+    function next(){ idx = (idx+1) % lbList.length; showLb(); }
+    function prev(){ idx = (idx-1+lbList.length) % lbList.length; showLb(); }
     document.getElementById('lb-close').addEventListener('click', closeLb);
     document.getElementById('lb-next').addEventListener('click', next);
     document.getElementById('lb-prev').addEventListener('click', prev);
@@ -254,7 +290,7 @@
           if (cfg && Array.isArray(cfg.gallery) && cfg.gallery.length) PHOTOS = cfg.gallery;
         })
         .catch(function(){})
-        .then(function(){ render('all'); });
+        .then(function(){ renderVideos(); render('all'); });
     })();
 
     /* Header scroll + hamburger (same behaviour as site) */

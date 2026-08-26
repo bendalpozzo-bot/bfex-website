@@ -350,6 +350,20 @@
   </script>
 
   <script src="js/carousel.js" defer=""></script>
+  <script>
+    /* Per-service reels: if a service slot's assigned media is a video, play it in place. */
+    (function(){
+      fetch('images/media-config.json?_=' + Date.now()).then(function(r){ return r.json(); }).then(function(cfg){
+        document.querySelectorAll('[data-slot]').forEach(function(el){
+          var f = ((cfg[el.getAttribute('data-slot')]) || [])[0];
+          if (f && /\.(mp4|webm|mov|m4v)$/i.test(f)) {
+            el.style.backgroundImage = 'none';
+            el.innerHTML = '<video src="images/' + f + '" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>';
+          }
+        });
+      }).catch(function(){});
+    })();
+  </script>
 
 
 </body></html>

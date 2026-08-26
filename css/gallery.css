@@ -8,6 +8,20 @@
 .gal-hero h1 em{color:var(--gold);font-style:normal}
 .gal-hero p{max-width:620px;margin:20px auto 0;color:rgba(247,246,240,.72);font-size:17px;line-height:1.65}
 
+/* ---- Videos section (job reels, top of the gallery page; 2026-08-26) ---- */
+.gal-videos{padding:0 var(--px) 8px;background:transparent}
+.gal-videos-head{text-align:center;margin-bottom:22px}
+.gal-videos-head h2{font-size:clamp(26px,3.4vw,40px);color:var(--cream);margin-top:10px}
+.gal-videos-head h2 em{color:var(--gold);font-style:normal}
+.gal-vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gal-vitem{position:relative;overflow:hidden;border-radius:3px;cursor:pointer;aspect-ratio:9/16;background:rgba(0,0,0,.35)}
+.gal-vitem video{width:100%;height:100%;object-fit:cover;display:block}
+.gal-vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
+  background:rgba(15,26,20,.55);border:2px solid rgba(247,246,240,.35);color:#fff;font-size:20px;
+  display:flex;align-items:center;justify-content:center;padding-left:4px;transition:all .2s;pointer-events:none}
+.gal-vitem:hover .gal-vplay{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.gal-vitem .gal-cap{opacity:1;transform:none}
+
 /* ---- Filter chips ---- */
 .gal-filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:36px var(--px) 0;background:transparent}
 .gal-filter{font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
@@ -65,12 +79,14 @@
 
 /* ---- Responsive ---- */
 @media (max-width:900px){
+  .gal-vgrid{grid-template-columns:repeat(3,1fr)}
   .gal-grid{grid-template-columns:repeat(2,1fr)}
   .work-teaser{grid-template-columns:repeat(2,1fr)}
   .trust{grid-template-columns:repeat(2,1fr);gap:28px}
   .reviews-grid{grid-template-columns:1fr}
 }
 @media (max-width:560px){
+  .gal-vgrid{grid-template-columns:repeat(2,1fr);gap:10px}
   .gal-grid{grid-template-columns:1fr}
   .work-teaser{grid-template-columns:repeat(2,1fr)}
   .lb-btn{width:44px;height:44px;font-size:22px}
