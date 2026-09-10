@@ -21,6 +21,8 @@
     .form-status-ok{color:#8fdcae}
     .form-status-err{color:#ff9d8f}
   </style>
+  <script src="js/track.js" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "Bonville Forestry and Excavations", "alternateName": "BFEx", "url": "https://bfex.com.au/", "telephone": "+61448482321", "email": "info@bfex.com.au", "image": "https://bfex.com.au/images/og-image.png", "description": "Owner-operated earthmoving, vegetation clearing, forestry mulching, gravel driveways and haulage on the NSW Mid North Coast.", "areaServed": [{"@type": "Place", "name": "Coffs Harbour"}, {"@type": "Place", "name": "Bonville"}, {"@type": "Place", "name": "Sawtell"}, {"@type": "Place", "name": "Boambee"}, {"@type": "Place", "name": "Bellingen"}, {"@type": "Place", "name": "Nambucca Heads"}, {"@type": "Place", "name": "Woolgoolga"}, {"@type": "Place", "name": "Dorrigo"}], "address": {"@type": "PostalAddress", "addressLocality": "Coffs Harbour", "addressRegion": "NSW", "addressCountry": "AU"}, "sameAs": ["https://www.instagram.com/bfex.au/"]}</script>
 </head>
 <body>
 
@@ -278,12 +280,14 @@
           status.textContent = "Thanks. Ben will call you back.";
           status.className = 'form-status form-status-ok';
           form.reset();
+          if (window.bfexTrack) bfexTrack('quote_form_submit', { page_path: location.pathname });
         } else {
           throw new Error(json.error || 'Submission failed');
         }
       } catch(err) {
         status.textContent = 'Something went wrong — please call us on 0448 482 321 or email info@bfex.com.au.';
         status.className = 'form-status form-status-err';
+        if (window.bfexTrack) bfexTrack('quote_form_error', { page_path: location.pathname, reason: String(err && err.message || err).slice(0, 80) });
       }
       btn.disabled = false;
       btn.textContent = 'Get my quote →';
