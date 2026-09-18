@@ -32,6 +32,8 @@
           <a href="./"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services">Services</a></li>
+            <li class="nav-extra"><a href="forestry-mulching">Mulching</a></li>
+            <li class="nav-extra"><a href="gravel-driveways">Driveways</a></li>
             <li><a href="gallery">Our work</a></li>
             <li><a href="about">About</a></li>
             <li><a href="contact">Contact</a></li>
@@ -53,6 +55,8 @@
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services">Services</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
         <li><a href="gallery">Our work</a></li>
         <li><a href="about">About</a></li>
         <li><a href="contact">Contact</a></li>
@@ -141,13 +145,13 @@
         <ul class="footer-links">
           <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
           <li><a href="contact#quote">Request a quote</a></li>
-          <li>Bonville, NSW 2450</li>
+          <li>Coffs Harbour, NSW 2450</li>
         </ul>
-        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Sawtell, Bellingen, Woolgoolga, Nambucca, Grafton and Kempsey.</p>
+        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Bonville, Sawtell, Toormina, Boambee, Bellingen, Urunga, Nambucca Heads, Woolgoolga and Dorrigo.</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Bonville Forestry &amp; Excavations Pty Ltd</div>
+      <div>© 2026 Bonville Forestry and Excavations Pty Ltd · ABN 83 654 611 364</div>
       <div class="footer-legal">
         <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety policy</a>
       </div>
@@ -175,24 +179,24 @@
     /* ---- Photo data: real BFEx jobs, every photo visually verified (file, category, service label, location) ---- */
     var PHOTOS = [
       // Clearing & mulching
-      {f:'bfex-mulching-yarraman-road-coffs-harbour-mulcher-parked-004.jpeg',c:'mulching',s:'Forestry mulching',l:'Yarraman Rd'},
+      {f:'bfex-mulching-yarraman-road-coffs-harbour-mulcher-parked-004.jpeg',c:'mulching',s:'Forestry mulching',l:'Yarraman Rd, Bonville'},
       {f:'bfex-mulching-north-boambee-road-coffs-harbour-dam-bank-slopes-002.jpg',c:'mulching',s:'Dam bank mulching',l:'North Boambee Rd, Coffs Harbour'},
-      {f:'bfex-mulching-yarraman-road-sawtell-slashed-edge-001.jpg',c:'mulching',s:'Scrub clearing',l:'Yarraman Rd'},
-      {f:'bfex-site-clear-yarraman-road-coffs-harbour-jungle-to-paddock-overview-001.jpeg',c:'mulching',s:'Cleared to paddock',l:'Yarraman Rd'},
+      {f:'bfex-mulching-yarraman-road-sawtell-slashed-edge-001.jpg',c:'mulching',s:'Scrub clearing',l:'Yarraman Rd, Bonville'},
+      {f:'bfex-site-clear-yarraman-road-coffs-harbour-jungle-to-paddock-overview-001.jpeg',c:'mulching',s:'Cleared to paddock',l:'Yarraman Rd, Bonville'},
       // Driveways & access
-      {f:'bfex-access-road-yarraman-road-sawtell-in-progress-007.jpg',c:'driveways',s:'Driveway build',l:'Yarraman Rd, Sawtell'},
-      {f:'bfex-access-road-yarraman-road-sawtell-gravel-base-006.jpg',c:'driveways',s:'Gravel over geofabric',l:'Yarraman Rd, Sawtell'},
-      {f:'bfex-access-road-old-coast-road-bellingen-honeycomb-matting-001.jpeg',c:'driveways',s:'Ground-grid driveway',l:'Old Coast Rd, Bellingen'},
-      {f:'bfex-gravel-driveway-tuckers-rock-road-bellingen-gravel-finished-006.jpg',c:'driveways',s:'Finished gravel driveway',l:'Tuckers Rock Rd, Bellingen'},
+      {f:'bfex-access-road-yarraman-road-sawtell-in-progress-007.jpg',c:'driveways',s:'Driveway build',l:'Yarraman Rd, Bonville'},
+      {f:'bfex-access-road-yarraman-road-sawtell-gravel-base-006.jpg',c:'driveways',s:'Gravel over geofabric',l:'Yarraman Rd, Bonville'},
+      {f:'bfex-access-road-old-coast-road-bellingen-honeycomb-matting-001.jpeg',c:'driveways',s:'Ground-grid driveway',l:'Old Coast Rd, Bellingen Shire'},
+      {f:'bfex-gravel-driveway-tuckers-rock-road-bellingen-gravel-finished-006.jpg',c:'driveways',s:'Finished gravel driveway',l:'Tuckers Rock Rd, Repton'},
       {f:'bfex-access-road-north-boambee-road-coffs-harbour-rural-driveway-001.jpg',c:'driveways',s:'Rural access road',l:'North Boambee Rd, Coffs Harbour'},
       // Excavation
       {f:'bfex-excavation-north-boambee-road-coffs-harbour-in-progress-007.jpg',c:'excavation',s:'Earthworks bench',l:'North Boambee Rd, Coffs Harbour'},
-      {f:'bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg',c:'excavation',s:'House pad strip',l:'Yarraman Rd'},
-      {f:'bfex-excavation-old-coast-road-bellingen-2021-01-in-progress-003.jpeg',c:'excavation',s:'Shed pad earthworks',l:'Old Coast Rd, Bellingen'},
+      {f:'bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg',c:'excavation',s:'House pad strip',l:'Yarraman Rd, Bonville'},
+      {f:'bfex-excavation-old-coast-road-bellingen-2021-01-in-progress-003.jpeg',c:'excavation',s:'Shed pad earthworks',l:'Old Coast Rd, Bellingen Shire'},
       // Drainage & erosion
       {f:'bfex-drainage-coramba-road-coffs-harbour-in-progress-001.jpeg',c:'drainage',s:'Drainage trench',l:'Coramba Rd, Coffs Harbour'},
-      {f:'bfex-drainage-yarraman-road-coffs-harbour-2025-01-driveway-swale-001.jpeg',c:'drainage',s:'Driveway swale',l:'Yarraman Rd'},
-      {f:'bfex-erosion-control-yarraman-road-sawtell-bank-stabilization-002.jpg',c:'drainage',s:'Dam bank repair',l:'Yarraman Rd, Sawtell'},
+      {f:'bfex-drainage-yarraman-road-coffs-harbour-2025-01-driveway-swale-001.jpeg',c:'drainage',s:'Driveway swale',l:'Yarraman Rd, Bonville'},
+      {f:'bfex-erosion-control-yarraman-road-sawtell-bank-stabilization-002.jpg',c:'drainage',s:'Dam bank repair',l:'Yarraman Rd, Bonville'},
       // Stump & removal
       {f:'bfex-stump-removal-roselands-drive-coffs-harbour-in-progress-002.jpeg',c:'removal',s:'Stump removal',l:'Roselands Dr, Coffs Harbour'},
       {f:'bfex-demolition-dillon-street-sawtell-timber-bundle-lift-002.jpg',c:'removal',s:'Timber salvage lift',l:'Dillon St, Sawtell'},
@@ -201,7 +205,7 @@
       // Haulage & machinery
       {f:'bfex-machinery-delivery-north-boambee-road-coffs-harbour-excavator-transport-001.jpeg',c:'haulage',s:'Machinery float',l:'North Boambee Rd, Coffs Harbour'},
       {f:'about-machine.jpg',c:'haulage',s:'Mecalac 6MCR and Hino 700',l:'On the move'},
-      {f:'bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg',c:'haulage',s:'Excavator transport',l:'Yarraman Rd'},
+      {f:'bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg',c:'haulage',s:'Excavator transport',l:'Yarraman Rd, Bonville'},
       {f:'bfex-machinery-delivery-north-boambee-road-coffs-harbour-transport-setup-001.jpg',c:'haulage',s:'Loaded and chained',l:'North Boambee Rd, Coffs Harbour'},
       {f:'bfex-machinery-delivery-north-boambee-road-coffs-harbour-trailer-transport-002.jpeg',c:'haulage',s:'Mini excavator delivery',l:'North Boambee Rd, Coffs Harbour'}
     ];

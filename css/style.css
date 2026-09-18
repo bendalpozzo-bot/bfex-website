@@ -129,6 +129,9 @@ p { margin: 0; }
   border-bottom: 1px solid transparent; transition: color .15s, border-color .15s;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--gold); border-bottom-color: var(--gold); }
+/* Mulching + Driveways (2026-09-17): only where six links fit; narrower screens keep the four-link bar, phones get them in the menu */
+.nav-links .nav-extra { display: none; }
+@media (min-width: 1200px) { .nav-links .nav-extra { display: list-item; } }
 .nav-right { display: flex; align-items: center; gap: 20px; }
 .nav-call-label { font-size: 11px; color: rgba(247,246,240,0.55); letter-spacing: 0.12em; text-transform: uppercase; }
 .nav-call-num { font-size: 16px; font-weight: 600; color: var(--cream); letter-spacing: 0.04em; margin-top: 2px; }
