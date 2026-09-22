@@ -4,6 +4,7 @@
      page_view          automatic (gtag config)
      phone_call         any tel: link click   (nav, hero, footer, sticky call bar ...)
      email_click        any mailto: link click
+     social_click       any footer social icon click (network: instagram|facebook|youtube)
      quote_form_submit  Formspree accepted the quote form (page scripts call bfexTrack)
      quote_form_error   Formspree rejected it / network failed
    Mark phone_call + quote_form_submit as Key events in GA4 Admin > Events.
@@ -48,6 +49,8 @@
       window.bfexTrack('phone_call', { placement: placement(a), page_path: location.pathname });
     } else if (href.indexOf('mailto:') === 0) {
       window.bfexTrack('email_click', { placement: placement(a), page_path: location.pathname });
+    } else if (a.getAttribute('data-social')) {
+      window.bfexTrack('social_click', { network: a.getAttribute('data-social'), placement: placement(a), page_path: location.pathname });
     }
   }, true);
 })();
