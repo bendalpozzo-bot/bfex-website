@@ -8,11 +8,10 @@
 <!--
   ================= BFEx review redirect =================
   This page forwards to the live Google review link.
-  >>> WHEN GBP IS LIVE: replace GOOGLE_REVIEW_URL below with the real
-      short link from your Google Business Profile ("Ask for reviews" ->
-      copy link, format: https://g.page/r/XXXXXXXXXXXX/review). That's the
-      ONLY change needed — the QR code and every printed card already point
-      here, so they never need reprinting.
+  DONE 23 Sep 2026: GOOGLE_REVIEW_URL below is the real link from the
+      Business Profile (verified 21 Sep 2026). The QR code and every printed
+      card point here, so they never need reprinting — if the link ever
+      changes, change it in one place below and nothing else.
   ======================================================= -->
 <style>
   :root{--green:#1b3428;--gold:#ffc700;--cream:#f7f6f0;--ink:#111}
@@ -35,11 +34,13 @@
     <h1>Thanks for choosing BFEx</h1>
     <p>We'd really appreciate a quick Google review — it helps other locals find us. Tap below to leave one.</p>
     <a class="btn" id="reviewBtn" href="#">Leave a Google review →</a>
-    <small>Bonville Forestry &amp; Excavations · 0448 482 321</small>
+    <small>Bonville Forestry and Excavations · 0448 482 321</small>
   </div>
 <script>
-  // >>> Swap this for your real g.page review link once GBP is verified <<<
-  var GOOGLE_REVIEW_URL = ""; // e.g. "https://g.page/r/XXXXXXXXXXXX/review"
+  // Live Google review link, wired in 23 Sep 2026 (GBP verified 21 Sep 2026).
+  // Copied from Business Profile > Read reviews > Get more reviews > Copy.
+  // Resolves to search.google.com/local/writereview?placeid=ChIJ7TzRzUfQt2oRsw7yCBDCJx8
+  var GOOGLE_REVIEW_URL = "https://g.page/r/CbMO8ggQwicfEBM/review";
   var btn = document.getElementById('reviewBtn');
   if (GOOGLE_REVIEW_URL) {
     btn.href = GOOGLE_REVIEW_URL;
