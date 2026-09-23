@@ -345,14 +345,6 @@ p { margin: 0; }
 .cta-ph-lbl { font-size: 11px; color: rgba(247,246,240,0.5); letter-spacing: 0.12em; text-transform: uppercase; }
 .cta-ph-num { font-family: var(--font-serif); font-size: 32px; color: var(--gold); }
 
-/* --- Google review band (above the footer, every page but Contact) --- */
-
-.review-band {
-  margin: 0 var(--px); padding: 40px 0 72px;
-  border-top: 2px solid var(--gold);
-  display: flex; justify-content: space-between; align-items: center; gap: 32px;
-}
-
 /* --- Footer ----------------------------------------------- */
 
 footer { background: transparent; color: var(--cream); padding: 80px var(--px) 32px; }
@@ -555,7 +547,6 @@ a.svc-card:hover .svc-go { transform: translateX(4px); }
   .licences { grid-template-columns: 1fr; }
   .yard-grid { grid-template-columns: 1fr; }
   .contact-channels { grid-template-columns: 1fr; }
-  .review-band { flex-direction: column; align-items: flex-start; }
   .timeline { grid-template-columns: repeat(3, 1fr); }
 }
 

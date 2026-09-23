@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="canonical" href="https://bfex.com.au/about">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260923">
   <style>
     .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
     .form-status-ok{color:#8fdcae}
@@ -211,14 +211,13 @@
     </div>
   </section>
 
-  <!-- Google reviews: same card as the Contact page; on every page except Contact, which has its own -->
-  <section class="review-band" aria-label="Google reviews">
-    <div>
-      <span class="eyebrow eyebrow-muted">Reviews</span>
+  <!-- Google reviews: the Contact page's Reviews card, on every page except Contact (which has its own). Existing styles only. -->
+  <section class="section section-dark" data-block="google-reviews" aria-label="Google reviews" style="padding-top:0">
+    <div class="contact-channel"><br><span class="eyebrow eyebrow-muted" style="margin-top:24px;display:flex">Reviews</span>
       <div class="channel-val gold">Worked with us?</div>
       <div class="channel-desc">An honest Google review helps other locals find us</div>
+      <a href="review" class="btn-gold" style="display:inline-block;margin-top:32px">Review us on Google →</a>
     </div>
-    <a href="review" class="btn-gold">Review us on Google →</a>
   </section>
 
   <!-- Footer -->
