@@ -15,7 +15,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="canonical" href="https://bfex.com.au/contact">
-  <link rel="stylesheet" href="css/style.css?v=20260923">
+  <link rel="stylesheet" href="css/style.css?v=20261007">
   <style>
     .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
     .form-status-ok{color:#8fdcae}
@@ -137,9 +137,35 @@
               <input class="form-input" type="tel" id="fphone" name="phone" placeholder="04xx xxx xxx" required="">
             </div>
           </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="fsuburb">Job suburb</label>
+              <input class="form-input" type="text" id="fsuburb" name="suburb" placeholder="e.g. Bonville" required="" autocomplete="address-level2">
+            </div>
+            <div>
+              <label class="form-label" for="ftiming">Timing</label>
+              <select class="form-input form-select" id="ftiming" name="timing">
+                <option value="">Not sure yet</option>
+                <option value="As soon as possible">As soon as possible</option>
+                <option value="Within a month">Within a month</option>
+                <option value="In 1 to 3 months">In 1 to 3 months</option>
+                <option value="Just pricing for now">Just pricing for now</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="fsize">Rough size <span class="form-opt">optional</span></label>
+              <input class="form-input" type="text" id="fsize" name="size" placeholder="e.g. 60 m driveway, 2 ha of lantana">
+            </div>
+            <div>
+              <label class="form-label" for="faccess">Access <span class="form-opt">optional</span></label>
+              <input class="form-input" type="text" id="faccess" name="access" placeholder="e.g. 3 m gate, steep, power lines">
+            </div>
+          </div>
           <div class="form-group">
-            <label class="form-label" for="fmsg">Tell us about the job</label>
-            <textarea class="form-textarea" id="fmsg" name="message" placeholder="Location, rough size, any access notes…"></textarea>
+            <label class="form-label" for="fmsg">Tell us about the job <span class="form-opt">optional</span></label>
+            <textarea class="form-textarea" id="fmsg" name="message" placeholder="Anything else we should know…"></textarea>
           </div>
           <div class="form-foot">
             <button type="submit" class="btn-gold" id="form-submit">Send enquiry →</button>

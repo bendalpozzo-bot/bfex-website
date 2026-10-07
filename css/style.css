@@ -331,6 +331,14 @@ p { margin: 0; }
 .form-textarea { min-height: 100px; resize: vertical; }
 .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .form-foot { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; margin-top: 8px; }
+.form-select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffc700' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+  padding-right: 40px; cursor: pointer;
+}
+.form-select option { color: var(--ink); background: #fff; }
+.form-opt { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); font-size: 11px; margin-left: 6px; }
 
 /* --- CTA strip -------------------------------------------- */
 
