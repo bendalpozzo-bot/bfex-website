@@ -22,7 +22,7 @@
     .form-status-err{color:#ff9d8f}
   </style>
   <script src="js/track.js" defer></script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "Bonville Forestry and Excavations", "alternateName": "BFEx", "legalName": "Bonville Forestry and Excavations Pty Ltd", "taxID": "83 654 611 364", "url": "https://bfex.com.au/", "telephone": "+61448482321", "email": "info@bfex.com.au", "image": "https://bfex.com.au/images/og-image.png", "description": "Owner-operated earthmoving, vegetation clearing, forestry mulching, gravel driveways and haulage on the NSW Mid North Coast.", "areaServed": [{"@type": "Place", "name": "Coffs Harbour"}, {"@type": "Place", "name": "Bonville"}, {"@type": "Place", "name": "Toormina"}, {"@type": "Place", "name": "Urunga"}, {"@type": "Place", "name": "Sawtell"}, {"@type": "Place", "name": "Boambee"}, {"@type": "Place", "name": "Bellingen"}, {"@type": "Place", "name": "Nambucca Heads"}, {"@type": "Place", "name": "Woolgoolga"}, {"@type": "Place", "name": "Dorrigo"}], "address": {"@type": "PostalAddress", "addressLocality": "Coffs Harbour", "addressRegion": "NSW", "postalCode": "2450", "addressCountry": "AU"}, "sameAs": ["https://www.instagram.com/bfex.au/", "https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/", "https://www.youtube.com/@bonvilleforestry"]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://bfex.com.au/#business", "name": "Bonville Forestry and Excavations", "alternateName": "BFEx", "legalName": "Bonville Forestry and Excavations Pty Ltd", "taxID": "83 654 611 364", "url": "https://bfex.com.au/", "telephone": "+61448482321", "email": "info@bfex.com.au", "logo": "https://bfex.com.au/images/bfex-logo-512.png", "image": ["https://bfex.com.au/images/og-image.png", "https://bfex.com.au/images/bfex-logo-512.png"], "description": "Owner-operated earthmoving, vegetation clearing, forestry mulching, gravel driveways and haulage on the NSW Mid North Coast.", "areaServed": [{"@type": "Place", "name": "Coffs Harbour"}, {"@type": "Place", "name": "Boambee"}, {"@type": "Place", "name": "Sawtell"}, {"@type": "Place", "name": "Toormina"}, {"@type": "Place", "name": "Bonville"}, {"@type": "Place", "name": "Coramba"}, {"@type": "Place", "name": "Nana Glen"}, {"@type": "Place", "name": "Woolgoolga"}, {"@type": "Place", "name": "Corindi Beach"}, {"@type": "Place", "name": "Red Rock"}, {"@type": "Place", "name": "Grafton"}, {"@type": "Place", "name": "Bellingen"}, {"@type": "Place", "name": "Urunga"}, {"@type": "Place", "name": "Dorrigo"}, {"@type": "Place", "name": "Nambucca Heads"}, {"@type": "Place", "name": "Macksville"}, {"@type": "Place", "name": "Kempsey"}, {"@type": "Place", "name": "South West Rocks"}], "address": {"@type": "PostalAddress", "addressLocality": "Coffs Harbour", "addressRegion": "NSW", "postalCode": "2450", "addressCountry": "AU"}, "sameAs": ["https://www.instagram.com/bfex.au/", "https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/", "https://www.youtube.com/@bonvilleforestry"], "openingHours": ["Mo-Fr 06:00-18:00"]}</script>
 </head>
 <body>
 
@@ -229,6 +229,19 @@
     </div>
   </section>
 
+  <!-- Service-area map (Google Maps embed, contact page only). Embed address copied from Google Maps > Share > Embed a map
+       for the BFEx listing on 27 Oct 2026 (hidden-address profile: the pin is Google's service-area marker, not a street address). -->
+  <section class="section section-dark" id="service-area" style="padding-top:0">
+    <span class="eyebrow eyebrow-muted">Where we work</span>
+    <h2 class="sec-h2" style="font-size:clamp(28px,3vw,48px);margin-top:18px">Based in Coffs Harbour,<br>working across the Mid North Coast.</h2>
+    <p class="sec-intro">Servicing Coffs Harbour, Boambee, Sawtell, Toormina, Bonville, Coramba, Nana Glen, Woolgoolga, Corindi Beach, Red Rock, Grafton, Bellingen, Urunga, Dorrigo, Nambucca Heads, Macksville, Kempsey and South West Rocks.</p>
+    <div style="position:relative;width:100%;aspect-ratio:16/9;max-height:480px;border-radius:4px;overflow:hidden;background:rgba(247,246,240,0.06)">
+      <iframe title="Map of the Bonville Forestry and Excavations service area around Coffs Harbour"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1118768.9827028417!2d152.94200355!3d-30.368960499999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab7d047cdd13ced%3A0x1f27c21008f20eb3!2sBonville%20Forestry%20and%20Excavations!5e1!3m2!1sen!2sau!4v1793091070697!5m2!1sen!2sau" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <div class="footer-grid">
@@ -240,12 +253,17 @@
       <div>
         <div class="eyebrow footer-col-head">Services</div>
         <ul class="footer-links">
+          <li><a href="excavation">Excavation</a></li>
+          <li><a href="vegetation-management">Vegetation management</a></li>
           <li><a href="forestry-mulching">Forestry mulching</a></li>
+          <li><a href="civil-earthworks">Civil earthworks</a></li>
           <li><a href="gravel-driveways">Gravel driveways</a></li>
-          <li><a href="services">Excavation</a></li>
-          <li><a href="services">Vegetation clearing</a></li>
-          <li><a href="services">Haulage &amp; tipper hire</a></li>
-          <li><a href="services">Firebreaks &amp; civil works</a></li>
+          <li><a href="demolition">Demolition</a></li>
+          <li><a href="augering">Augering</a></li>
+          <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+          <li><a href="driveway-removal">Driveway removal</a></li>
+          <li><a href="services#haulage">Haulage &amp; tipper hire</a></li>
+          <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
         </ul>
       </div>
       <div>
@@ -264,7 +282,7 @@
           <li><a href="#quote">Request a quote</a></li>
           <li>Coffs Harbour, NSW 2450</li>
         </ul>
-        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Bonville, Sawtell, Toormina, Boambee, Bellingen, Urunga, Nambucca Heads, Woolgoolga and Dorrigo.</p>
+        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Boambee, Sawtell, Toormina, Bonville, Coramba, Nana Glen, Woolgoolga, Corindi Beach, Red Rock, Grafton, Bellingen, Urunga, Dorrigo, Nambucca Heads, Macksville, Kempsey and South West Rocks.</p>
       </div>
     </div>
     <div class="footer-bottom">
