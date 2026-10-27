@@ -36,7 +36,8 @@
     .works-h3 { font-size: 28px; margin-top: 48px; }
     .works-list { list-style: none; margin-top: 20px; max-width: 880px; }
     .works-list li { padding: 18px 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 6px 20px; font-size: 15px; line-height: 1.55; }
-    .works-list li:last-child { border-bottom: 1px solid var(--border); }
+    .works-list li[hidden] { display: none; }
+    .works-list { border-bottom: 1px solid var(--border); }
     .works-list strong { font-weight: 600; color: var(--gold); }
     .works-note { grid-column: 1 / -1; display: block; font-size: 12px; color: var(--muted); }
     .works-foot { margin-top: 14px; font-size: 14px; color: var(--muted); }
