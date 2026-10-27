@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storm, flood and fire recovery works — BFEx</title>
+  <meta name="description" content="Storm, flood or fire damage on your Mid North Coast property? A plain damage checklist, what it usually means on the ground, photos-first advice and free help with any grant paperwork. Ask BFEx for a site visit.">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+  <link rel="apple-touch-icon" href="images/favicon-192.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BFEx — Bonville Forestry and Excavations">
+  <meta property="og:title" content="Storm, flood and fire recovery works — BFEx">
+  <meta property="og:description" content="Damage on your property? A plain checklist, what it means on the ground, photos first, and free help with any grant paperwork. Ask for a site visit.">
+  <meta property="og:image" content="https://bfex.com.au/images/og-image.png">
+  <meta property="og:url" content="https://bfex.com.au/recovery-works">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
+  <link rel="canonical" href="https://bfex.com.au/recovery-works">
+  <link rel="stylesheet" href="css/style.css?v=20261007">
+  <style>
+    /* Page-specific rules for recovery-works.html only. style.css is untouched. */
+    @media (max-width: 480px) { .cta-right { flex-wrap: wrap; max-width: 100%; } }
+    .page-header-sub a.link-gold { margin-top: 18px; }
+    .recovery-status { padding: 0 var(--px) 64px; }
+    .status-inner { border: 1px solid var(--gold); padding: 24px 28px; max-width: 880px; }
+    .status-line { font-size: 17px; line-height: 1.6; color: var(--cream); margin-top: 12px; }
+    .status-small { font-size: 14px; color: var(--muted); margin-top: 10px; }
+    /* The grant switch: flip data-grant-open to "true" on #grant-status and the open block shows, the closed line hides. No script needed. */
+    #grant-status[data-grant-open="true"] #grant-closed-text { display: none; }
+    #grant-status[data-grant-open="true"] #grant-open-block { display: block; }
+    .section-tight { padding-top: 0; }
+    .damage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; max-width: 880px; }
+    .damage-tick { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 12px 14px; border: 1px solid var(--border); font-size: 15px; color: var(--cream); cursor: pointer; transition: border-color .12s, background .12s; }
+    .damage-tick:hover { border-color: var(--gold); }
+    .damage-tick input { accent-color: var(--gold); width: 20px; height: 20px; cursor: pointer; flex: none; }
+    .damage-tick:has(input:checked) { border-color: var(--gold); background: rgba(255,199,0,0.08); }
+    .works-h3 { font-size: 28px; margin-top: 48px; }
+    .works-list { list-style: none; margin-top: 20px; max-width: 880px; }
+    .works-list li { padding: 18px 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 6px 20px; font-size: 15px; line-height: 1.55; }
+    .works-list li:last-child { border-bottom: 1px solid var(--border); }
+    .works-list strong { font-weight: 600; color: var(--gold); }
+    .works-note { grid-column: 1 / -1; display: block; font-size: 12px; color: var(--muted); }
+    .works-foot { margin-top: 14px; font-size: 14px; color: var(--muted); }
+    .plain-list { list-style: none; max-width: 760px; }
+    .plain-list li { padding: 12px 0 12px 24px; position: relative; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.55; }
+    .plain-list li:last-child { border-bottom: 1px solid var(--border); }
+    .plain-list li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
+    .help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 880px; }
+    .help-card { border-top: 2px solid var(--gold); padding-top: 20px; }
+    .help-name { font-size: 15px; font-weight: 600; }
+    .help-phone { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-serif); font-size: 34px; color: var(--gold); margin-top: 6px; }
+    .help-desc { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.55; }
+    .help-foot { margin-top: 28px; font-size: 15px; color: var(--muted); max-width: 760px; }
+    .hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .form-status { margin-top: 16px; font-size: 15px; line-height: 1.5; min-height: 20px; }
+    .form-status-ok { color: #8fdcae; }
+    .form-status-err { color: #ff9d8f; }
+    @media (max-width: 700px) {
+      .works-list li { grid-template-columns: 1fr; gap: 4px; }
+      .help-grid { grid-template-columns: 1fr; }
+      .works-h3 { font-size: 24px; }
+      .status-inner { padding: 20px 18px; }
+    }
+    @media (max-width: 480px) { .damage-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 360px) { .damage-grid { grid-template-columns: 1fr; } }
+  </style>
+  <script src="js/track.js" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "Bonville Forestry and Excavations", "alternateName": "BFEx", "legalName": "Bonville Forestry and Excavations Pty Ltd", "taxID": "83 654 611 364", "url": "https://bfex.com.au/", "telephone": "+61448482321", "email": "info@bfex.com.au", "image": "https://bfex.com.au/images/og-image.png", "description": "Owner-operated earthmoving, vegetation clearing, forestry mulching, gravel driveways and haulage on the NSW Mid North Coast.", "areaServed": [{"@type": "Place", "name": "Coffs Harbour"}, {"@type": "Place", "name": "Bonville"}, {"@type": "Place", "name": "Toormina"}, {"@type": "Place", "name": "Urunga"}, {"@type": "Place", "name": "Sawtell"}, {"@type": "Place", "name": "Boambee"}, {"@type": "Place", "name": "Bellingen"}, {"@type": "Place", "name": "Nambucca Heads"}, {"@type": "Place", "name": "Woolgoolga"}, {"@type": "Place", "name": "Dorrigo"}], "address": {"@type": "PostalAddress", "addressLocality": "Coffs Harbour", "addressRegion": "NSW", "postalCode": "2450", "addressCountry": "AU"}, "sameAs": ["https://www.instagram.com/bfex.au/", "https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/", "https://www.youtube.com/@bonvilleforestry"]}</script>
+</head>
+<body>
+
+  <div class="site-bg" aria-hidden="true"></div>
+  <div class="page-frame" aria-hidden="true"></div>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="site-nav">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <a href="./"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
+          <ul class="nav-links">
+            <li><a href="services">Services</a></li>
+            <li class="nav-extra"><a href="forestry-mulching">Mulching</a></li>
+            <li class="nav-extra"><a href="gravel-driveways">Driveways</a></li>
+            <li><a href="gallery">Our work</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="nav-right">
+          <a href="tel:0448482321" class="nav-phone">
+            <span class="nav-call-label">Call Ben</span>
+            <span class="nav-call-num">0448 482 321</span>
+          </a>
+          <a href="contact#quote" class="btn-gold nav-btn">Get a fast quote</a>
+          <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <ul>
+        <li><a href="services">Services</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
+        <li><a href="gallery">Our work</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+      <div class="mobile-menu-foot">
+        <a href="tel:0448482321" class="mobile-menu-phone">0448 482 321</a>
+        <a href="contact#quote" class="btn-gold">Get a fast quote →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT: Amy edits below this line. Everything a reader sees, apart from the form at the bottom, lives between these two markers. -->
+
+  <!-- 1. Page header + grant status -->
+  <div class="page-header">
+    <div class="page-header-grid">
+      <div>
+        <span class="eyebrow">Recovery works</span>
+        <h1>Storm, flood or fire damage <em>on your property?</em></h1>
+      </div>
+      <div>
+        <p class="page-header-sub">A plain checklist of what got damaged, what that usually means on the ground, and who gives free help with any grant paperwork. For landholders on the Mid North Coast.</p>
+        <a href="#visit" class="link-gold">Ask for a site visit →</a>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    GRANT SWITCH. Today no NSW producer grant is open, so the data-grant-open attribute below is false and the closed line shows.
+    When a producer grant is declared for one of our local government areas:
+      1. change that attribute's value from false to true on the section below;
+      2. fill the five placeholders in #grant-open-block: {{PROGRAM}} {{AGRN}} {{MAX}} {{CLOSES}} {{LINK}}.
+    Nothing else changes. The style rules at the top of this file do the show / hide.
+  -->
+  <section class="recovery-status" id="grant-status" data-grant-open="false">
+    <div class="status-inner">
+      <span class="eyebrow eyebrow-green">Grant status</span>
+      <p class="status-line" id="grant-closed-text">Right now there is no NSW grant open for primary producers in our area. When one opens, this page will say so. Free help with any application: RFCS 1800 344 090 · RAA 1800 678 593.</p>
+      <div id="grant-open-block" hidden>
+        <p class="status-line"><strong>{{PROGRAM}}</strong> (AGRN {{AGRN}}) is open for primary producers in the declared local government areas. Grants of up to {{MAX}} per eligible producer. Applications close {{CLOSES}}. <a href="{{LINK}}" class="link-gold" rel="noopener">Program details and the application form →</a></p>
+        <p class="status-small">Eligibility is decided by the NSW Rural Assistance Authority, not by BFEx. Free help with the application: RFCS 1800 344 090 · RAA 1800 678 593.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. What got damaged? -> what that usually means on the ground -->
+  <section class="section section-tight" id="damage">
+    <span class="eyebrow eyebrow-green">Step 1</span>
+    <h2 class="sec-h2">What got <em>damaged?</em></h2>
+    <p class="sec-intro">Tick what applies. The list underneath narrows to what that usually means on the ground. Nothing is sent until you ask for a site visit at the bottom of the page.</p>
+    <div class="damage-grid" id="damage-grid">
+      <label class="damage-tick"><input type="checkbox" value="Fences" data-key="fences"> Fences</label>
+      <label class="damage-tick"><input type="checkbox" value="Tracks or roads" data-key="tracks"> Tracks or roads</label>
+      <label class="damage-tick"><input type="checkbox" value="Crossings or culverts" data-key="crossings"> Crossings or culverts</label>
+      <label class="damage-tick"><input type="checkbox" value="Dams" data-key="dams"> Dams</label>
+      <label class="damage-tick"><input type="checkbox" value="Fallen trees or debris" data-key="trees"> Fallen trees or debris</label>
+      <label class="damage-tick"><input type="checkbox" value="Sheds or structures" data-key="sheds"> Sheds or structures</label>
+      <label class="damage-tick"><input type="checkbox" value="Erosion or landslip" data-key="erosion"> Erosion or landslip</label>
+      <label class="damage-tick"><input type="checkbox" value="Other" data-key="other"> Other</label>
+    </div>
+
+    <h3 class="works-h3">What that usually means on the ground</h3>
+    <ul class="works-list" id="works-list">
+      <li data-key="trees"><strong>Fallen trees and debris</strong><span>Clear, stack or mulch, and cart away.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 e, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="fences"><strong>Fence lines</strong><span>Clear the line of trees and debris so the fencer can work; auger post holes if wanted.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 g, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="tracks"><strong>Tracks and farm roads</strong><span>Re-form, re-gravel, clear and reinstate the drains.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 g, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="crossings"><strong>Crossings and culverts</strong><span>Dig out blocked culverts, rebuild headwalls and crossing approaches.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 g, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="dams"><strong>Dams</strong><span>De-silt, repair the wall and the spillway.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 g, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="sheds"><strong>Sheds and structures</strong><span>Demolish what is beyond repair, break up concrete, cart away.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 e, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="erosion"><strong>Erosion and landslip</strong><span>Re-shape, drain and stabilise; push silt back off paddocks.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 i and g, AGRN 1212, closed 4 Dec 2025).</small></li>
+      <li data-key="other"><strong>Other</strong><span>Tell us in the form; wet hire of the excavator or tipper for general clean-up.</span><small class="works-note">Matches the eligible-cost wording of the last NSW producer grant (clause 4.1.3 a and d, AGRN 1212, closed 4 Dec 2025).</small></li>
+    </ul>
+    <p class="works-foot" id="works-foot" hidden>Showing the rows for what you ticked. Untick everything to see the full list.</p>
+  </section>
+
+  <!-- 3. Photos first -->
+  <section class="section" id="photos">
+    <span class="eyebrow eyebrow-green">Step 2</span>
+    <h2 class="sec-h2">Photos <em>first.</em></h2>
+    <p class="sec-intro">Before any machine starts, take dated photos of every damaged thing: the fence line, the washed-out crossing, the silted dam, the trees down. Past NSW grant applications have asked for photographic evidence of direct damage, and photos taken after the clean-up cannot show it.</p>
+    <ul class="plain-list">
+      <li>A wide shot and a close-up of each damaged item, with something in frame for scale.</li>
+      <li>Keep them together in one album on your phone, named for the event. The phone keeps the date on each photo.</li>
+      <li>Report the damage to the NSW Department of Primary Industries on its natural disaster damage survey: <a href="https://www.dpi.nsw.gov.au/dpi/biosecurity/emergency-management/primary-industries-natural-disaster-damage-survey" class="link-gold" target="_blank" rel="noopener">open the damage survey →</a></li>
+    </ul>
+  </section>
+
+  <!-- 4. Who helps with the paperwork -->
+  <section class="section" id="help">
+    <span class="eyebrow eyebrow-green">Step 3</span>
+    <h2 class="sec-h2">Who helps with <em>the paperwork.</em></h2>
+    <p class="sec-intro">BFEx does not fill in grant applications. These two services do, free of charge, for primary producers in NSW.</p>
+    <div class="help-grid">
+      <div class="help-card">
+        <div class="help-name">Rural Financial Counselling Service NSW, Northern Region</div>
+        <a class="help-phone" href="tel:1800344090">1800 344 090</a>
+        <p class="help-desc">Free and independent. Helps with accessing government assistance.</p>
+      </div>
+      <div class="help-card">
+        <div class="help-name">NSW Rural Assistance Authority</div>
+        <a class="help-phone" href="tel:1800678593">1800 678 593</a>
+        <p class="help-desc">Free call. The authority that runs NSW disaster assistance for producers; its staff help with lodging an application.</p>
+      </div>
+    </div>
+    <p class="help-foot">Not sure whether you count as a primary producer, or whether your insurance covers this? Ask either of them. The site visit below does not depend on the answer.</p>
+  </section>
+
+  <!-- /CONTENT -->
+
+  <!-- 5. Ask for a site visit -->
+  <section class="section" id="visit" style="border-top:1px solid var(--border)">
+    <div class="quote-grid">
+      <div>
+        <span class="eyebrow eyebrow-green">Ask for a site visit</span>
+        <h2 class="quote-h2">Tell us what<br><em>came down.</em></h2>
+        <p class="quote-lede">Fill in the form and Ben will call you back to arrange a time to walk the damage with you. No obligation. Ticks from the checklist above are carried into the form.</p>
+      </div>
+      <div class="form-panel">
+        <form id="recovery-form">
+          <input type="hidden" name="subject" value="Recovery works site visit">
+          <input type="hidden" name="form" value="recovery-works">
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="rname">Your name</label>
+              <input class="form-input" type="text" id="rname" name="name" placeholder="Your name" required="">
+            </div>
+            <div>
+              <label class="form-label" for="rphone">Phone</label>
+              <input class="form-input" type="tel" id="rphone" name="phone" placeholder="04xx xxx xxx" required="">
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="remail">Email <span class="form-opt">optional</span></label>
+              <input class="form-input" type="email" id="remail" name="email" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div>
+              <label class="form-label" for="rplace">Property address or nearest town</label>
+              <input class="form-input" type="text" id="rplace" name="property" placeholder="e.g. Bonville, or the road name" required="" autocomplete="address-level2">
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="rlga">Council area</label>
+              <select class="form-input form-select" id="rlga" name="lga" required="">
+                <option value="">Choose one</option>
+                <option value="Coffs Harbour">Coffs Harbour</option>
+                <option value="Bellingen">Bellingen</option>
+                <option value="Nambucca Valley">Nambucca Valley</option>
+                <option value="Kempsey">Kempsey</option>
+                <option value="Clarence Valley">Clarence Valley</option>
+                <option value="Port Macquarie-Hastings">Port Macquarie-Hastings</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="rwhen">When it happened</label>
+              <input class="form-input" type="text" id="rwhen" name="when" placeholder="e.g. the March storms">
+            </div>
+          </div>
+          <div class="form-group form-2col">
+            <div>
+              <label class="form-label" for="rinsured">Insured for this damage?</label>
+              <select class="form-input form-select" id="rinsured" name="insured">
+                <option value="">Choose one</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Not sure">Not sure</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="rproducer">Primary producer?</label>
+              <select class="form-input form-select" id="rproducer" name="primary_producer">
+                <option value="">Choose one</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Not sure">Not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="rdamage">What was damaged</label>
+            <input class="form-input" type="text" id="rdamage" name="damage" placeholder="Tick the boxes above, or type it here">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="rmsg">Anything else <span class="form-opt">optional</span></label>
+            <textarea class="form-textarea" id="rmsg" name="message" placeholder="Access, what is urgent, what is already cleaned up…"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="rwebsite">Leave this field empty</label>
+            <input type="text" id="rwebsite" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form-foot">
+            <button type="submit" class="btn-gold" id="recovery-submit">Ask for a site visit →</button>
+          </div>
+          <div id="recovery-status" class="form-status"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
+        <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
+        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · &#36;20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Services</div>
+        <ul class="footer-links">
+          <li><a href="forestry-mulching">Forestry mulching</a></li>
+          <li><a href="gravel-driveways">Gravel driveways</a></li>
+          <li><a href="services">Excavation</a></li>
+          <li><a href="services">Vegetation clearing</a></li>
+          <li><a href="services">Haulage &amp; tipper hire</a></li>
+          <li><a href="services">Firebreaks &amp; civil works</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Company</div>
+        <ul class="footer-links">
+          <li><a href="about">About BFEx</a></li>
+          <li><a href="about#licences">Insurance &amp; licences</a></li>
+          <li><a href="contact">Contact</a></li>
+          <li><a href="privacy">Privacy policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow footer-col-head">Get in touch</div>
+        <ul class="footer-links">
+          <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
+          <li><a href="contact#quote">Request a quote</a></li>
+          <li>Coffs Harbour, NSW 2450</li>
+        </ul>
+        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Bonville, Sawtell, Toormina, Boambee, Bellingen, Urunga, Nambucca Heads, Woolgoolga and Dorrigo.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Bonville Forestry and Excavations Pty Ltd · ABN 83 654 611 364</div>
+      <ul class="footer-social" aria-label="BFEx on social media">
+        <li><a href="https://www.instagram.com/bfex.au/" target="_blank" rel="me noopener" aria-label="BFEx on Instagram" data-social="instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
+        <li><a href="https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/" target="_blank" rel="me noopener" aria-label="BFEx on Facebook" data-social="facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.45-.13-2.43 0-4.1 1.48-4.1 4.2v2.34H7.44V13h2.71v8h3.35z"/></svg></a></li>
+        <li><a href="https://www.youtube.com/@bonvilleforestry" target="_blank" rel="me noopener" aria-label="BFEx on YouTube" data-social="youtube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3-5.2 3z"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Mobile call bar — one thumb-move away -->
+  <div class="call-bar" id="call-bar" aria-hidden="true">
+    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
+    <a href="contact#quote" class="call-bar-quote">Get a fast quote</a>
+  </div>
+
+  <script>
+    const hdr = document.getElementById('site-header');
+    window.addEventListener('scroll', () => { hdr.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+    });
+
+    /* Mobile call bar — hide once the footer (with its own contact links) is on screen */
+    const callBar = document.getElementById('call-bar');
+    const footerEl = document.querySelector('footer');
+    if ('IntersectionObserver' in window && callBar && footerEl) {
+      new IntersectionObserver((entries) => {
+        callBar.classList.toggle('call-bar-hidden', entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(footerEl);
+    }
+
+    /* Damage checklist: filters the works list and pre-fills the form's "What was damaged" field.
+       Without script the full works list shows and the form still works. */
+    (function () {
+      var ticks = document.querySelectorAll('#damage-grid input[type="checkbox"]');
+      var rows = document.querySelectorAll('#works-list li');
+      var foot = document.getElementById('works-foot');
+      var damageField = document.getElementById('rdamage');
+      var typedByHand = false;
+      function sync() {
+        var keys = [], labels = [];
+        ticks.forEach(function (t) { if (t.checked) { keys.push(t.getAttribute('data-key')); labels.push(t.value); } });
+        rows.forEach(function (li) { li.hidden = keys.length > 0 && keys.indexOf(li.getAttribute('data-key')) === -1; });
+        foot.hidden = keys.length === 0;
+        if (damageField && !typedByHand) damageField.value = labels.join(', ');
+      }
+      ticks.forEach(function (t) { t.addEventListener('change', sync); });
+      if (damageField) damageField.addEventListener('input', function () { typedByHand = damageField.value.length > 0; });
+      sync();
+    })();
+
+    /* Site-visit form: same endpoint and the same success / error pattern as the contact page. */
+    document.getElementById('recovery-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = this;
+      const btn = document.getElementById('recovery-submit');
+      const status = document.getElementById('recovery-status');
+      const trap = document.getElementById('rwebsite');
+      if (trap && trap.value) { status.textContent = 'Thanks. Ben will call you back.'; status.className = 'form-status form-status-ok'; return; }
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'form-status';
+      try {
+        const r = await fetch('https://formspree.io/f/mkoyygbv', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        const json = await r.json();
+        if (r.ok) {
+          status.textContent = 'Thanks. Ben will call you back to arrange the visit.';
+          status.className = 'form-status form-status-ok';
+          form.reset();
+          if (window.bfexTrack) bfexTrack('recovery_form_submit', { page_path: location.pathname });
+        } else {
+          throw new Error(json.error || 'Submission failed');
+        }
+      } catch (err) {
+        status.textContent = 'Something went wrong — please call us on 0448 482 321 or email info@bfex.com.au.';
+        status.className = 'form-status form-status-err';
+        if (window.bfexTrack) bfexTrack('recovery_form_error', { page_path: location.pathname, reason: String(err && err.message || err).slice(0, 80) });
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Ask for a site visit →';
+      }
+    });
+  </script>
+
+</body></html>
