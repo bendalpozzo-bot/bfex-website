@@ -1,0 +1,23 @@
+
+/* 1. Service cards -> compact 2-column tiles on phones (same links, names, one-line descriptions) */
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 22px 14px; }
+  .services-grid .svc-photo-thumb { margin-bottom: 0; border-radius: 3px; }
+  .services-grid .svc-photo-thumb-icon svg { width: 40px; height: 40px; }
+  .services-grid .svc-card h3 { font-size: 17px; line-height: 1.2; margin-top: 9px; }
+  .services-grid .svc-card p { font-size: 13px; line-height: 1.45; margin-top: 4px; }
+  .sec-intro:has(+ .services-grid) { margin-bottom: 24px; }
+}
+
+/* 2. Quote form: the three required fields shown; every other existing field one tap away in a closed box */
+.mk-more { border-top: 1px solid var(--border); margin-top: 4px; }
+.mk-more > summary { list-style: none; cursor: pointer; padding: 16px 0; font-size: 15px; font-weight: 600; color: var(--cream); }
+.mk-more > summary::-webkit-details-marker { display: none; }
+.mk-more > summary::before { content: '+'; color: var(--gold); font-weight: 700; margin-right: 12px; }
+.mk-more[open] > summary::before { content: '–'; }
+.mk-more[open] > summary { margin-bottom: 8px; }
+#form-submit[disabled] { cursor: not-allowed; }
+@media (max-width: 768px) { .quote-grid { gap: 32px; } } /* the two quote columns stack on phones; 80 px gap -> 32 px (spacing only) */
+
+/* 3. "Ben runs the machine" block without its photo (same picture as the Haulage & tipper hire tile) */
+.operator-grid { grid-template-columns: 1fr; }

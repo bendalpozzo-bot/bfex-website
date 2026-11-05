@@ -18,6 +18,10 @@
   <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="canonical" href="https://bfex.com.au/about">
   <link rel="stylesheet" href="css/style.css?v=20261007">
+  <link rel="stylesheet" href="css/mockup.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-bold.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-twojobs.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-v5.css?v=20261106">
   <style>
     .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
     .form-status-ok{color:#8fdcae}
@@ -38,8 +42,8 @@
           <a href="./"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services">Services</a></li>
-            <li class="nav-extra"><a href="forestry-mulching">Mulching</a></li>
-            <li class="nav-extra"><a href="gravel-driveways">Driveways</a></li>
+            <li class="nav-extra"><a href="forestry-mulching">Forestry mulching</a></li>
+            <li class="nav-extra"><a href="gravel-driveways">Gravel driveways</a></li>
             <li class="nav-extra"><a href="ac-units">Air conditioner recycling</a></li>
             <li><a href="gallery">Our work</a></li>
             <li><a href="about" class="active">About</a></li>
@@ -53,18 +57,28 @@
           </a>
           <a href="#quote" class="btn-gold nav-btn">Get a fast quote</a>
           <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
-          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
+          <button class="nav-hamburger mk-menu-btn" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><i class="mk-burger" aria-hidden="true"><b></b><b></b><b></b></i>Menu</button>
         </div>
       </div>
     </nav>
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services">Services</a></li>
-        <li><a href="forestry-mulching">Forestry mulching</a></li>
-        <li><a href="gravel-driveways">Gravel driveways</a></li>
-        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-menu-head">Forestry</li>
+        <li class="mk-sub"><a href="vegetation-management">Vegetation clearing</a></li>
+        <li class="mk-sub"><a href="forestry-mulching">Forestry mulching</a></li>
+        <li class="mk-sub"><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+        <li class="mk-menu-head">Excavations</li>
+        <li class="mk-sub"><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li class="mk-sub"><a href="civil-earthworks">Civil earthworks</a></li>
+        <li class="mk-sub"><a href="services#haulage">Haulage</a></li>
+        <li class="mk-sub"><a href="gravel-driveways">Gravel driveways</a></li>
+        <li class="mk-sub"><a href="demolition">Demolition</a></li>
+        <li class="mk-sub"><a href="augering">Augering</a></li>
+        <li class="mk-sub"><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li class="mk-sub"><a href="driveway-removal">Driveway removal</a></li>
+        <li class="mk-sub mk-side-first"><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-sub"><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
         <li><a href="gallery">Our work</a></li>
         <li><a href="about" class="active">About</a></li>
         <li><a href="contact">Contact</a></li>
@@ -75,6 +89,10 @@
       </div>
     </div>
   </header>
+
+  <nav class="mk-quicknav" aria-label="Main">
+    <a href="services">Services</a><a href="gallery">Our work</a><a href="about" class="active">About</a><a href="contact">Contact</a>
+  </nav>
 
   <!-- Page header -->
   <div class="page-header">
@@ -101,7 +119,8 @@
         </div>
       </div>
       <div>
-        <div class="about-photo" data-slot="about-machine" style="background-image:url('images/about-machine.jpg');background-size:cover;background-position:center">
+        <div class="about-photo mk-about-wrap">
+          <img class="mk-about-img" src="images/about-machine.jpg" srcset="images/about-machine-700.jpg 700w, images/about-machine.jpg 2048w" sizes="(max-width: 1024px) calc(100vw - 32px), 40vw" width="700" height="525" loading="lazy" alt="BFEx Hino tipper towing a Beavertail float loaded with the Mecalac 6MCR excavator and buckets">
           <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.35);padding-top:6px;color:rgba(255,255,255,0.75)">Mecalac 6MCR · on the beavertail</span>
         </div>
         <div class="about-stats">
@@ -119,7 +138,7 @@
       <span class="eyebrow eyebrow-muted">On site</span>
       <h2 class="sec-h2" style="margin-top:12px;font-size:clamp(24px,2.5vw,42px)">The gear · <em>ready to roll.</em></h2>
       <div style="margin-top:32px;border-radius:4px;overflow:hidden;aspect-ratio:16/9;background:#000">
-        <img src="images/about-machine.jpg" alt="BFEx Hino tipper towing a Beavertail float loaded with the Mecalac 6MCR excavator and buckets" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        <img src="images/about-machine.jpg" srcset="images/about-machine-700.jpg 700w, images/about-machine.jpg 2048w" sizes="(max-width: 940px) calc(100vw - 32px), 900px" width="700" height="525" alt="BFEx Hino tipper towing a Beavertail float loaded with the Mecalac 6MCR excavator and buckets" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
       </div>
       <p style="margin-top:14px;font-size:12px;color:var(--muted);letter-spacing:0.06em;font-family:var(--font-mono)">MECALAC 6MCR · HINO TIPPER · BEAVERTAIL FLOAT</p>
     </div>
@@ -131,12 +150,12 @@
     <h2 class="sec-h2" style="margin-top:12px;font-size:clamp(28px,3vw,48px)">Two machines. <em>Most jobs.</em></h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:36px">
       <div>
-        <img loading="lazy" src="images/card-mulching.jpg" alt="Mecalac 6MCR compact crawler excavator" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
+        <img loading="lazy" src="images/card-mulching.jpg" srcset="images/card-mulching-700.jpg 700w, images/card-mulching.jpg 1200w" sizes="(max-width: 640px) calc(100vw - 32px), 45vw" width="700" height="525" alt="Mecalac 6MCR compact crawler excavator" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
         <h3 style="margin-top:16px;font-size:20px">Mecalac 6MCR</h3>
         <p style="margin-top:8px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7)">Compact crawler excavator. Digs, grades, loads and runs the FAE mulcher head. One machine, many trades.</p>
       </div>
       <div>
-        <img loading="lazy" src="images/card-haulage.jpg" alt="Hino 700 tipper truck with beavertail trailer" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
+        <img loading="lazy" src="images/card-haulage.jpg" srcset="images/card-haulage-700.jpg 700w, images/card-haulage.jpg 1200w" sizes="(max-width: 640px) calc(100vw - 32px), 45vw" width="700" height="525" alt="Hino 700 tipper truck with beavertail trailer" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block">
         <h3 style="margin-top:16px;font-size:20px">Hino 700</h3>
         <p style="margin-top:8px;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.7)">Tipper truck with beavertail trailer. Carts spoil out, brings gravel in, and moves the machine between jobs.</p>
       </div>
@@ -180,17 +199,6 @@
       <div class="form-panel">
         <form id="quote-form">
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="form-group">
-            <label class="form-label">What do you need?</label>
-            <div class="chips">
-              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation</label>
-              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Veg clearing</label>
-              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Mulching</label>
-              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
-              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks</label>
-              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil works</label>
-            </div>
-          </div>
           <div class="form-group form-2col">
             <div>
               <label class="form-label" for="fname">Your name</label>
@@ -201,11 +209,26 @@
               <input class="form-input" type="tel" id="fphone" name="phone" placeholder="04xx xxx xxx" required="">
             </div>
           </div>
-          <div class="form-group form-2col">
+          <div class="form-group">
             <div>
               <label class="form-label" for="fsuburb">Job suburb</label>
               <input class="form-input" type="text" id="fsuburb" name="suburb" placeholder="e.g. Bonville" required="" autocomplete="address-level2">
             </div>
+          </div>
+          <details class="mk-more">
+            <summary>Add more details (optional)</summary>
+          <div class="form-group">
+            <label class="form-label">What do you need?</label>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation &amp; earthmoving</label>
+              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Vegetation clearing</label>
+              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Forestry mulching</label>
+              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
+              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks &amp; hazard reduction</label>
+              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil earthworks</label>
+            </div>
+          </div>
+          <div class="form-group">
             <div>
               <label class="form-label" for="ftiming">Timing</label>
               <select class="form-input form-select" id="ftiming" name="timing">
@@ -231,6 +254,7 @@
             <label class="form-label" for="fmsg">What needs doing? <span class="form-opt">optional</span></label>
             <textarea class="form-textarea" id="fmsg" name="message" placeholder="Anything else we should know…"></textarea>
           </div>
+          </details>
           <div class="form-foot">
             <button type="submit" class="btn-gold" id="form-submit">Get my quote →</button>
           </div>
@@ -249,68 +273,53 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
-        <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
-        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Services</div>
-        <ul class="footer-links">
-          <li><a href="excavation">Excavation</a></li>
-          <li><a href="vegetation-management">Vegetation management</a></li>
-          <li><a href="forestry-mulching">Forestry mulching</a></li>
-          <li><a href="civil-earthworks">Civil earthworks</a></li>
-          <li><a href="gravel-driveways">Gravel driveways</a></li>
-          <li><a href="demolition">Demolition</a></li>
-          <li><a href="augering">Augering</a></li>
-          <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
-          <li><a href="driveway-removal">Driveway removal</a></li>
-          <li><a href="services#haulage">Haulage &amp; tipper hire</a></li>
-          <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
-          <li><a href="ac-units">Air conditioner recycling</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Company</div>
-        <ul class="footer-links">
+  <footer class="mk-footer">
+    <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
+    <div class="eyebrow footer-col-head">Services</div>
+    <div class="mk-fgroup">Forestry</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="vegetation-management">Vegetation clearing</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+    </ul>
+    <div class="mk-fgroup">Excavations</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li><a href="civil-earthworks">Civil earthworks</a></li>
+        <li><a href="services#haulage">Haulage</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
+        <li><a href="demolition">Demolition</a></li>
+        <li><a href="augering">Augering</a></li>
+        <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li><a href="driveway-removal">Driveway removal</a></li>
+    </ul>
+    <ul class="footer-links mk-flinks mk-fside">
+        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
+    </ul>
+    <div class="eyebrow footer-col-head">Company</div>
+    <ul class="footer-links mk-flinks">
           <li><a href="about">About BFEx</a></li>
           <li><a href="about#licences">Insurance &amp; licences</a></li>
           <li><a href="contact">Contact</a></li>
           <li><a href="privacy">Privacy policy</a></li>
         </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Get in touch</div>
-        <ul class="footer-links">
-          <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
-          <li><a href="#quote">Request a quote</a></li>
-          <li>Coffs Harbour, NSW 2450</li>
-        </ul>
-        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Boambee, Sawtell, Toormina, Bonville, Coramba, Nana Glen, Woolgoolga, Corindi Beach, Red Rock, Grafton, Bellingen, Urunga, Dorrigo, Nambucca Heads, Macksville, Kempsey and South West Rocks.</p>
-      </div>
-    </div>
+    <p class="footer-blurb">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a><br>Coffs Harbour, NSW 2450</p>
     <div class="footer-bottom">
       <div>© 2026 Bonville Forestry and Excavations Pty Ltd · ABN 83 654 611 364</div>
       <ul class="footer-social" aria-label="BFEx on social media">
-        <li><a href="https://www.instagram.com/bfex.au/" target="_blank" rel="me noopener" aria-label="BFEx on Instagram" data-social="instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
-        <li><a href="https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/" target="_blank" rel="me noopener" aria-label="BFEx on Facebook" data-social="facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.45-.13-2.43 0-4.1 1.48-4.1 4.2v2.34H7.44V13h2.71v8h3.35z"/></svg></a></li>
-        <li><a href="https://www.youtube.com/@bonvilleforestry" target="_blank" rel="me noopener" aria-label="BFEx on YouTube" data-social="youtube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3-5.2 3z"/></svg></a></li>
+        <li><a href="https://www.instagram.com/bfex.au/" target="_blank" rel="me noopener" aria-label="BFEx on Instagram" data-social="instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"></circle></svg></a></li>
+        <li><a href="https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/" target="_blank" rel="me noopener" aria-label="BFEx on Facebook" data-social="facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.45-.13-2.43 0-4.1 1.48-4.1 4.2v2.34H7.44V13h2.71v8h3.35z"></path></svg></a></li>
+        <li><a href="https://www.youtube.com/@bonvilleforestry" target="_blank" rel="me noopener" aria-label="BFEx on YouTube" data-social="youtube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3-5.2 3z"></path></svg></a></li>
       </ul>
     </div>
   </footer>
 
-  <!-- Mobile call bar — one thumb-move away -->
-  <div class="call-bar" id="call-bar" aria-hidden="true">
-    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
-    <a href="#quote" class="call-bar-quote">Get a fast quote</a>
-  </div>
-
   <script>
-    /* Quote form — AJAX submission */
+    var hdr=document.getElementById('site-header');
+    window.addEventListener('scroll',function(){hdr.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+    var h=document.getElementById('nav-hamburger'),m=document.getElementById('mobile-menu');
+    h.addEventListener('click',function(){var o=h.classList.toggle('open');m.classList.toggle('open',o);h.setAttribute('aria-expanded',o);m.setAttribute('aria-hidden',!o);});
     document.getElementById('quote-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = this;
@@ -343,28 +352,6 @@
       btn.disabled = false;
       btn.textContent = 'Get my quote →';
     });
-
-    const hdr = document.getElementById('site-header');
-    window.addEventListener('scroll', () => { hdr.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
-    const hamburger = document.getElementById('nav-hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      const open = hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-      mobileMenu.setAttribute('aria-hidden', !open);
-    });
-
-    /* Mobile call bar — hide while the quote form (its own call path) is on screen */
-    const callBar = document.getElementById('call-bar');
-    const quoteSec = document.getElementById('quote');
-    if ('IntersectionObserver' in window && callBar && quoteSec) {
-      new IntersectionObserver((entries) => {
-        callBar.classList.toggle('call-bar-hidden', entries[0].isIntersecting);
-      }, { threshold: 0.15 }).observe(quoteSec);
-    }
   </script>
-
-  <script src="js/carousel.js" defer></script>
 </body>
 </html>

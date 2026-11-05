@@ -1,0 +1,40 @@
+
+/* 1. Hero: business name as H1, the what-and-where line under it */
+.mk-hero h1 { font-size: clamp(40px, 4.6vw, 70px); line-height: 1.05; }
+.mk-hero .mk-lede { margin-top: 18px; font-size: 18px; max-width: 560px; }
+.mk-hero .mk-slogan { margin-top: 12px; font-size: 22px; }
+
+/* 2. Two job tiles; the services as a short wrapped list of links (body-size text, tap height >= 38 px) */
+.mk-jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 40px; }
+.mk-job { cursor: default; }
+.mk-job .svc-photo-thumb { margin-bottom: 14px; }
+.mk-job h3 { font-size: 30px; line-height: 1.1; margin-top: 0; }
+.mk-terms { list-style: none; display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 6px; }
+.mk-terms a {
+  display: inline-block; padding: 7px 0; font-size: 16px; line-height: 1.5;
+  color: rgba(247,246,240,0.9); border-bottom: 1px solid rgba(255,199,0,0.5);
+}
+.mk-terms a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.mk-sideline { margin-top: 22px; font-size: 14px; color: rgba(247,246,240,0.68); }
+.mk-sideline .link-gold { margin-right: 10px; }
+.mk-sideline span { white-space: nowrap; }
+
+/* 3. Menu drawer: grouped, scrolls if taller than the screen */
+.mobile-menu { max-height: calc(100vh - 72px); overflow-y: auto; }
+.mobile-menu ul li.mk-menu-head {
+  padding: 18px 0 2px; font-family: var(--font-body); font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 600; color: var(--gold);
+}
+.mobile-menu ul li.mk-sub a { font-family: var(--font-body); font-size: 17px; padding: 9px 0; }
+.mobile-menu ul li.mk-side-first { margin-top: 14px; }
+
+/* 4. Footer: group labels */
+.mk-fgroup { margin: 12px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); }
+.mk-fside { margin-top: 14px; }
+
+@media (max-width: 768px) {
+  .mk-jobs { grid-template-columns: 1fr; gap: 34px; }
+  .mk-hero h1 { font-size: 36px; line-height: 1.08; }
+  .mk-hero .mk-lede { font-size: 16px; margin-top: 14px; }
+  .mk-hero .mk-slogan { font-size: 19px; margin-top: 10px; }
+}

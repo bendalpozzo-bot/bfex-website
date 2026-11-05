@@ -15,9 +15,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://bfex.com.au/images/og-image.png">
   <link rel="canonical" href="https://bfex.com.au/">
-  <link rel="preload" as="image" href="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg" fetchpriority="high"><!-- first hero photo: load early (mobile LCP); update if the hero rotation changes -->
+  <link rel="preload" as="image" href="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001-hero-phone.jpg" media="(max-width: 480px)" fetchpriority="high"><link rel="preload" as="image" href="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg" media="(min-width: 481px)" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css?v=20261007">
   <link rel="stylesheet" href="css/gallery.css?v=20260923">
+  <link rel="stylesheet" href="css/mockup.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-bold.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-twojobs.css?v=20261106">
   <style>
     .form-status{margin-top:16px;font-size:15px;line-height:1.5;min-height:20px}
     .form-status-ok{color:#8fdcae}
@@ -41,8 +44,8 @@
           <a href="./"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services">Services</a></li>
-            <li class="nav-extra"><a href="forestry-mulching">Mulching</a></li>
-            <li class="nav-extra"><a href="gravel-driveways">Driveways</a></li>
+            <li class="nav-extra"><a href="forestry-mulching">Forestry mulching</a></li>
+            <li class="nav-extra"><a href="gravel-driveways">Gravel driveways</a></li>
             <li class="nav-extra"><a href="ac-units">Air conditioner recycling</a></li>
             <li><a href="gallery">Our work</a></li>
             <li><a href="about">About</a></li>
@@ -56,18 +59,28 @@
           </a>
           <a href="#quote" class="btn-gold nav-btn">Get a fast quote</a>
           <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
-          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
+          <button class="nav-hamburger mk-menu-btn" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><i class="mk-burger" aria-hidden="true"><b></b><b></b><b></b></i>Menu</button>
         </div>
       </div>
     </nav>
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services">Services</a></li>
-        <li><a href="forestry-mulching">Forestry mulching</a></li>
-        <li><a href="gravel-driveways">Gravel driveways</a></li>
-        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-menu-head">Forestry</li>
+        <li class="mk-sub"><a href="vegetation-management">Vegetation clearing</a></li>
+        <li class="mk-sub"><a href="forestry-mulching">Forestry mulching</a></li>
+        <li class="mk-sub"><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+        <li class="mk-menu-head">Excavations</li>
+        <li class="mk-sub"><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li class="mk-sub"><a href="civil-earthworks">Civil earthworks</a></li>
+        <li class="mk-sub"><a href="services#haulage">Haulage</a></li>
+        <li class="mk-sub"><a href="gravel-driveways">Gravel driveways</a></li>
+        <li class="mk-sub"><a href="demolition">Demolition</a></li>
+        <li class="mk-sub"><a href="augering">Augering</a></li>
+        <li class="mk-sub"><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li class="mk-sub"><a href="driveway-removal">Driveway removal</a></li>
+        <li class="mk-sub mk-side-first"><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-sub"><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
         <li><a href="gallery">Our work</a></li>
         <li><a href="about">About</a></li>
         <li><a href="contact">Contact</a></li>
@@ -79,19 +92,26 @@
     </div>
   </header>
 
+  <nav class="mk-quicknav" aria-label="Main">
+    <a href="services">Services</a><a href="gallery">Our work</a><a href="about">About</a><a href="contact">Contact</a>
+  </nav>
+
   <!-- Hero — one message, one action -->
-  <section class="hero">
-    <div class="hero-bg" data-slot="hero" style="background-image: url(&quot;images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg&quot;); overflow: hidden;"></div>
+  <section class="hero mk-hero">
+    <picture>
+      <source media="(max-width: 480px)" srcset="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001-hero-phone.jpg">
+      <img class="hero-img" src="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg" alt="" fetchpriority="high" width="1400" height="1050">
+    </picture>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>We clear,<br>we cut,<br>we <em>cart it away.</em></h1>
-      <p class="hero-lede">Owner-operated earthmoving, clearing and haulage on the Coffs Coast. Insured, licensed, fast quotes.</p>
+      <h1>Bonville <em>Forestry and Excavations</em></h1>
+      <p class="hero-lede mk-lede">Owner-operated earthmoving, clearing and haulage on the Coffs Coast.</p>
+      <p class="mk-slogan">We clear, we cut, we <em>cart it away.</em></p>
       <div class="hero-ctas">
         <a href="#quote" class="btn-gold">Get a fast quote →</a>
-        <a href="tel:0448482321" class="hero-phone">or call 0448 482 321</a>
+        <a href="tel:0448482321" class="btn-ghost">Call 0448 482 321</a>
       </div>
     </div>
-    <!-- Trust strip — the ONLY trust band on the page -->
     <div class="stat-ribbon">
       <div class="stat-cell"><div class="stat-num">493682C</div><div class="stat-lbl">NSW contractor's licence</div></div>
       <div class="stat-cell"><div class="stat-num">A$20M</div><div class="stat-lbl">Public liability insured</div></div>
@@ -100,49 +120,37 @@
     </div>
   </section>
 
-  <!-- Services — six doorways, one grammar -->
   <section class="section section-dark">
     <span class="eyebrow">What we do</span>
-    <h2 class="sec-h2" style="margin-bottom:14px">Six trades. <em>Any scale.</em></h2>
+    <h2 class="sec-h2" style="margin-bottom:14px">What we do.</h2>
     <p class="sec-intro">Every job is one phone number, one invoice, one point of contact.</p>
-    <div class="services-grid">
-      <a class="svc-card" href="excavation">
-        <div class="svc-photo-thumb" style="background-image:url('images/bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg')" role="img" aria-label="Mecalac 6MCR on a freshly stripped house pad, Yarraman Rd"></div>
-        <h3>Excavation &amp; earthmoving <span class="svc-go">→</span></h3>
-        <p>Pads, dams, trenching and bulk earthworks.</p>
-      </a>
-      <a class="svc-card" href="vegetation-management">
-        <div class="svc-photo-thumb" style="background-image:url('images/card-clearing.jpg')" role="img" aria-label="CASE 850M dozer on freshly cleared hillside, North Boambee Rd Coffs Harbour"></div>
-        <h3>Vegetation clearing <span class="svc-go">→</span></h3>
-        <p>Selective clearing under NSW PVP and 10/50 rules.</p>
-      </a>
-      <a class="svc-card" href="forestry-mulching">
-        <div class="svc-photo-thumb" style="background-image:url('images/card-mulching.jpg')" role="img" aria-label="Mecalac 6MCR with mulcher head slashing a dam bank, North Boambee Rd"></div>
-        <h3>Mulching &amp; slashing <span class="svc-go">→</span></h3>
-        <p>FAE forestry mulching, no burn pile, no cartage.</p>
-      </a>
-      <a class="svc-card" href="services">
-        <div class="svc-photo-thumb" style="background-image:url('images/card-haulage.jpg')" role="img" aria-label="Hino tipper and beavertail trailer loaded with the Mecalac 6MCR"></div>
-        <h3>Haulage &amp; tipper hire <span class="svc-go">→</span></h3>
-        <p>Spoil out, gravel and materials in.</p>
-      </a>
-      <a class="svc-card" href="services">
-        <div class="svc-photo-thumb" style="background-image:url('images/card-firebreaks.jpg')" role="img" aria-label="Cleared firebreak track along a pine forest edge with new fencing"></div>
-        <h3>Firebreaks &amp; hazard reduction&nbsp;<span class="svc-go">→</span></h3>
-        <p>RFS-compliant firebreaks and asset-protection zones.</p>
-      </a>
-      <a class="svc-card" href="gravel-driveways">
-        <div class="svc-photo-thumb" style="background-image:url('images/card-driveways.jpg')" role="img" aria-label="Mecalac 6MCR spreading blue-metal gravel on a tree-lined driveway, Yarraman Rd Bonville"></div>
-        <h3>Gravel driveways &amp; civil <span class="svc-go">→</span></h3>
-        <p>Driveways, culverts, drainage and site works.</p>
-      </a>
-      <a class="svc-card" href="ac-units">
-        <div class="svc-photo-thumb svc-photo-thumb-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M 18.6 2.8v4.4h-4.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Air conditioner recycling <span class="svc-go">→</span></h3>
-        <p>Sydney to Coffs Harbour</p>
-      </a>
+    <div class="mk-jobs">
+      <div class="svc-card mk-job">
+        <img class="svc-photo-thumb" src="images/card-mulching.jpg" srcset="images/card-mulching-700.jpg 700w, images/card-mulching.jpg 1200w" sizes="(max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 45vw, 40vw" width="700" height="525" loading="lazy" alt="Mecalac 6MCR with mulcher head slashing a dam bank, North Boambee Rd">
+        <h3>Forestry</h3>
+        <ul class="mk-terms">
+        <li><a href="vegetation-management">Vegetation clearing</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+        </ul>
+      </div>
+      <div class="svc-card mk-job">
+        <img class="svc-photo-thumb" src="images/bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg" srcset="images/bfex-excavation-yarraman-road-coffs-harbour-in-progress-004-700.jpg 700w, images/bfex-excavation-yarraman-road-coffs-harbour-in-progress-004.jpeg 1400w" sizes="(max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 45vw, 40vw" width="700" height="525" loading="lazy" alt="Mecalac 6MCR on a freshly stripped house pad, Yarraman Rd">
+        <h3>Excavations</h3>
+        <ul class="mk-terms">
+        <li><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li><a href="civil-earthworks">Civil earthworks</a></li>
+        <li><a href="services#haulage">Haulage</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
+        <li><a href="demolition">Demolition</a></li>
+        <li><a href="augering">Augering</a></li>
+        <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li><a href="driveway-removal">Driveway removal</a></li>
+        </ul>
+      </div>
     </div>
-    <p style="margin-top:28px"><a href="recovery-works" class="link-gold">Storm, flood or fire damage? See the recovery works page →</a></p>
+    <p class="mk-sideline"><a href="ac-units" class="link-gold">Air conditioner recycling →</a> <span>Sydney to Coffs Harbour</span></p>
+    <p class="mk-sideline"><a href="recovery-works" class="link-gold">Storm, flood or fire damage? See the recovery works page →</a></p>
   </section>
 
   <!-- Recent jobs — proof by photograph -->
@@ -151,12 +159,12 @@
     <h2 class="sec-h2" style="margin-bottom:14px">Real jobs. <em>Real ground.</em></h2>
     <p class="sec-intro">Every photo is a BFEx job — no stock, no filler.</p>
     <div class="work-teaser work-teaser-6">
-      <a href="gallery"><img loading="lazy" src="images/work-stump-roselands.jpg" alt="Mecalac excavator lifting a large root ball, stump removal at Roselands Dr Coffs Harbour"><span class="work-cap">Stump removal — Roselands Dr, Coffs</span></a>
-      <a href="gallery"><img loading="lazy" src="images/work-siteclear-dillon.jpg" alt="Mecalac 6MCR chain-lifting salvaged timber during a site clear at Dillon St Sawtell"><span class="work-cap">Site clearing — Dillon St, Sawtell</span></a>
-      <a href="gallery"><img loading="lazy" src="images/work-trench-coramba.jpg" alt="Excavator digging a drainage trench beside a farm driveway, Coramba Rd Coffs Harbour"><span class="work-cap">Drainage trench — Coramba Rd, Coffs</span></a>
-      <a href="gallery"><img loading="lazy" src="images/work-driveway-oldcoast.jpg" alt="Ground-stabilisation grid laid over a new gravel driveway, Old Coast Rd, Bellingen Shire"><span class="work-cap">All-weather driveway — Old Coast Rd, Bellingen Shire</span></a>
-      <a href="gallery"><img loading="lazy" src="images/work-pad-yarraman.jpg" alt="Mecalac 6MCR on a freshly stripped house pad with valley views, Yarraman Rd Bonville"><span class="work-cap">House pad cut — Yarraman Rd, Bonville</span></a>
-      <a href="gallery"><img loading="lazy" src="images/work-gravel-yarraman.jpg" alt="Mecalac 6MCR spreading gravel base on a driveway, Yarraman Rd Bonville"><span class="work-cap">Gravel base — Yarraman Rd, Bonville</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-stump-roselands.jpg" srcset="images/work-stump-roselands-700.jpg 700w, images/work-stump-roselands.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Mecalac excavator lifting a large root ball, stump removal at Roselands Dr Coffs Harbour"><span class="work-cap">Stump removal — Roselands Dr, Coffs</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-siteclear-dillon.jpg" srcset="images/work-siteclear-dillon-700.jpg 700w, images/work-siteclear-dillon.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Mecalac 6MCR chain-lifting salvaged timber during a site clear at Dillon St Sawtell"><span class="work-cap">Site clearing — Dillon St, Sawtell</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-trench-coramba.jpg" srcset="images/work-trench-coramba-700.jpg 700w, images/work-trench-coramba.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Excavator digging a drainage trench beside a farm driveway, Coramba Rd Coffs Harbour"><span class="work-cap">Drainage trench — Coramba Rd, Coffs</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-driveway-oldcoast.jpg" srcset="images/work-driveway-oldcoast-700.jpg 700w, images/work-driveway-oldcoast.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Ground-stabilisation grid laid over a new gravel driveway, Old Coast Rd, Bellingen Shire"><span class="work-cap">All-weather driveway — Old Coast Rd, Bellingen Shire</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-pad-yarraman.jpg" srcset="images/work-pad-yarraman-700.jpg 700w, images/work-pad-yarraman.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Mecalac 6MCR on a freshly stripped house pad with valley views, Yarraman Rd Bonville"><span class="work-cap">House pad cut — Yarraman Rd, Bonville</span></a>
+      <a href="gallery"><img loading="lazy" src="images/work-gravel-yarraman.jpg" srcset="images/work-gravel-yarraman-700.jpg 700w, images/work-gravel-yarraman.jpg 1400w" sizes="(max-width: 900px) 50vw, 25vw" width="700" height="525" alt="Mecalac 6MCR spreading gravel base on a driveway, Yarraman Rd Bonville"><span class="work-cap">Gravel base — Yarraman Rd, Bonville</span></a>
     </div>
     <a href="gallery" class="link-gold" style="display:inline-block;margin-top:28px">See more of our work →</a>
   </section>
@@ -164,7 +172,6 @@
   <!-- The operator + where we work -->
   <section class="section section-green">
     <div class="operator-grid">
-      <div class="operator-photo" data-slot="about-machine" style="background-image: url(&quot;images/about-machine.jpg&quot;); position: relative; overflow: hidden;"></div>
       <div>
         <span class="eyebrow">Who you're dealing with</span>
         <h2 class="sec-h2" style="font-size:clamp(30px,3.2vw,48px)">Ben runs the machine.<br><em>And answers the phone.</em></h2>
@@ -174,7 +181,6 @@
     </div>
   </section>
 
-  <!-- Quote form — the page ends here -->
   <section class="section section-cream" id="quote">
     <div class="quote-grid">
       <div>
@@ -190,17 +196,6 @@
       <div class="form-panel">
         <form id="quote-form">
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="form-group">
-            <label class="form-label">What do you need?</label>
-            <div class="chips">
-              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation</label>
-              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Veg clearing</label>
-              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Mulching</label>
-              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
-              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks</label>
-              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil works</label>
-            </div>
-          </div>
           <div class="form-group form-2col">
             <div>
               <label class="form-label" for="fname">Your name</label>
@@ -211,11 +206,26 @@
               <input class="form-input" type="tel" id="fphone" name="phone" placeholder="04xx xxx xxx" required="">
             </div>
           </div>
-          <div class="form-group form-2col">
+          <div class="form-group">
             <div>
               <label class="form-label" for="fsuburb">Job suburb</label>
               <input class="form-input" type="text" id="fsuburb" name="suburb" placeholder="e.g. Bonville" required="" autocomplete="address-level2">
             </div>
+          </div>
+          <details class="mk-more">
+            <summary>Add more details (optional)</summary>
+          <div class="form-group">
+            <label class="form-label">What do you need?</label>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="service" value="Excavation"> Excavation &amp; earthmoving</label>
+              <label class="chip"><input type="checkbox" name="service" value="Veg clearing"> Vegetation clearing</label>
+              <label class="chip"><input type="checkbox" name="service" value="Mulching"> Forestry mulching</label>
+              <label class="chip"><input type="checkbox" name="service" value="Haulage"> Haulage</label>
+              <label class="chip"><input type="checkbox" name="service" value="Firebreaks"> Firebreaks &amp; hazard reduction</label>
+              <label class="chip"><input type="checkbox" name="service" value="Civil works"> Civil earthworks</label>
+            </div>
+          </div>
+          <div class="form-group">
             <div>
               <label class="form-label" for="ftiming">Timing</label>
               <select class="form-input form-select" id="ftiming" name="timing">
@@ -241,6 +251,7 @@
             <label class="form-label" for="fmsg">What needs doing? <span class="form-opt">optional</span></label>
             <textarea class="form-textarea" id="fmsg" name="message" placeholder="Anything else we should know…"></textarea>
           </div>
+          </details>
           <div class="form-foot">
             <button type="submit" class="btn-gold" id="form-submit">Get my quote →</button>
           </div>
@@ -259,50 +270,38 @@
     </div>
   </section>
 
-  <!-- Footer — the dense zone -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
-        <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
-        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Services</div>
-        <ul class="footer-links">
-          <li><a href="excavation">Excavation</a></li>
-          <li><a href="vegetation-management">Vegetation management</a></li>
-          <li><a href="forestry-mulching">Forestry mulching</a></li>
-          <li><a href="civil-earthworks">Civil earthworks</a></li>
-          <li><a href="gravel-driveways">Gravel driveways</a></li>
-          <li><a href="demolition">Demolition</a></li>
-          <li><a href="augering">Augering</a></li>
-          <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
-          <li><a href="driveway-removal">Driveway removal</a></li>
-          <li><a href="services#haulage">Haulage &amp; tipper hire</a></li>
-          <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
-          <li><a href="ac-units">Air conditioner recycling</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Company</div>
-        <ul class="footer-links">
+  <footer class="mk-footer">
+    <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
+    <div class="eyebrow footer-col-head">Services</div>
+    <div class="mk-fgroup">Forestry</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="vegetation-management">Vegetation clearing</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+    </ul>
+    <div class="mk-fgroup">Excavations</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li><a href="civil-earthworks">Civil earthworks</a></li>
+        <li><a href="services#haulage">Haulage</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
+        <li><a href="demolition">Demolition</a></li>
+        <li><a href="augering">Augering</a></li>
+        <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li><a href="driveway-removal">Driveway removal</a></li>
+    </ul>
+    <ul class="footer-links mk-flinks mk-fside">
+        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
+    </ul>
+    <div class="eyebrow footer-col-head">Company</div>
+    <ul class="footer-links mk-flinks">
           <li><a href="about">About BFEx</a></li>
           <li><a href="about#licences">Insurance &amp; licences</a></li>
           <li><a href="contact">Contact</a></li>
           <li><a href="privacy">Privacy policy</a></li>
         </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Get in touch</div>
-        <ul class="footer-links">
-          <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
-          <li><a href="#quote">Request a quote</a></li>
-          <li>Coffs Harbour, NSW 2450</li>
-        </ul>
-        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Boambee, Sawtell, Toormina, Bonville, Coramba, Nana Glen, Woolgoolga, Corindi Beach, Red Rock, Grafton, Bellingen, Urunga, Dorrigo, Nambucca Heads, Macksville, Kempsey and South West Rocks.</p>
-      </div>
-    </div>
+    <p class="footer-blurb">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a><br>Coffs Harbour, NSW 2450</p>
     <div class="footer-bottom">
       <div>© 2026 Bonville Forestry and Excavations Pty Ltd · ABN 83 654 611 364</div>
       <ul class="footer-social" aria-label="BFEx on social media">
@@ -313,14 +312,11 @@
     </div>
   </footer>
 
-  <!-- Mobile call bar — one thumb-move away -->
-  <div class="call-bar" id="call-bar" aria-hidden="true">
-    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
-    <a href="#quote" class="call-bar-quote">Get a fast quote</a>
-  </div>
-
   <script>
-    /* Quote form — AJAX submission */
+    var hdr=document.getElementById('site-header');
+    window.addEventListener('scroll',function(){hdr.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+    var h=document.getElementById('nav-hamburger'),m=document.getElementById('mobile-menu');
+    h.addEventListener('click',function(){var o=h.classList.toggle('open');m.classList.toggle('open',o);h.setAttribute('aria-expanded',o);m.setAttribute('aria-hidden',!o);});
     document.getElementById('quote-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = this;
@@ -353,33 +349,8 @@
       btn.disabled = false;
       btn.textContent = 'Get my quote →';
     });
-
-    /* Header scroll */
-    const hdr = document.getElementById('site-header');
-    window.addEventListener('scroll', () => {
-      hdr.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
-
-    const hamburger = document.getElementById('nav-hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      const open = hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-      mobileMenu.setAttribute('aria-hidden', !open);
-    });
-
-    /* Mobile call bar — hide while the quote form (its own call path) is on screen */
-    const callBar = document.getElementById('call-bar');
-    const quoteSec = document.getElementById('quote');
-    if ('IntersectionObserver' in window && callBar && quoteSec) {
-      new IntersectionObserver((entries) => {
-        callBar.classList.toggle('call-bar-hidden', entries[0].isIntersecting);
-      }, { threshold: 0.15 }).observe(quoteSec);
-    }
   </script>
 
-  <script src="js/carousel.js" defer=""></script>
 
 
 </body></html>

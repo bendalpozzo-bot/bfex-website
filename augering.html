@@ -17,6 +17,10 @@
   <link rel="canonical" href="https://bfex.com.au/augering">
   <link rel="stylesheet" href="css/style.css?v=20261007">
   <link rel="stylesheet" href="css/gallery.css?v=20260923">
+  <link rel="stylesheet" href="css/mockup.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-bold.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-twojobs.css?v=20261106">
+  <link rel="stylesheet" href="css/mockup-v5.css?v=20261106">
   <style>
     @media (max-width: 360px){.cta-right{flex-wrap:wrap}}
   </style>
@@ -28,7 +32,6 @@
   <div class="site-bg" aria-hidden="true"></div>
   <div class="page-frame" aria-hidden="true"></div>
 
-  <!-- Header -->
   <header class="site-header scrolled" id="site-header">
     <nav class="site-nav">
       <div class="nav-inner">
@@ -36,8 +39,8 @@
           <a href="./"><img src="images/bfex-logo-wordmark.svg" alt="BFEx — Bonville Forestry and Excavations" style="height:30px;display:block"></a>
           <ul class="nav-links">
             <li><a href="services" class="active">Services</a></li>
-            <li class="nav-extra"><a href="forestry-mulching">Mulching</a></li>
-            <li class="nav-extra"><a href="gravel-driveways">Driveways</a></li>
+            <li class="nav-extra"><a href="forestry-mulching">Forestry mulching</a></li>
+            <li class="nav-extra"><a href="gravel-driveways">Gravel driveways</a></li>
             <li class="nav-extra"><a href="ac-units">Air conditioner recycling</a></li>
             <li><a href="gallery">Our work</a></li>
             <li><a href="about">About</a></li>
@@ -51,18 +54,28 @@
           </a>
           <a href="contact#quote" class="btn-gold nav-btn">Get a fast quote</a>
           <a href="tel:0448482321" class="nav-phone-mobile" aria-label="Call BFEx">0448 482 321</a>
-          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
+          <button class="nav-hamburger mk-menu-btn" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><i class="mk-burger" aria-hidden="true"><b></b><b></b><b></b></i>Menu</button>
         </div>
       </div>
     </nav>
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <ul>
         <li><a href="services" class="active">Services</a></li>
-        <li><a href="forestry-mulching">Forestry mulching</a></li>
-        <li><a href="gravel-driveways">Gravel driveways</a></li>
-        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-menu-head">Forestry</li>
+        <li class="mk-sub"><a href="vegetation-management">Vegetation clearing</a></li>
+        <li class="mk-sub"><a href="forestry-mulching">Forestry mulching</a></li>
+        <li class="mk-sub"><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+        <li class="mk-menu-head">Excavations</li>
+        <li class="mk-sub"><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li class="mk-sub"><a href="civil-earthworks">Civil earthworks</a></li>
+        <li class="mk-sub"><a href="services#haulage">Haulage</a></li>
+        <li class="mk-sub"><a href="gravel-driveways">Gravel driveways</a></li>
+        <li class="mk-sub"><a href="demolition">Demolition</a></li>
+        <li class="mk-sub"><a href="augering">Augering</a></li>
+        <li class="mk-sub"><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li class="mk-sub"><a href="driveway-removal">Driveway removal</a></li>
+        <li class="mk-sub mk-side-first"><a href="ac-units">Air conditioner recycling</a></li>
+        <li class="mk-sub"><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
         <li><a href="gallery">Our work</a></li>
         <li><a href="about">About</a></li>
         <li><a href="contact">Contact</a></li>
@@ -73,11 +86,18 @@
       </div>
     </div>
   </header>
+
+  <nav class="mk-quicknav" aria-label="Main">
+    <a href="services" class="active">Services</a><a href="gallery">Our work</a><a href="about">About</a><a href="contact">Contact</a>
+  </nav>
   <!-- Hero -->
   <section class="tp-hero">
-    <div class="tp-hero-bg" style="background-image:url('images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg')"></div>
+    <picture>
+      <source media="(max-width: 480px)" srcset="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001-tphero-phone.jpg">
+      <img class="tp-hero-bg" src="images/bfex-machinery-delivery-yarraman-road-coffs-harbour-2025-10-b-excavator-transport-001.jpeg" alt="" fetchpriority="high" width="1400" height="1050">
+    </picture>
     <div class="tp-hero-in">
-      <span class="eyebrow eyebrow-muted">Augering · Coffs Coast</span>
+      <span class="eyebrow eyebrow-muted">Excavations · Augering · Coffs Coast</span>
       <h1>Augering in <em>Coffs Harbour and the Mid North Coast.</em></h1>
       <p class="tp-lede">Post holes and footing holes drilled with the machine, not a shovel: for fences, sheds, carports, decks and poles across Coffs Harbour, Bonville, Bellingen and the Mid North Coast.</p>
       <div class="hero-ctas">
@@ -100,7 +120,7 @@
         <li>Pier and footing holes for sheds, carports, decks and pergolas</li>
         <li>Pole and gatepost holes</li>
       </ul>
-      <p><strong>Related:</strong> <a href="excavation" class="link-gold">Excavation</a>, <a href="civil-earthworks" class="link-gold">Civil earthworks</a>, <a href="vegetation-management" class="link-gold">Vegetation management</a>.</p>
+      <p><strong>Related:</strong> <a href="excavation" class="link-gold">Excavation &amp; earthmoving</a>, <a href="civil-earthworks" class="link-gold">Civil earthworks</a>, <a href="vegetation-management" class="link-gold">Vegetation clearing</a>.</p>
     </div>
   </section>
 
@@ -117,18 +137,11 @@
     </div>
   </section>
 
-  <!-- Towns -->
-  <section class="section section-cream">
+  <section class="section section-cream mk-where">
     <div class="tp-prose">
       <h2>Where we work</h2>
       <p>We're based in Coffs Harbour and work across the Coffs Coast and the Mid North Coast.</p>
-      <div class="tp-towns">
-        <div class="town-card"><h3>Coffs Harbour</h3><p>Boambee, North Boambee Valley, Coramba, Nana Glen and the rural blocks around the city.</p></div>
-        <div class="town-card"><h3>Bonville &amp; Sawtell</h3><p>Just south of Coffs: acreage and residential blocks in Bonville, Sawtell and Toormina.</p></div>
-        <div class="town-card"><h3>Bellingen, Urunga &amp; Dorrigo</h3><p>Through the Bellingen Shire, from Old Coast Road to the river flats and up on the plateau at Dorrigo.</p></div>
-        <div class="town-card"><h3>North to Grafton</h3><p>Woolgoolga, Corindi Beach, Red Rock and Grafton, quoted per job for the travel.</p></div>
-        <div class="town-card"><h3>South to Kempsey</h3><p>Nambucca Heads, Macksville, Kempsey and South West Rocks, quoted per job for the travel.</p></div>
-      </div>
+      <a href="contact" class="link-gold">Contact →</a>
     </div>
   </section>
 
@@ -162,78 +175,52 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
-        <p class="footer-blurb">Bonville Forestry and Excavations. Earthmoving, vegetation clearing and haulage for the Coffs Coast.</p>
-        <p class="footer-blurb" style="margin-top:12px">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a></p>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Services</div>
-        <ul class="footer-links">
-          <li><a href="excavation">Excavation</a></li>
-          <li><a href="vegetation-management">Vegetation management</a></li>
-          <li><a href="forestry-mulching">Forestry mulching</a></li>
-          <li><a href="civil-earthworks">Civil earthworks</a></li>
-          <li><a href="gravel-driveways">Gravel driveways</a></li>
-          <li><a href="demolition">Demolition</a></li>
-          <li><a href="augering">Augering</a></li>
-          <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
-          <li><a href="driveway-removal">Driveway removal</a></li>
-          <li><a href="services#haulage">Haulage &amp; tipper hire</a></li>
-          <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
-          <li><a href="ac-units">Air conditioner recycling</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Company</div>
-        <ul class="footer-links">
+  <footer class="mk-footer">
+    <img src="images/bfex-logo-wordmark.svg" alt="BFEx" style="height:40px;display:block">
+    <div class="eyebrow footer-col-head">Services</div>
+    <div class="mk-fgroup">Forestry</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="vegetation-management">Vegetation clearing</a></li>
+        <li><a href="forestry-mulching">Forestry mulching</a></li>
+        <li><a href="services#firebreaks">Firebreaks &amp; hazard reduction</a></li>
+    </ul>
+    <div class="mk-fgroup">Excavations</div>
+    <ul class="footer-links mk-flinks">
+        <li><a href="excavation">Excavation &amp; earthmoving</a></li>
+        <li><a href="civil-earthworks">Civil earthworks</a></li>
+        <li><a href="services#haulage">Haulage</a></li>
+        <li><a href="gravel-driveways">Gravel driveways</a></li>
+        <li><a href="demolition">Demolition</a></li>
+        <li><a href="augering">Augering</a></li>
+        <li><a href="concrete-breaking-and-removal">Concrete breaking &amp; removal</a></li>
+        <li><a href="driveway-removal">Driveway removal</a></li>
+    </ul>
+    <ul class="footer-links mk-flinks mk-fside">
+        <li><a href="ac-units">Air conditioner recycling</a></li>
+        <li><a href="recovery-works">Storm, flood &amp; fire recovery works</a></li>
+    </ul>
+    <div class="eyebrow footer-col-head">Company</div>
+    <ul class="footer-links mk-flinks">
           <li><a href="about">About BFEx</a></li>
           <li><a href="about#licences">Insurance &amp; licences</a></li>
           <li><a href="contact">Contact</a></li>
           <li><a href="privacy">Privacy policy</a></li>
         </ul>
-      </div>
-      <div>
-        <div class="eyebrow footer-col-head">Get in touch</div>
-        <ul class="footer-links">
-          <li><a href="mailto:info@bfex.com.au">info@bfex.com.au</a></li>
-          <li><a href="contact#quote">Request a quote</a></li>
-          <li>Coffs Harbour, NSW 2450</li>
-        </ul>
-        <p class="footer-blurb" style="margin-top:16px;font-size:13px">Servicing Coffs Harbour, Boambee, Sawtell, Toormina, Bonville, Coramba, Nana Glen, Woolgoolga, Corindi Beach, Red Rock, Grafton, Bellingen, Urunga, Dorrigo, Nambucca Heads, Macksville, Kempsey and South West Rocks.</p>
-      </div>
-    </div>
+    <p class="footer-blurb">NSW contractor's licence 493682C · $20M public liability<br><a href="tel:0448482321" style="color:var(--gold)">0448 482 321</a> · <a href="mailto:info@bfex.com.au" style="color:var(--gold)">info@bfex.com.au</a><br>Coffs Harbour, NSW 2450</p>
     <div class="footer-bottom">
       <div>© 2026 Bonville Forestry and Excavations Pty Ltd · ABN 83 654 611 364</div>
       <ul class="footer-social" aria-label="BFEx on social media">
-        <li><a href="https://www.instagram.com/bfex.au/" target="_blank" rel="me noopener" aria-label="BFEx on Instagram" data-social="instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
-        <li><a href="https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/" target="_blank" rel="me noopener" aria-label="BFEx on Facebook" data-social="facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.45-.13-2.43 0-4.1 1.48-4.1 4.2v2.34H7.44V13h2.71v8h3.35z"/></svg></a></li>
-        <li><a href="https://www.youtube.com/@bonvilleforestry" target="_blank" rel="me noopener" aria-label="BFEx on YouTube" data-social="youtube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3-5.2 3z"/></svg></a></li>
+        <li><a href="https://www.instagram.com/bfex.au/" target="_blank" rel="me noopener" aria-label="BFEx on Instagram" data-social="instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"></circle></svg></a></li>
+        <li><a href="https://www.facebook.com/p/Bonville-Forestry-and-Excavations-100090812738427/" target="_blank" rel="me noopener" aria-label="BFEx on Facebook" data-social="facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.45-.13-2.43 0-4.1 1.48-4.1 4.2v2.34H7.44V13h2.71v8h3.35z"></path></svg></a></li>
+        <li><a href="https://www.youtube.com/@bonvilleforestry" target="_blank" rel="me noopener" aria-label="BFEx on YouTube" data-social="youtube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3-5.2 3z"></path></svg></a></li>
       </ul>
     </div>
   </footer>
-
-  <!-- Mobile call bar — one thumb-move away -->
-  <div class="call-bar" id="call-bar" aria-hidden="true">
-    <a href="tel:0448482321" class="call-bar-phone">📞 Call Ben</a>
-    <a href="contact#quote" class="call-bar-quote">Get a fast quote</a>
-  </div>
 
   <script>
     var hdr=document.getElementById('site-header');
     window.addEventListener('scroll',function(){hdr.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
     var h=document.getElementById('nav-hamburger'),m=document.getElementById('mobile-menu');
     h.addEventListener('click',function(){var o=h.classList.toggle('open');m.classList.toggle('open',o);h.setAttribute('aria-expanded',o);m.setAttribute('aria-hidden',!o);});
-
-    /* Mobile call bar — hide while the footer (its own contact zone) is on screen */
-    var callBar=document.getElementById('call-bar'),pageFooter=document.querySelector('footer');
-    if('IntersectionObserver' in window && callBar && pageFooter){
-      new IntersectionObserver(function(entries){
-        callBar.classList.toggle('call-bar-hidden',entries[0].isIntersecting);
-      },{threshold:0.1}).observe(pageFooter);
-    }
   </script>
 </body></html>

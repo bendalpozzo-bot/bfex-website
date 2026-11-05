@@ -1,0 +1,67 @@
+
+/* --- Photos as <img> instead of CSS backgrounds (same boxes as before) --- */
+img.svc-photo-thumb { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+img.operator-photo  { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; }
+.mk-hero .hero-img  { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center right; }
+img.tp-hero-bg      { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center; }
+
+/* --- Home hero: plain what-and-where H1, slogan as a smaller line, one quote + one call button --- */
+.mk-hero h1 { font-size: clamp(40px, 4.4vw, 68px); line-height: 1.05; }
+.mk-slogan  { margin-top: 18px; font-family: var(--font-serif); font-size: 24px; line-height: 1.3; color: rgba(255,255,255,0.85); }
+.mk-slogan em { color: var(--gold); font-style: italic; }
+
+/* --- Phone quick menu: four items always visible; everything else behind the labelled Menu button --- */
+.mk-quicknav { display: none; }
+.mk-burger { display: none; }
+
+/* --- Footer, cut back --- */
+.mk-footer .footer-col-head { margin: 28px 0 6px; }
+.mk-flinks { flex-direction: row; flex-wrap: wrap; gap: 0 22px; }
+.mk-flinks a { display: inline-block; padding: 7px 0; }
+.mk-footer .footer-blurb { max-width: none; margin-top: 26px; }
+.mk-footer .footer-bottom { margin-top: 28px; border-top: 1px solid rgba(247,246,240,0.12); }
+
+/* --- Excavation: the one-sentence "Where we work" block --- */
+.mk-where .tp-prose p { margin-bottom: 10px; }
+
+@media (max-width: 768px) {
+  /* one persistent call route on phones = the header number (the bottom call bar is removed from the HTML) */
+  footer.mk-footer { padding-top: 48px; padding-bottom: 32px; }
+  .nav-right { gap: 10px; }
+  .nav-hamburger.mk-menu-btn {
+    width: auto; height: 40px; padding: 0 12px; flex-direction: row; gap: 8px;
+    border: 1px solid rgba(247,246,240,0.45); border-radius: 2px;
+    color: var(--cream); font-family: var(--font-body); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .mk-burger { display: inline-flex; flex-direction: column; gap: 3px; }
+  .mk-burger b { display: block; width: 14px; height: 2px; background: currentColor; border-radius: 1px; }
+  .nav-hamburger.mk-menu-btn[aria-expanded="true"] { border-color: var(--gold); color: var(--gold); }
+
+  .mk-quicknav {
+    display: flex; justify-content: space-between; gap: 4px;
+    padding: 0 var(--px); background: var(--green);
+    border-bottom: 1px solid rgba(247,246,240,0.12);
+    position: relative; z-index: 5;
+  }
+  .mk-quicknav a {
+    display: flex; align-items: center; min-height: 44px; padding: 0 4px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: rgba(247,246,240,0.88);
+  }
+  .mk-quicknav a.active { color: var(--gold); }
+
+  /* home hero: text in normal flow, the licence/insurance cells as a plain static line under it */
+  .mk-hero { height: auto; }
+  .mk-hero .hero-img { object-position: center center; }
+  /* the what-and-where line runs the full width over the photo, so the phone overlay is evened out for legibility */
+  .mk-hero .hero-overlay { background: linear-gradient(180deg, rgba(15,26,20,0.80) 0%, rgba(15,26,20,0.62) 100%); }
+  .mk-hero .hero-content { position: relative; left: auto; right: auto; bottom: auto; max-width: none; padding: 40px var(--px) 36px; }
+  .mk-hero h1 { font-size: 32px; line-height: 1.12; letter-spacing: -0.01em; margin-top: 0; }
+  .mk-slogan { font-size: 20px; margin-top: 14px; }
+  .mk-hero .hero-ctas { margin-top: 26px; }
+  .mk-hero .stat-ribbon { position: relative; display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 14px var(--px); border-top: 1px solid rgba(255,199,0,0.6); }
+  .mk-hero .stat-cell { padding: 0; display: flex; gap: 6px; align-items: baseline; }
+  .mk-hero .stat-cell:nth-child(n+3) { display: none; } /* phones already hide these two cells today */
+  .mk-hero .stat-num { font-family: var(--font-body); font-size: 14px; font-weight: 700; }
+  .mk-hero .stat-lbl { font-size: 14px; letter-spacing: 0.02em; margin-top: 0; }
+}

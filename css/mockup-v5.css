@@ -1,0 +1,47 @@
+
+/* 1. Template pages: the old slogan H1 of /forestry-mulching and /gravel-driveways, kept as a line under the new H1 */
+.tp-hero .mk-slogan { margin-top: 12px; font-family: var(--font-serif); font-size: 21px; line-height: 1.3; color: rgba(255,255,255,0.85); }
+.tp-hero .mk-slogan em { color: var(--gold); font-style: italic; }
+
+/* 2. Services hub: two job sections, one photo each, each term with its existing one-line description and link */
+.mk-hub-in { max-width: 760px; margin: 0 auto; }
+img.mk-hub-photo { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 3px; }
+.mk-hub .sec-h2 { margin: 22px 0 10px; }
+.mk-term { padding: 20px 0 22px; border-top: 1px solid var(--border); }
+.mk-term:last-child { border-bottom: 1px solid var(--border); }
+.mk-term h3 { font-family: var(--font-serif); font-size: 24px; line-height: 1.15; color: var(--cream); }
+.mk-term p { margin: 8px 0 12px; font-size: 16px; line-height: 1.6; color: rgba(247,246,240,0.78); }
+.mk-hub-side { padding-top: 0; }
+.mk-hub-side .mk-sideline { margin-top: 18px; font-size: 15px; line-height: 1.6; }
+.mk-hub-side .mk-sideline span { white-space: normal; display: block; margin-top: 6px; color: rgba(247,246,240,0.68); }
+.page-header .mk-hub-cta { display: inline-block; margin-top: 20px; }
+
+/* 3. About: the operator photo as a real <img> (carousel off), its caption kept on top */
+.mk-about-wrap { position: relative; overflow: hidden; }
+.mk-about-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mk-about-wrap > span { position: relative; z-index: 1; }
+
+/* 4. Air conditioner recycling page: it has a light background of its own, so the shared header, menu and footer keep their green */
+#acr .site-header, #acr .site-nav, #acr .mobile-menu, #acr .mk-quicknav, #acr footer.mk-footer { background: var(--green); font-family: var(--font-body); }
+#acr footer.mk-footer { margin-top: 40px; }
+#acr .mk-quicknav { display: flex; }
+#acr .nav-links a, #acr .mobile-menu ul li a { color: rgba(247,246,240,0.85); text-decoration: none; }
+#acr .mk-footer a { text-decoration: none; }
+#acr .mk-more { border-top-color: var(--acr-line); }
+#acr .mk-more > summary { color: var(--acr-ink); font-family: inherit; }   /* the box label was cream on this page's light background */
+#acr .mk-more > summary::before { color: var(--acr-accent); }
+
+@media (max-width: 768px) {
+  .tp-hero .mk-slogan { font-size: 19px; margin-top: 10px; }
+  .mk-term h3 { font-size: 22px; }
+}
+/* 5. v6 FINAL (4 Nov 2026): the travel note on /contact (decision 3) and the Haulage / Firebreaks bullets on the hub (decision 4) */
+.mk-travel { max-width: 540px; margin: -26px 0 40px; }
+.mk-travel p { margin: 8px 0 0; font-size: 16px; line-height: 1.6; color: rgba(247,246,240,0.7); }
+.mk-travel strong { color: var(--cream); font-weight: 600; }
+.mk-travel strong::after { content: ":"; }
+.mk-term .mk-bullets { margin: 0 0 6px; padding-left: 20px; font-size: 15px; line-height: 1.6; color: rgba(247,246,240,0.78); }
+.mk-term .mk-bullets li { margin: 2px 0; }
+@media (max-width: 768px) {
+  .mk-travel { margin: -16px 0 32px; }
+}
