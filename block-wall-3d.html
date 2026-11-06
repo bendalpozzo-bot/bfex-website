@@ -15,6 +15,13 @@
   #panel label { display: block; margin-top: 8px; cursor: pointer; }
   #panel ul { margin: 4px 0 0; padding-left: 18px; }
   #panel summary { cursor: pointer; margin-top: 8px; }
+  #panel { max-height: calc(100% - 96px); overflow-y: auto; }
+  #mat { margin-top: 4px; font-size: 12px; line-height: 1.3; }
+  #mat table { border-collapse: collapse; width: 100%; }
+  #mat th, #mat td { text-align: left; vertical-align: top; padding: 2px 0; border-bottom: 1px solid #e2e2e2; }
+  #mat th + th, #mat td + td { text-align: right; white-space: nowrap; padding-left: 8px; }
+  #mat .grp td { font-weight: bold; border-bottom: 0; padding-top: 6px; }
+  #mat .mnote { color: #555; margin: 4px 0; }
   #stamp { position: fixed; right: 12px; bottom: 10px; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 13px;
            color: #8a1c1c; background: rgba(255,255,255,.88); }
   #err { display: none; position: fixed; inset: 0; padding: 40px; background: #fff; font-size: 18px; }
@@ -29,6 +36,7 @@
   </div>
   <label><input type="checkbox" id="dusk"> Evening (see the column lights)</label>
   <input type="checkbox" id="below" hidden><input type="checkbox" id="tags" hidden>
+  <details><summary>Materials and quantities</summary><div id="mat"></div></details>
   <div style="margin-top:8px;color:#555">Concept view only. Sizes, colours and fittings are indicative.<br>Bonville Forestry and Excavations</div>
 </div>
 <div id="stamp">PRELIMINARY &ndash; FOR CERTIFICATION &middot; NOT FOR CONSTRUCTION</div>
@@ -334,6 +342,7 @@
     }
   })();
   var arbor = { post: 135, tieUp: 2360, beamW: 45, beamH: 140, over: 350, pitch: 30, collar: 90, king: 90, strut: 70,
+                into: 60,
                 stand: 20, plate: 130, plateT: 6, bladeW: 75, bladeT: 6, bladeH: 150, skirt: 120, skirtGap: 5 };
   arbor.clear = pathTop + arbor.tieUp;
   (function () {
@@ -361,7 +370,7 @@
     var yc = arbor.clear, xa = c2 - half;
     box(xa, yc, zc - half, 2 * xm - xa, yc + arbor.collar, zc + half, M.timber);
     box(xm - arbor.king / 2, yc + arbor.collar, zc - half, xm + arbor.king / 2, under(xm), zc + half, M.timber);
-    var xK = xm - arbor.king / 2, yK = yc + arbor.collar, wv = arbor.strut * Math.SQRT2, into = 60;
+    var xK = xm - arbor.king / 2, yK = yc + arbor.collar, wv = arbor.strut * Math.SQRT2, into = arbor.into;
     var s1 = (under(xK) + into - yK) / (1 + rise), s2 = (under(xK) + into - yK - wv) / (1 + rise);
     [1, -1].forEach(function (side) {
       function mx(px) { return side === 1 ? px : 2 * xm - px; }
@@ -390,6 +399,95 @@
     sp.scale.set(0.7, 0.35, 1); sp.position.set((q.a + q.b) / 2 * mm, (colTop(q.n) + 330) * mm, zc * mm);
     sp.visible = false; scene.add(sp); tags.push(sp);
   });
+
+  var take = { blockL: 390, blockH: 190, joint: 10, colBlocks: 2, barCtrs: 400, barUp: 100, extra: 0.10 };
+  (function () {
+    var out = document.getElementById('mat'); if (!out) return;
+    function strip(x0, x1, top, ground) {
+      var n = 2000, dx = (x1 - x0) / n, s = 0;
+      for (var i = 0; i < n; i++) s += Math.max(0, top - ground(x0 + (i + 0.5) * dx)) * dx;
+      return s;
+    }
+    function gFront(px) { return px <= fallA ? 0 : frontLow * (px - fallA) / (total - fallA); }
+    function gBack(px) { return px < fallA ? 0 : -W.drop - W.slope * (px - fallA) / (total - fallA); }
+    var wf = 0, wb = 0, cf = 0, cb = 0, cs = 0, blockArea = 0, capRun = 0, bars = 0, barLen = 0, panels = [];
+    walls.forEach(function (w, k) {
+      var top = wallTop(k), high = top - footTop(w.a), len = w.b - w.a, n = Math.round(len / take.barCtrs);
+      wf += strip(w.a + v, w.b - v, top, gFront); wb += strip(w.a + v, w.b - v, top, gBack);
+      blockArea += len * high; capRun += len - 2 * v;
+      bars += n; barLen += n * (high + W.footD - take.barUp);
+      var base = top + W.capT, topP = Math.min(colTop(cols[pairs[k][0]].n), colTop(cols[pairs[k][1]].n)) - 50;
+      panels.push(Math.round(len - 2 * v) + ' x ' + Math.round(topP - base));
+    });
+    var half = (W.block + 2 * v) / 2, proud = W.col - W.block, courses = 0;
+    var wallL = { 2: 0, 4: 1, 5: 2, 6: 3, 7: 4 }, wallR = { 1: 0, 3: 1, 4: 2, 5: 3, 6: 4 };
+    var rx0 = fallA + v - retain.wide, rx1 = fallA + v;
+    cols.forEach(function (q) {
+      var top = colTop(q.n), bareEnd = q.n === 7 && bare.c7end, xr = bareEnd ? q.b : q.b + v;
+      courses += (top - footTop(q.a)) / (take.blockH + take.joint);
+      cf += strip(q.a - v, xr, top, gFront); cb += strip(q.a - v, xr, top, gBack);
+      if (q.n === 4) cb -= strip(rx0, rx1, retTop, gBack);
+      [[q.a - v, wallL], [q.b + v, wallR]].forEach(function (s, i) {
+        if (bareEnd && i === 1) return;
+        if (s[1][q.n] !== undefined) cs += 2 * half * Math.max(0, top - wallTop(s[1][q.n]) - W.capT) + proud * (top - gBack(s[0]));
+        else cs += half * (top - gFront(s[0])) + (half + proud) * (top - gBack(s[0]));
+      });
+    });
+    var retFace = retTop - gBack(rx1), retLen = retain.len - (W.col + 2 * v);
+    var capArea = (retain.wide + 2 * cap.over) * (retLen + cap.over);
+    var sw = wallSteps.wide, sd = wallSteps.going, lw = sw + 2 * wallSteps.landing, ld = sd + wallSteps.landing;
+    var stepTread = sw * sd, landTread = lw * ld - stepTread, stepRiser = (2 * sd + sw) * wallSteps.riser;
+    var wallTiles = (wf + wb + cf + cb + cs + retFace * retLen + stepRiser) / 1e6, flatTiles = (capArea + stepTread + landTread) / 1e6;
+    var perBlock = (take.blockL + take.joint) * (take.blockH + take.joint);
+    var blocks = Math.ceil(blockArea / perBlock - 1e-9) + Math.round(courses) * take.colBlocks;
+    var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, xm = (c2 + c3) / 2, rise = Math.tan(arbor.pitch * Math.PI / 180);
+    var postLen = arbor.clear - (colTop(2) + W.capT + arbor.stand), tieLen = c3 - c2 + arbor.post, kingLen = (xm - c2) * rise - arbor.collar;
+    var rafter = (xm - c2 + arbor.over) / Math.cos(arbor.pitch * Math.PI / 180), ridgeLen = arbor.post + 2 * arbor.beamW;
+    var strutLen = ((xm - arbor.king / 2 - c2) * rise + arbor.into - arbor.collar) / (1 + rise) * Math.SQRT2;
+    var gateW = opening.b - opening.a - 2 * v - 2 * gate.side, gateH = gate.top - gate.under;
+    var seen = {}, kinds = [];
+    panels.forEach(function (p) { if (!seen[p]) { seen[p] = 0; kinds.push(p); } seen[p]++; });
+    var panelText = kinds.map(function (p) { return seen[p] + ' at ' + p; }).join(', ');
+    function f2(n) { return n.toFixed(2); }
+    function mm0(n) { return Math.round(n); }
+    function up(n) { return n * (1 + take.extra); }
+    var rows = [];
+    function grp(t) { rows.push('<tr class="grp"><td colspan="3">' + t + '</td></tr>'); }
+    function row(name, net, more) { rows.push('<tr><td>' + name + '</td><td>' + net + '</td><td>' + (more === undefined ? '&ndash;' : more) + '</td></tr>'); }
+    grp('Wall');
+    row('Concrete blocks ' + take.blockL + ' x ' + W.block + ' x ' + take.blockH + ' (200 series)', blocks, Math.ceil(up(blocks) - 1e-9));
+    row('N12 upright bars at ' + take.barCtrs + ' centres, in the walls, ' + (barLen / 1000).toFixed(1) + ' m in all', bars);
+    grp('Tiles and capping');
+    row('Wall tiles, travertine 75 x 150', f2(wallTiles) + ' m&sup2;', f2(up(wallTiles)) + ' m&sup2;');
+    row('Flat tiles, travertine ' + path.tileW + ' x ' + path.tileL, f2(flatTiles) + ' m&sup2;', f2(up(flatTiles)) + ' m&sup2;');
+    row('Tile glue, area to be glued', f2(wallTiles + flatTiles) + ' m&sup2;');
+    row('Capping to the walls, ' + (W.block + 2 * v + 2 * W.capO) + ' wide *', f2(capRun / 1000) + ' m', f2(up(capRun / 1000)) + ' m');
+    row('Column caps, ' + (W.col + 2 * v + 2 * W.capO) + ' square *', cols.length);
+    grp('Panels and gate, white powder coat');
+    row('Infill panels, vertical slats: ' + panelText, panels.length);
+    row('Gate to match, ' + mm0(gateW) + ' x ' + mm0(gateH), 1);
+    grp('Arbor, white timber');
+    row('Posts ' + arbor.post + ' x ' + arbor.post + ', ' + mm0(postLen) + ' long', 2);
+    row('Collar tie ' + arbor.post + ' x ' + arbor.collar + ' *, ' + mm0(tieLen) + ' long', 1);
+    row('King post ' + arbor.post + ' x ' + arbor.king + ' *, ' + mm0(kingLen) + ' long', 1);
+    row('Crossmembers ' + arbor.beamH + ' x ' + arbor.beamW + ' *, ' + mm0(rafter) + ' long', 4);
+    row('Ridge board ' + arbor.beamH + ' x ' + arbor.beamW + ' *, ' + mm0(ridgeLen) + ' long', 1);
+    row('Struts ' + arbor.post + ' x ' + arbor.strut + ' *, ' + mm0(strutLen) + ' long', 2);
+    row('Post supports, T-blade', 2);
+    grp('Lights and paving');
+    row('Column lights', cols.length * 2);
+    row('Step lights, recessed', 2);
+    row('Stepping stones ' + stone.w + ' x ' + stone.d + ' *', 3);
+    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. +10% allows for cuts and breakage.</div>' +
+      '<table><tr><th>Material</th><th>Net</th><th>+10%</th></tr>' + rows.join('') + '</table>' +
+      '<div class="mnote">* size indicative, to be confirmed. Blocks are counted at ' + (1e6 / perBlock) + ' to the square metre of wall, from the footing to the top, ' +
+      'with ' + take.colBlocks + ' to a course in each column. Bars are measured from ' + take.barUp + ' above the underside of the footing to the top of the blockwork, ' +
+      'without cogs or laps; how they are fixed into the poured footing is to be confirmed. ' +
+      'Wall tiles include the face of the retaining wall and the step riser; flat tiles are the top of the retaining wall, the step and the landing. ' +
+      'Not counted: mortar, core filling, column steel, the core of the step and landing, fixings, gate hinges and latch, wiring, paint. ' +
+      'Already built, so not in this list: the footings, the footpath and the retaining wall are poured, and the footpath is tiled.</div>';
+    if (/[?&]mat=1/.test(location.search)) out.parentNode.open = true;
+  })();
 
   var cam = new THREE.PerspectiveCamera(38, 1, 0.1, 300);
   var tgt = new THREE.Vector3(), sph = { r: 20, th: 0, ph: 1.2 };

@@ -65,3 +65,11 @@ img.tp-hero-bg      { width: 100%; height: 100%; max-width: none; object-fit: co
   .mk-hero .stat-num { font-family: var(--font-body); font-size: 14px; font-weight: 700; }
   .mk-hero .stat-lbl { font-size: 14px; letter-spacing: 0.02em; margin-top: 0; }
 }
+
+/* 2026-11-06 wide-view hero: buttons clear of the strip (screens 769 px and wider; lift = tallest measured strip in the range + 24 px) */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .mk-hero .hero-content { bottom: 179px; } /* strip 154.75 px tall at 769-791, 135.56 at 792-1037, 119.56 at 1038-1040 */
+}
+@media (min-width: 1101px) {
+  .mk-hero .hero-content { bottom: 125px; } /* strip 100.38 px tall from 1041 */
+}
