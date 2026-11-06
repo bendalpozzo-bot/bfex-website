@@ -40,11 +40,13 @@
   if (!window.THREE) { document.getElementById('err').style.display = 'block'; return; }
   var mm = 0.001;
 
-  var W = { col: 390, open: 1100, c1c2: 4350, c3c4: 3850, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
+  var W = { col: 390, open: 1134, c1c2: 4350, c3c4: 3850, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
             wallStep: 400, block: 190, footW: 500, footD: 600, buried: 200, drop: 400, slope: 200,
-            ven: 12,
+            ven: 17,
             capT: 40, capO: 20 };
-  var c = W.col, eq = (W.c4c7 - 3 * c) / 3, secs = [W.c1c2 - 2 * c, W.c3c4 - 2 * c, eq, eq, eq];
+  var bare = { c7end: 1 };
+  var run47 = W.c4c7 + (bare.c7end ? W.ven : 0);
+  var c = W.col, eq = (run47 - 3 * c) / 3, secs = [W.c1c2 - 2 * c, W.c3c4 - 2 * c, eq, eq, eq];
   var cols = [], walls = [], opening = null, x = 0;
   for (var n = 1; n <= 7; n++) {
     cols.push({ a: x, b: x + c, n: n }); x += c;
@@ -171,9 +173,16 @@
   });
   cols.forEach(function (q) {
     var gl = Math.min(groundL(q.a), groundR(q.b)), ft = footTop(q.a), top = colTop(q.n);
+    var bareEnd = q.n === 7 && bare.c7end, xr = bareEnd ? q.b : q.b + v;
     box(q.a, ft, zF, q.b, gl, zBc, M.block);
-    box(q.a - v, gl, zF - v, q.b + v, top, zBc + v, M.veneer);
-    box(q.a - v - W.capO, top, zF - v - W.capO, q.b + v + W.capO, top + W.capT, zBc + v + W.capO, M.cap);
+    if (!bareEnd) box(q.a - v, gl, zF - v, xr, top, zBc + v, M.veneer);
+    else {
+      box(q.a, gl, zF, q.b, top, zBc, M.block);
+      box(q.a - v, gl, zF - v, xr, top, zF, M.veneer);
+      box(q.a - v, gl, zBc, xr, top, zBc + v, M.veneer);
+      box(q.a - v, gl, zF, q.a, top, zBc, M.veneer);
+    }
+    box(q.a - v - W.capO, top, zF - v - W.capO, xr + W.capO, top + W.capT, zBc + v + W.capO, M.cap);
   });
   var zc = (zF + zBc) / 2, edges = [0].concat(steps.map(function (st) { return st[0]; }), [total]);
   for (var e = 0; e < edges.length - 1; e++) {
