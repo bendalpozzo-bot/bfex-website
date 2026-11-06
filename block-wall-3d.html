@@ -23,7 +23,7 @@
 <body>
 <div id="panel">
   <h1>Block wall &ndash; 3D view</h1>
-  Drag to turn &middot; pinch or scroll to zoom.
+  Drag to turn &middot; scroll or pinch to zoom in on the pointer.
   <div>
     <button data-v="front">Front</button><button data-v="c7">Left end</button><button data-v="c1">Right end</button><button data-v="back">Back</button><button data-v="top">From above</button>
   </div>
@@ -40,7 +40,7 @@
   if (!window.THREE) { document.getElementById('err').style.display = 'block'; return; }
   var mm = 0.001;
 
-  var W = { col: 390, open: 1200, c1c2: 4350, c3c4: 3850, c4c7: 11200, wallH: 600, tall: 1800, colH: 1200,
+  var W = { col: 390, open: 1100, c1c2: 4350, c3c4: 3850, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
             wallStep: 400, block: 190, footW: 500, footD: 600, buried: 200, drop: 400, slope: 200,
             ven: 12,
             capT: 40, capO: 20 };
@@ -122,7 +122,9 @@
     path: new THREE.MeshStandardMaterial({ color: 0xa9a9a1, roughness: 0.95 }),
     retain: new THREE.MeshStandardMaterial({ color: 0x6e675b, roughness: 0.95 }),
     stone: new THREE.MeshStandardMaterial({ color: 0xc9c0aa, roughness: 0.9 }),
-    alu: new THREE.MeshStandardMaterial({ color: 0xf3f3f0, roughness: 0.45, metalness: 0.25 }),
+    alu: new THREE.MeshStandardMaterial({ color: 0xfafaf8, roughness: 0.6, metalness: 0 }),
+    timber: new THREE.MeshStandardMaterial({ color: 0xf6f4ee, roughness: 0.85, metalness: 0 }),
+    steel: new THREE.MeshStandardMaterial({ color: 0x9aa0a4, roughness: 0.5, metalness: 0.7 }),
     fixture: new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.6, metalness: 0.4 }),
     lens: new THREE.MeshStandardMaterial({ color: 0xfff1cf, emissive: 0xffd89a, emissiveIntensity: 0.9 })
   };
@@ -179,7 +181,9 @@
     box(edges[e], ft2 - W.footD, zc - W.footW / 2, edges[e + 1], ft2, zc + W.footW / 2, M.footing);
   }
 
-  var zBackEnd = 3000, zFrontEnd = -3400, zMid = (zF + zBw) / 2, xl = -2000, xr = total + 2000, deep = -2000;
+  var retain = { len: 5180, wide: 400, high: 400 };
+  var retTop = -W.drop + retain.high;
+  var zBackEnd = zF - v + retain.len, zFrontEnd = -3400, zMid = (zF + zBw) / 2, xl = -2000, xr = total + 2000, deep = -2000;
   var frontLow = (W.colH - W.wallStep) - 1200;
   function slab(points, mat, z0, z1) {
     var sh = new THREE.Shape();
@@ -190,21 +194,172 @@
   slab([[xl, deep], [fallA, deep], [fallA, 0], [xl, 0]], M.ground, zMid, zBackEnd);
   slab([[fallA, deep], [xr, deep], [xr, lowGround(total)], [total, lowGround(total)], [fallA, -W.drop]], M.ground, zMid, zBackEnd);
   slab([[xl, deep], [xr, deep], [xr, frontLow], [total, frontLow], [fallA, 0], [xl, 0]], M.ground, zFrontEnd, zMid);
-  box(fallA, -W.drop - 300, zBw + v, fallA + 200, 20, zBackEnd, M.retain);
-  box(opening.a, -80, zF - v, opening.b, 12, zBackEnd, M.path);
+  box(fallA + v - retain.wide, -W.drop - 300, zBc + v, fallA + v, retTop, zF - v + retain.len, M.veneer);
+  var pathTop = 12;
+  var path = { wide: 1100, tileW: 600, tileL: 850 };
+  function pathTexture(capWide, grid) {
+    var cv = document.createElement('canvas');
+    cv.width = grid ? 2 * path.tileW : (capWide || path.wide); cv.height = (capWide || grid) ? path.tileL : 2 * path.tileW;
+    var g = cv.getContext('2d'), seed = 23, dens = cv.width * cv.height / (1100 * 1200);
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    g.fillStyle = '#d8cbaf'; g.fillRect(0, 0, cv.width, cv.height);
+    for (var i = 0; i < 520 * dens; i++) {
+      var sx = rnd() * cv.width, sy = rnd() * cv.height, len = 40 + rnd() * 160;
+      g.strokeStyle = rnd() < 0.5 ? 'rgba(255,250,235,.20)' : 'rgba(110,90,60,.13)';
+      g.lineWidth = 1 + rnd() * 2.5;
+      g.beginPath(); g.moveTo(sx, sy); g.lineTo(sx + len, sy + (rnd() - 0.5) * 8); g.stroke();
+    }
+    for (var j = 0; j < 5200 * dens; j++) {
+      g.fillStyle = rnd() < 0.5 ? 'rgba(90,72,48,.16)' : 'rgba(255,248,230,.18)';
+      g.fillRect(rnd() * cv.width, rnd() * cv.height, 1 + rnd() * 3, 1 + rnd() * 2);
+    }
+    g.strokeStyle = 'rgba(92,78,56,.75)'; g.lineWidth = 6;
+    g.beginPath();
+    if (grid) {
+      [0, path.tileW, cv.width].forEach(function (x) { g.moveTo(x, 0); g.lineTo(x, cv.height); });
+      g.moveTo(0, 0); g.lineTo(path.tileW, 0); g.moveTo(0, cv.height); g.lineTo(path.tileW, cv.height);
+      g.moveTo(path.tileW, cv.height / 2); g.lineTo(cv.width, cv.height / 2);
+    } else if (capWide) {
+      g.moveTo(0, 0); g.lineTo(cv.width, 0); g.moveTo(0, cv.height); g.lineTo(cv.width, cv.height);
+    } else {
+      [0, cv.height / 2, cv.height].forEach(function (y) { g.moveTo(0, y); g.lineTo(cv.width, y); });
+      g.moveTo(path.tileL, 0); g.lineTo(path.tileL, cv.height / 2);
+      g.moveTo(path.tileL / 2, cv.height / 2); g.lineTo(path.tileL / 2, cv.height);
+    }
+    g.stroke();
+    var t = new THREE.CanvasTexture(cv);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding;
+    t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return t;
+  }
+  (function () {
+    var pa = (opening.a + opening.b) / 2 - path.wide / 2, z0 = zF - v;
+    M.path.map = pathTexture(); M.path.color.set(0xffffff); M.path.needsUpdate = true;
+    M.path.map.repeat.set(600 / path.wide, 300 / (2 * path.tileW));
+    M.path.map.offset.set(-pa / path.wide, z0 / (2 * path.tileW));
+    box(pa, -80, z0, pa + path.wide, pathTop, z0 + retain.len, M.path);
+  })();
+  var cap = { t: 20, over: 20 };
+  (function () {
+    var cx0 = fallA + v - retain.wide - cap.over, cx1 = fallA + v + cap.over, cz0 = zBc + v;
+    var capMat = new THREE.MeshStandardMaterial({ map: pathTexture(cx1 - cx0), roughness: 0.95 });
+    capMat.map.repeat.set(600 / (cx1 - cx0), 300 / path.tileL);
+    capMat.map.offset.set(-cx0 / (cx1 - cx0), cz0 / path.tileL);
+    box(cx0, retTop, cz0, cx1, retTop + cap.t, zF - v + retain.len + cap.over, capMat);
+  })();
+  var wallSteps = { wide: 1200, riser: 190, going: 320, landing: 400 };
+  (function () {
+    var xf = fallA + v, zm = (zBc + v + zF - v + retain.len) / 2;
+    var halfW = wallSteps.wide / 2;
+    var top = retTop + cap.t, yBase = -W.drop - 60;
+    var treadMat = new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
+    treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
+    var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), roughness: 0.92 });
+    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 600, 1 / 300);
+    function solid(hw, deep, yTop) {
+      var xo = xf + deep, sh = new THREE.Shape();
+      var tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
+      tread.map.offset.set(-xo / (2 * path.tileW) + 0.5, zm / path.tileL + 0.5);
+      sh.moveTo(xf * mm, -(zm - hw) * mm); sh.lineTo(xo * mm, -(zm - hw) * mm); sh.lineTo(xo * mm, -(zm + hw) * mm); sh.lineTo(xf * mm, -(zm + hw) * mm);
+      var uv = {
+        generateTopUV: function (g0, vv, ia, ib, ic) {
+          return [ia, ib, ic].map(function (k) { return new THREE.Vector2(vv[k * 3] / mm, vv[k * 3 + 1] / mm); });
+        },
+        generateSideWallUV: function (g0, vv, ia, ib, ic, id) {
+          return [ia, ib, ic, id].map(function (k) {
+            var X = vv[k * 3] / mm, Z = -vv[k * 3 + 1] / mm, along;
+            if (X > xo - 1) along = Z - zm;
+            else along = (Z < zm ? -1 : 1) * (hw + (xo - X));
+            return new THREE.Vector2(along, vv[k * 3 + 2] / mm);
+          });
+        }
+      };
+      var geo = new THREE.ExtrudeGeometry(sh, { depth: (yTop - yBase) * mm, bevelEnabled: false, UVGenerator: uv });
+      geo.rotateX(-Math.PI / 2);
+      var m = new THREE.Mesh(geo, [tread, riserMat]); m.position.y = yBase * mm; m.castShadow = true; m.receiveShadow = true; scene.add(m);
+    }
+    solid(halfW + wallSteps.landing, wallSteps.going + wallSteps.landing, top - 2 * wallSteps.riser);
+    solid(halfW, wallSteps.going, top - wallSteps.riser);
+    var stepLight = { w: 110, h: 44, off: wallSteps.wide / 4, poolW: 340, poolD: 380 };
+    [-1, 1].forEach(function (s) {
+      var xs = xf + wallSteps.going, ys = top - 1.5 * wallSteps.riser, zs = zm + s * stepLight.off;
+      box(xs, ys - stepLight.h / 2, zs - stepLight.w / 2, xs + 3, ys + stepLight.h / 2, zs + stepLight.w / 2, M.fixture, false);
+      box(xs + 3, ys - stepLight.h / 2 + 8, zs - stepLight.w / 2 + 10, xs + 5, ys + stepLight.h / 2 - 8, zs + stepLight.w / 2 - 10, M.lens, false);
+      var pool = new THREE.Mesh(new THREE.PlaneGeometry(stepLight.poolW * mm, stepLight.poolD * mm), washMat);
+      pool.rotation.order = 'YXZ'; pool.rotation.y = Math.PI / 2; pool.rotation.x = -Math.PI / 2;
+      pool.position.set((xs + stepLight.poolD / 2) * mm, (top - 2 * wallSteps.riser + 3) * mm, zs * mm);
+      scene.add(pool);
+    });
+  })();
   var sx = (opening.a + opening.b) / 2, stone = { w: 600, d: 400, t: 50, first: 150, pitch: 650 };
   for (var i3 = 0; i3 < 3; i3++) {
     var zs = zF - v - stone.first - i3 * stone.pitch;
     box(sx - stone.w / 2, 15 - stone.t, zs - stone.d, sx + stone.w / 2, 15, zs, M.stone);
   }
-  var pairs = [[0, 1], [2, 3], [3, 4], [4, 5], [5, 6]], zw = (zF + zBw) / 2, slatN = 5, slatGap = 15;
+  var pairs = [[0, 1], [2, 3], [3, 4], [4, 5], [5, 6]], zw = (zF + zBw) / 2;
+  var infill = { rail: 50, railD: 40, slatW: 65, slatT: 16, gap: 20 };
   walls.forEach(function (w, k) {
     var base = wallTop(k) + W.capT, topP = Math.min(colTop(cols[pairs[k][0]].n), colTop(cols[pairs[k][1]].n)) - 50;
-    var a = w.a + v, b = w.b - v, h = (topP - base - (slatN - 1) * slatGap) / slatN;
-    for (var s2 = 0; s2 < slatN; s2++) { var y0 = base + s2 * (h + slatGap); box(a, y0, zw - 10, b, y0 + h, zw + 10, M.alu); }
-    var posts = Math.ceil((b - a) / 1900) - 1;
-    for (var p2 = 1; p2 <= posts; p2++) { var px = a + (b - a) * p2 / (posts + 1); box(px - 25, base, zw - 25, px + 25, topP, zw + 25, M.alu); }
+    var a = w.a + v, b = w.b - v;
+    box(a, base, zw - infill.railD / 2, b, base + infill.rail, zw + infill.railD / 2, M.alu);
+    box(a, topP - infill.rail, zw - infill.railD / 2, b, topP, zw + infill.railD / 2, M.alu);
+    var count = Math.round((b - a - infill.gap) / (infill.slatW + infill.gap)), gap = (b - a - count * infill.slatW) / (count + 1);
+    for (var s2 = 0; s2 < count; s2++) {
+      var sx0 = a + gap + s2 * (infill.slatW + gap);
+      box(sx0, base + infill.rail, zw - infill.slatT / 2, sx0 + infill.slatW, topP - infill.rail, zw + infill.slatT / 2, M.alu);
+    }
   });
+  var gate = { top: 1200, under: 50, side: 15, stile: 50 };
+  (function () {
+    var a = opening.a + v + gate.side, b = opening.b - v - gate.side, y0 = gate.under, y1 = gate.top;
+    var zr0 = zw - infill.railD / 2, zr1 = zw + infill.railD / 2;
+    box(a, y0, zr0, b, y0 + infill.rail, zr1, M.alu);
+    box(a, y1 - infill.rail, zr0, b, y1, zr1, M.alu);
+    box(a, y0 + infill.rail, zr0, a + gate.stile, y1 - infill.rail, zr1, M.alu);
+    box(b - gate.stile, y0 + infill.rail, zr0, b, y1 - infill.rail, zr1, M.alu);
+    var ia = a + gate.stile, ib = b - gate.stile;
+    var count = Math.round((ib - ia - infill.gap) / (infill.slatW + infill.gap)), gap = (ib - ia - count * infill.slatW) / (count + 1);
+    for (var s3 = 0; s3 < count; s3++) {
+      var gx0 = ia + gap + s3 * (infill.slatW + gap);
+      box(gx0, y0 + infill.rail, zw - infill.slatT / 2, gx0 + infill.slatW, y1 - infill.rail, zw + infill.slatT / 2, M.alu);
+    }
+  })();
+  var arbor = { post: 135, tieUp: 2360, beamW: 45, beamH: 140, over: 350, pitch: 30, collar: 90, king: 90, strut: 70,
+                stand: 20, plate: 130, plateT: 6, bladeW: 75, bladeT: 6, bladeH: 150, skirt: 120, skirtGap: 5 };
+  arbor.clear = pathTop + arbor.tieUp;
+  (function () {
+    var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, capTop = colTop(2) + W.capT, xm = (c2 + c3) / 2;
+    var half = arbor.post / 2, rise = Math.tan(arbor.pitch * Math.PI / 180), foot = capTop + arbor.stand;
+    var zRows = [zc - half - arbor.beamW / 2, zc + half + arbor.beamW / 2];
+    function under(px) { return arbor.clear + (Math.min(px, 2 * xm - px) - c2) * rise; }
+    [c2, c3].forEach(function (xc) {
+      box(xc - arbor.plate / 2, capTop, zc - arbor.plate / 2, xc + arbor.plate / 2, capTop + arbor.plateT, zc + arbor.plate / 2, M.steel);
+      box(xc - arbor.bladeW / 2, capTop, zc - arbor.bladeT / 2, xc + arbor.bladeW / 2, capTop + arbor.bladeH, zc + arbor.bladeT / 2, M.steel);
+      box(xc - half, foot, zc - half, xc + half, arbor.clear, zc + half, M.timber);
+      [[22, 0, 85], [14, 85, 105], [7, 105, arbor.skirt]].forEach(function (st) {
+        box(xc - half - st[0], st[1] ? foot + st[1] : capTop + arbor.skirtGap, zc - half - st[0], xc + half + st[0], foot + st[2], zc + half + st[0], M.timber);
+      });
+    });
+    var ex0 = c2 - arbor.over, ex1 = c3 + arbor.over, deep = arbor.beamH;
+    zRows.forEach(function (zp) {
+      [[ex0, xm], [xm, ex1]].forEach(function (s) {
+        var piece = slab([[s[0], under(s[0])], [s[1], under(s[1])], [s[1], under(s[1]) + deep], [s[0], under(s[0]) + deep]],
+                         M.timber, zp - arbor.beamW / 2, zp + arbor.beamW / 2);
+        piece.castShadow = true;
+      });
+    });
+    box(xm - arbor.beamW / 2, under(xm), zRows[0] - arbor.beamW / 2, xm + arbor.beamW / 2, under(xm) + deep, zRows[1] + arbor.beamW / 2, M.timber);
+    var yc = arbor.clear, xa = c2 - half;
+    box(xa, yc, zc - half, 2 * xm - xa, yc + arbor.collar, zc + half, M.timber);
+    box(xm - arbor.king / 2, yc + arbor.collar, zc - half, xm + arbor.king / 2, under(xm), zc + half, M.timber);
+    var xK = xm - arbor.king / 2, yK = yc + arbor.collar, wv = arbor.strut * Math.SQRT2, into = 60;
+    var s1 = (under(xK) + into - yK) / (1 + rise), s2 = (under(xK) + into - yK - wv) / (1 + rise);
+    [1, -1].forEach(function (side) {
+      function mx(px) { return side === 1 ? px : 2 * xm - px; }
+      var strut = slab([[mx(xK), yK], [mx(xK - s1), yK + s1], [mx(xK - s2), yK + wv + s2], [mx(xK), yK + wv]], M.timber, zc - half, zc + half);
+      strut.castShadow = true;
+    });
+  })();
   cols.forEach(function (q) {
     var xc = (q.a + q.b) / 2, yf = colTop(q.n) - 170;
     [[zF - v, -1], [zBc + v, 1]].forEach(function (f) {
@@ -251,6 +406,23 @@
     tgt.addScaledVector(right, -dx * k).addScaledVector(up, dy * k); place();
   }
   var el = renderer.domElement, ptrs = {}, pinch = 0;
+  var ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  function pointAt(px, py) {
+    var rc = el.getBoundingClientRect();
+    ndc.set((px - rc.left) / rc.width * 2 - 1, 1 - (py - rc.top) / rc.height * 2);
+    cam.updateMatrixWorld();
+    ray.setFromCamera(ndc, cam);
+    var solid = scene.children.filter(function (o) { return o.isMesh && o.visible && o.material !== washMat; });
+    var hits = ray.intersectObjects(solid, false);
+    if (hits.length) return hits[0].point.clone();
+    var look = new THREE.Vector3(); cam.getWorldDirection(look);
+    var far = tgt.clone().sub(cam.position).dot(look) / ray.ray.direction.dot(look);
+    return cam.position.clone().addScaledVector(ray.ray.direction, far);
+  }
+  function zoomAt(px, py, factor) {
+    var held = pointAt(px, py), r1 = Math.max(1.5, Math.min(80, sph.r * factor)), k = r1 / sph.r;
+    tgt.sub(held).multiplyScalar(k).add(held); sph.r = r1; place();
+  }
   el.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
   el.addEventListener('pointerdown', function (ev) { try { el.setPointerCapture(ev.pointerId); } catch (e) {} ptrs[ev.pointerId] = { x: ev.clientX, y: ev.clientY, b: ev.button, s: ev.shiftKey }; pinch = 0; });
   el.addEventListener('pointerup', function (ev) { delete ptrs[ev.pointerId]; pinch = 0; });
@@ -261,13 +433,13 @@
     var ids = Object.keys(ptrs);
     if (ids.length >= 2) {
       var a = ptrs[ids[0]], b = ptrs[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (pinch) { sph.r *= pinch / d; place(); }
+      if (pinch) zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, pinch / d);
       pinch = d; return;
     }
     if (p.b === 2 || p.s) pan(dx, dy);
     else { sph.th -= dx * 0.006; sph.ph -= dy * 0.006; place(); }
   });
-  el.addEventListener('wheel', function (ev) { ev.preventDefault(); sph.r *= Math.exp(ev.deltaY * 0.0012); place(); }, { passive: false });
+  el.addEventListener('wheel', function (ev) { ev.preventDefault(); zoomAt(ev.clientX, ev.clientY, Math.exp(ev.deltaY * 0.0012)); }, { passive: false });
   Array.prototype.forEach.call(document.querySelectorAll('#panel button'), function (b) {
     b.addEventListener('click', function () { setView(b.getAttribute('data-v')); });
   });
@@ -296,10 +468,18 @@
     };
     pe('pointerdown', 800, 450); pe('pointermove', 900, 450); pe('pointerup', 900, 450);
     var turned = sph.th - t0;
-    el.dispatchEvent(new WheelEvent('wheel', { deltaY: -300, cancelable: true }));
+    var moved = 0, rc0 = el.getBoundingClientRect();
+    [[1000, 300], [717, 600]].forEach(function (w) {
+      var spot = pointAt(w[0], w[1]);
+      el.dispatchEvent(new WheelEvent('wheel', { deltaY: -150, clientX: w[0], clientY: w[1], cancelable: true }));
+      cam.updateMatrixWorld();
+      var sp = spot.clone().project(cam);
+      moved = Math.max(moved, Math.hypot((sp.x + 1) / 2 * rc0.width + rc0.left - w[0], (1 - sp.y) / 2 * rc0.height + rc0.top - w[1]));
+    });
     var zoom = sph.r / r0;
+    x0 = tgt.x;
     pe('pointerdown', 800, 450, true); pe('pointermove', 900, 450, true); pe('pointerup', 900, 450, true);
-    document.title = 'SELFTEST turned=' + turned.toFixed(3) + ' zoom=' + zoom.toFixed(3) + ' slid=' + (tgt.x - x0).toFixed(3);
+    document.title = 'SELFTEST turned=' + turned.toFixed(3) + ' zoom=' + zoom.toFixed(3) + ' spot-moved=' + moved.toFixed(1) + 'px slid=' + (tgt.x - x0).toFixed(3);
   }
   (function loop() { renderer.render(scene, cam); requestAnimationFrame(loop); })();
 })();
