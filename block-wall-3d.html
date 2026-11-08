@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block wall - 3D view | Bonville Forestry and Excavations</title>
+<title>Block wall - 3D view, dry stack stone | Bonville Forestry and Excavations</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
   html, body { margin: 0; height: 100%; overflow: hidden; background: #cfd8dc; font-family: Arial, Helvetica, sans-serif; }
@@ -29,7 +29,7 @@
 </head>
 <body>
 <div id="panel">
-  <h1>Block wall &ndash; 3D view</h1>
+  <h1>Block wall &ndash; 3D view, dry stack stone</h1>
   Drag to turn &middot; scroll or pinch to zoom in on the pointer.
   <div>
     <button data-v="front">Front</button><button data-v="c7">Left end</button><button data-v="c1">Right end</button><button data-v="back">Back</button><button data-v="top">From above</button>
@@ -48,10 +48,10 @@
   if (!window.THREE) { document.getElementById('err').style.display = 'block'; return; }
   var mm = 0.001;
 
-  var W = { col: 390, open: 1134, c1c2: 4350, c3c4: 3850, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
+  var W = { col: 390, open: 1180, c1c2: 4327, c3c4: 3827, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
             wallStep: 400, block: 190, footW: 500, footD: 600, buried: 200, drop: 400, slope: 200,
-            ven: 17,
-            capT: 40, capO: 20 };
+            ven: 40,
+            capT: 40, capO: 10, capRise: 30, capSeat: 150, capSeatUp: 21 };
   var bare = { c7end: 1 };
   var run47 = W.c4c7 + (bare.c7end ? W.ven : 0);
   var c = W.col, eq = (run47 - 3 * c) / 3, secs = [W.c1c2 - 2 * c, W.c3c4 - 2 * c, eq, eq, eq];
@@ -92,39 +92,58 @@
   sun.shadow.camera.near = 1; sun.shadow.camera.far = 40; sun.shadow.bias = -0.0006;
   scene.add(sun); scene.add(sun.target);
 
-  function brickTexture() {
-    var cv = document.createElement('canvas'); cv.width = 600; cv.height = 300;
-    var g = cv.getContext('2d'), seed = 11;
+  function stoneTexture() {
+    var TW = 1800, TH = 1200, S = 1.5, joint = 6;
+    var cv = document.createElement('canvas'); cv.width = TW * S; cv.height = TH * S;
+    var g = cv.getContext('2d'), seed = 29;
     function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-    var pal = ['#dccaa6', '#cfba93', '#e4d6b8', '#c4ab82', '#d6c29e', '#bba27b', '#decdab', '#cab58f', '#d1bd98'];
-    for (var r = 0; r < 4; r++) {
-      var rowCols = [0, 1, 2, 3].map(function () { return pal[Math.floor(rnd() * pal.length)]; });
-      var off = (r % 2) ? 75 : 0;
-      for (var k = -1; k <= 4; k++) {
-        var bx = k * 150 + off, by = r * 75;
-        g.fillStyle = rowCols[((k % 4) + 4) % 4];
-        g.fillRect(bx, by, 150, 75);
-        g.strokeStyle = 'rgba(88,72,50,.55)'; g.lineWidth = 2.2;
-        g.strokeRect(bx + 1, by + 1, 148, 73);
+    function pick(a) { return a[Math.floor(rnd() * a.length)]; }
+    g.fillStyle = '#2a2521'; g.fillRect(0, 0, cv.width, cv.height);
+    var pal = ['#d8c7a5', '#cbb58d', '#e1d2b2', '#bfa77f', '#b59e78', '#dbcba7', '#c7b189', '#ab9570', '#e4d9bf', '#cfbd9b', '#c2ad8a'];
+    function stone(x, y, len, h) {
+      var col = pick(pal), bev = 3, ix = x + joint / 2, iy = y + joint / 2, iw = len - joint, ih = h - joint;
+      [x - TW, x, x + TW].forEach(function (dx) {
+        var xx = ix + (dx - x);
+        g.fillStyle = col; g.fillRect(xx * S, iy * S, iw * S, ih * S);
+        g.fillStyle = 'rgba(255,250,238,.26)'; g.fillRect(xx * S, iy * S, iw * S, bev * S);
+        g.fillStyle = 'rgba(40,30,20,.32)'; g.fillRect(xx * S, (iy + ih - bev) * S, iw * S, bev * S);
+        g.fillStyle = 'rgba(40,30,20,.18)'; g.fillRect((xx + iw - bev) * S, iy * S, bev * S, ih * S);
+      });
+    }
+    var stacks = [[200], [200], [200], [120, 80], [80, 120], [100, 100], [160, 40], [40, 160], [80, 40, 80], [40, 80, 80], [80, 80, 40], [120, 40, 40]];
+    for (var band = 0; band < TH; band += 200) {
+      var x = -rnd() * 450;
+      while (x < TW) {
+        var len = 140 + Math.pow(rnd(), 1.3) * 360, rows = pick(stacks), y = band;
+        rows.forEach(function (h) {
+          var sx = x, left = len;
+          while (left > 0) {
+            var l = left <= 220 || rnd() < 0.45 ? left : 50 + rnd() * (left - 100);
+            stone(sx, y, l, h); sx += l; left -= l;
+          }
+          y += h;
+        });
+        x += len;
       }
     }
-    for (var i = 0; i < 260; i++) {
-      var sx = rnd() * 600, sy = rnd() * 300, len = 20 + rnd() * 70;
-      g.strokeStyle = rnd() < 0.5 ? 'rgba(255,250,235,.22)' : 'rgba(110,90,60,.16)';
-      g.lineWidth = 0.8 + rnd() * 1.6;
-      g.beginPath(); g.moveTo(sx, sy); g.lineTo(sx + len, sy + (rnd() - 0.5) * 3); g.stroke();
+    for (var i = 0; i < 1400; i++) {
+      var sx2 = rnd() * TW, sy = rnd() * TH, ln = 15 + rnd() * 60;
+      g.strokeStyle = rnd() < 0.5 ? 'rgba(255,250,235,.16)' : 'rgba(110,90,60,.14)';
+      g.lineWidth = (0.6 + rnd() * 1.4) * S;
+      g.beginPath(); g.moveTo(sx2 * S, sy * S); g.lineTo((sx2 + ln) * S, (sy + (rnd() - 0.5) * 4) * S); g.stroke();
     }
-    for (var j = 0; j < 2600; j++) {
-      g.fillStyle = rnd() < 0.5 ? 'rgba(90,72,48,.20)' : 'rgba(255,248,230,.20)';
-      g.fillRect(rnd() * 600, rnd() * 300, 1 + rnd() * 2, 1 + rnd() * 1.5);
+    for (var j = 0; j < 16000; j++) {
+      g.fillStyle = rnd() < 0.5 ? 'rgba(90,72,48,.18)' : 'rgba(255,248,230,.18)';
+      g.fillRect(rnd() * TW * S, rnd() * TH * S, (1 + rnd() * 2) * S, (1 + rnd() * 1.5) * S);
     }
     var t = new THREE.CanvasTexture(cv);
     t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding;
+    t.repeat.set(600 / TW, 300 / TH);
     t.anisotropy = renderer.capabilities.getMaxAnisotropy();
     return t;
   }
   var M = {
-    veneer: new THREE.MeshStandardMaterial({ map: brickTexture(), roughness: 0.92, metalness: 0 }),
+    veneer: new THREE.MeshStandardMaterial({ map: stoneTexture(), roughness: 0.95, metalness: 0 }),
     cap: new THREE.MeshStandardMaterial({ color: 0xd8cdb2, roughness: 0.85 }),
     block: new THREE.MeshStandardMaterial({ color: 0x8e8e8a, roughness: 0.95 }),
     footing: new THREE.MeshStandardMaterial({ color: 0x6f6f6b, roughness: 0.95 }),
@@ -172,6 +191,27 @@
     scene.add(m); return m;
   }
 
+  function faces(P, I, mat) {
+    var Q = [];
+    I.forEach(function (k) { Q.push(P[3 * k], P[3 * k + 1], P[3 * k + 2]); });
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(Q, 3));
+    geo.computeVertexNormals();
+    var m = new THREE.Mesh(geo, mat); m.castShadow = true; m.receiveShadow = true; scene.add(m); return m;
+  }
+  function pyramid(x0, z0, x1, z1, y0, y1, mat) {
+    var P = [], xm = (x0 + x1) / 2, zm = (z0 + z1) / 2;
+    [[x0, z1], [x1, z1], [x1, z0], [x0, z0]].forEach(function (q) { P.push(q[0] * mm, y0 * mm, q[1] * mm); });
+    P.push(xm * mm, y1 * mm, zm * mm);
+    return faces(P, [0, 1, 4, 1, 2, 4, 2, 3, 4, 3, 0, 4], mat);
+  }
+  function frustum(x0, z0, x1, z1, y0, X0, Z0, X1, Z1, y1, mat) {
+    var P = [];
+    [[x0, z1], [x1, z1], [x1, z0], [x0, z0]].forEach(function (q) { P.push(q[0] * mm, y0 * mm, q[1] * mm); });
+    [[X0, Z1], [X1, Z1], [X1, Z0], [X0, Z0]].forEach(function (q) { P.push(q[0] * mm, y1 * mm, q[1] * mm); });
+    return faces(P, [0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5, 2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7, 4, 5, 6, 4, 6, 7], mat);
+  }
+
   var v = W.ven, zF = -W.block, zBw = 0, zBc = zF + W.col;
   walls.forEach(function (w, k) {
     var gl = Math.min(groundR(w.a), groundL(w.b)), ft = footTop(w.a), top = wallTop(k);
@@ -190,7 +230,12 @@
       box(q.a - v, gl, zBc, xr, top, zBc + v, M.veneer);
       box(q.a - v, gl, zF, q.a, top, zBc, M.veneer);
     }
-    box(q.a - v - W.capO, top, zF - v - W.capO, xr + W.capO, top + W.capT, zBc + v + W.capO, M.cap);
+    var cx0 = q.a - v - W.capO, cx1 = xr + W.capO, cz0 = zF - v - W.capO, cz1 = zBc + v + W.capO, cy = top + W.capT;
+    box(cx0, top, cz0, cx1, cy, cz1, M.cap);
+    if (q.n === 2 || q.n === 3) {
+      var hx = (cx0 + cx1) / 2, hz = (cz0 + cz1) / 2, hs = W.capSeat / 2;
+      frustum(cx0, cz0, cx1, cz1, cy, hx - hs, hz - hs, hx + hs, hz + hs, cy + W.capSeatUp, M.cap);
+    } else pyramid(cx0, cz0, cx1, cz1, cy, cy + W.capRise, M.cap);
   });
   var zc = (zF + zBc) / 2, edges = [0].concat(steps.map(function (st) { return st[0]; }), [total]);
   for (var e = 0; e < edges.length - 1; e++) {
@@ -272,7 +317,7 @@
     var treadMat = new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
     treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
     var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), roughness: 0.92 });
-    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 600, 1 / 300);
+    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 1800, 1 / 1200);
     function solid(hw, deep, yTop) {
       var xo = xf + deep, sh = new THREE.Shape();
       var tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
@@ -346,7 +391,7 @@
                 stand: 20, plate: 130, plateT: 6, bladeW: 75, bladeT: 6, bladeH: 150, skirt: 120, skirtGap: 5 };
   arbor.clear = pathTop + arbor.tieUp;
   (function () {
-    var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, capTop = colTop(2) + W.capT, xm = (c2 + c3) / 2;
+    var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, capTop = colTop(2) + W.capT + W.capSeatUp, xm = (c2 + c3) / 2;
     var half = arbor.post / 2, rise = Math.tan(arbor.pitch * Math.PI / 180), foot = capTop + arbor.stand;
     var zRows = [zc - half - arbor.beamW / 2, zc + half + arbor.beamW / 2];
     function under(px) { return arbor.clear + (Math.min(px, 2 * xm - px) - c2) * rise; }
@@ -400,7 +445,8 @@
     sp.visible = false; scene.add(sp); tags.push(sp);
   });
 
-  var take = { blockL: 390, blockH: 190, joint: 10, colBlocks: 2, barCtrs: 400, barUp: 100, extra: 0.10 };
+  var take = { blockL: 390, blockH: 190, joint: 10, colBlocks: 2, barCtrs: 400, barUp: 100, extra: 0.10,
+               waste: 0.15, bodyBox: 0.55, cornerBox: 1, cornerOff: 0.2 };
   (function () {
     var out = document.getElementById('mat'); if (!out) return;
     function strip(x0, x1, top, ground) {
@@ -433,15 +479,29 @@
         else cs += half * (top - gFront(s[0])) + (half + proud) * (top - gBack(s[0]));
       });
     });
+    var corners = 0;
+    cols.forEach(function (q) {
+      var top = colTop(q.n), bareEnd = q.n === 7 && bare.c7end;
+      [[q.a - v, wallL], [q.b + v, wallR]].forEach(function (s, i) {
+        if (bareEnd && i === 1) return;
+        var gb = gBack(s[0]);
+        if (q.n === 4 && i === 1) gb = Math.max(gb, retTop);
+        corners += top - gb;
+        if (s[1][q.n] !== undefined) corners += Math.max(0, top - wallTop(s[1][q.n]) - W.capT);
+        else corners += top - gFront(s[0]);
+      });
+    });
+    corners += 4 * wallSteps.riser;
     var retFace = retTop - gBack(rx1), retLen = retain.len - (W.col + 2 * v);
     var capArea = (retain.wide + 2 * cap.over) * (retLen + cap.over);
     var sw = wallSteps.wide, sd = wallSteps.going, lw = sw + 2 * wallSteps.landing, ld = sd + wallSteps.landing;
     var stepTread = sw * sd, landTread = lw * ld - stepTread, stepRiser = (2 * sd + sw) * wallSteps.riser;
-    var wallTiles = (wf + wb + cf + cb + cs + retFace * retLen + stepRiser) / 1e6, flatTiles = (capArea + stepTread + landTread) / 1e6;
+    var stoneFace = (wf + wb + cf + cb + cs + retFace * retLen + stepRiser) / 1e6, flatTiles = (capArea + stepTread + landTread) / 1e6;
+    var cornerM = corners / 1000, bodies = stoneFace - take.cornerOff * cornerM;
     var perBlock = (take.blockL + take.joint) * (take.blockH + take.joint);
     var blocks = Math.ceil(blockArea / perBlock - 1e-9) + Math.round(courses) * take.colBlocks;
     var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, xm = (c2 + c3) / 2, rise = Math.tan(arbor.pitch * Math.PI / 180);
-    var postLen = arbor.clear - (colTop(2) + W.capT + arbor.stand), tieLen = c3 - c2 + arbor.post, kingLen = (xm - c2) * rise - arbor.collar;
+    var postLen = arbor.clear - (colTop(2) + W.capT + W.capSeatUp + arbor.stand), tieLen = c3 - c2 + arbor.post, kingLen = (xm - c2) * rise - arbor.collar;
     var rafter = (xm - c2 + arbor.over) / Math.cos(arbor.pitch * Math.PI / 180), ridgeLen = arbor.post + 2 * arbor.beamW;
     var strutLen = ((xm - arbor.king / 2 - c2) * rise + arbor.into - arbor.collar) / (1 + rise) * Math.SQRT2;
     var gateW = opening.b - opening.a - 2 * v - 2 * gate.side, gateH = gate.top - gate.under;
@@ -451,18 +511,22 @@
     function f2(n) { return n.toFixed(2); }
     function mm0(n) { return Math.round(n); }
     function up(n) { return n * (1 + take.extra); }
+    function upS(n) { return n * (1 + take.waste); }
+    function boxes(n, per) { return Math.ceil(n / per - 1e-9); }
     var rows = [];
     function grp(t) { rows.push('<tr class="grp"><td colspan="3">' + t + '</td></tr>'); }
     function row(name, net, more) { rows.push('<tr><td>' + name + '</td><td>' + net + '</td><td>' + (more === undefined ? '&ndash;' : more) + '</td></tr>'); }
     grp('Wall');
     row('Concrete blocks ' + take.blockL + ' x ' + W.block + ' x ' + take.blockH + ' (200 series)', blocks, Math.ceil(up(blocks) - 1e-9));
     row('N12 upright bars at ' + take.barCtrs + ' centres, in the walls, ' + (barLen / 1000).toFixed(1) + ' m in all', bars);
-    grp('Tiles and capping');
-    row('Wall tiles, travertine 75 x 150', f2(wallTiles) + ' m&sup2;', f2(up(wallTiles)) + ' m&sup2;');
+    grp('Stone, tiles and capping');
+    row('Dry stack stone, webbed panels (bodies)', f2(bodies) + ' m&sup2;', f2(upS(bodies)) + ' m&sup2; = ' + boxes(upS(bodies), take.bodyBox) + ' boxes');
+    row('Dry stack corners, prefabricated, at every outside corner', f2(cornerM) + ' m', f2(upS(cornerM)) + ' m = ' + boxes(upS(cornerM), take.cornerBox) + ' boxes');
     row('Flat tiles, travertine ' + path.tileW + ' x ' + path.tileL, f2(flatTiles) + ' m&sup2;', f2(up(flatTiles)) + ' m&sup2;');
-    row('Tile glue, area to be glued', f2(wallTiles + flatTiles) + ' m&sup2;');
+    row('Dark tile adhesive for the stone (dry joint)', f2(stoneFace) + ' m&sup2;');
+    row('Tile glue for the flat tiles', f2(flatTiles) + ' m&sup2;');
     row('Capping to the walls, ' + (W.block + 2 * v + 2 * W.capO) + ' wide *', f2(capRun / 1000) + ' m', f2(up(capRun / 1000)) + ' m');
-    row('Column caps, ' + (W.col + 2 * v + 2 * W.capO) + ' square *', cols.length);
+    row('Column caps, ' + (W.col + 2 * v + 2 * W.capO) + ' square, shallow pyramid (flat seat under the arbor posts) *', cols.length);
     grp('Panels and gate, white powder coat');
     row('Infill panels, vertical slats: ' + panelText, panels.length);
     row('Gate to match, ' + mm0(gateW) + ' x ' + mm0(gateH), 1);
@@ -478,12 +542,14 @@
     row('Column lights', cols.length * 2);
     row('Step lights, recessed', 2);
     row('Stepping stones ' + stone.w + ' x ' + stone.d + ' *', 3);
-    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. +10% allows for cuts and breakage.</div>' +
-      '<table><tr><th>Material</th><th>Net</th><th>+10%</th></tr>' + rows.join('') + '</table>' +
+    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. To order adds 10% for cuts and breakage, and 15% on the dry stack stone (the supplier\'s allowance for dry joints).</div>' +
+      '<table><tr><th>Material</th><th>Net</th><th>To order</th></tr>' + rows.join('') + '</table>' +
       '<div class="mnote">* size indicative, to be confirmed. Blocks are counted at ' + (1e6 / perBlock) + ' to the square metre of wall, from the footing to the top, ' +
       'with ' + take.colBlocks + ' to a course in each column. Bars are measured from ' + take.barUp + ' above the underside of the footing to the top of the blockwork, ' +
       'without cogs or laps; how they are fixed into the poured footing is to be confirmed. ' +
-      'Wall tiles include the face of the retaining wall and the step riser; flat tiles are the top of the retaining wall, the step and the landing. ' +
+      'The dry stack stone (Veneer Stone, Dry Stack collection, sizes from its technical guide of December 2025) covers every face above the ground that was to be tiled: both faces of the walls, the columns, the face of the retaining wall and the step riser; it stands 40 off the blockwork (stone up to 35 thick on 5 of adhesive), so the walls finish 270 thick and the columns 470. Flat tiles are the top of the retaining wall, the step and the landing. ' +
+      'Bodies are webbed panels about 200 high x 500 long, 48.5 kg to the square metre, 0.55 m&sup2; to a box; the area is the stone face less 0.2 m&sup2; for every metre of corners, as the supplier says. Corners are prefabricated and sold by the metre, 1 m to a box, measured at every outside corner of the stone from the ground (or the wall capping) to the top; none at the far end of C7, which is bare. ' +
+      'Capping and column caps are the supplier\'s matching pieces: capping 280-300 wide, 35-45 thick; its listed pier cap is 390 square, smaller than the 490 drawn. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the top is flat, 150 square and 21 above the rim, for the arbor post plates - to be confirmed. Colour, dry or 8-12 mortar joint, sealer and any mechanical fixing to be confirmed. ' +
       'Not counted: mortar, core filling, column steel, the core of the step and landing, fixings, gate hinges and latch, wiring, paint. ' +
       'Already built, so not in this list: the footings, the footpath and the retaining wall are poured, and the footpath is tiled.</div>';
     if (/[?&]mat=1/.test(location.search)) out.parentNode.open = true;
