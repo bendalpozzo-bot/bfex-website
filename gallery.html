@@ -324,7 +324,7 @@
       PHOTOS = PHOTOS.slice(0, at).concat(add, PHOTOS.slice(at));
     }
     (function initGallery(){
-      fetch('images/media-config.json')
+      fetch('images/media-config.json?_=' + Date.now())
         .then(function(r){ return r.json(); })
         .then(function(cfg){
           if (cfg && Array.isArray(cfg.gallery) && cfg.gallery.length) PHOTOS = cfg.gallery;
