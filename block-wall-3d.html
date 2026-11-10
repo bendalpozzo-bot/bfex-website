@@ -15,6 +15,9 @@
   #panel label { display: block; margin-top: 8px; cursor: pointer; }
   #panel ul { margin: 4px 0 0; padding-left: 18px; }
   #panel summary { cursor: pointer; margin-top: 8px; }
+  #lights select { display: block; width: 100%; margin-top: 4px; padding: 4px; font-size: 12px; }
+  #lights .note { color: #555; font-size: 12px; line-height: 1.3; margin-top: 4px; }
+  #lights a { color: #1a4d8a; }
   #panel { max-height: calc(100% - 96px); overflow-y: auto; }
   #mat { margin-top: 4px; font-size: 12px; line-height: 1.3; }
   #mat table { border-collapse: collapse; width: 100%; }
@@ -22,6 +25,11 @@
   #mat th + th, #mat td + td { text-align: right; white-space: nowrap; padding-left: 8px; }
   #mat .grp td { font-weight: bold; border-bottom: 0; padding-top: 6px; }
   #mat .mnote { color: #555; margin: 4px 0; }
+  #dwg a.sheet { display: block; margin-top: 8px; }
+  #dwg img { display: block; width: 100%; height: auto; border: 1px solid #bbb; border-radius: 3px; background: #fff; }
+  #dwg .cap { font-size: 12px; margin: 3px 0 2px; color: #333; }
+  #dwg .cap a { color: #1a4d8a; }
+  #dwg .how { color: #555; font-size: 12px; margin-top: 8px; }
   #stamp { position: fixed; right: 12px; bottom: 10px; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 13px;
            color: #8a1c1c; background: rgba(255,255,255,.88); }
   #err { display: none; position: fixed; inset: 0; padding: 40px; background: #fff; font-size: 18px; }
@@ -35,7 +43,22 @@
     <button data-v="front">Front</button><button data-v="c7">Left end</button><button data-v="c1">Right end</button><button data-v="back">Back</button><button data-v="top">From above</button>
   </div>
   <label><input type="checkbox" id="dusk"> Evening (see the column lights)</label>
+  <div id="lights">
+    <select id="lightSel" aria-label="Column light fitting"></select>
+    <select id="finishSel" aria-label="Finish of the fitting"></select>
+    <select id="cctSel" aria-label="Light colour"></select>
+    <div class="note" id="lightNote"></div>
+  </div>
   <input type="checkbox" id="below" hidden><input type="checkbox" id="tags" hidden>
+  <details><summary>2D drawings &ndash; 3 sheets, Rev G</summary><div id="dwg">
+    <a class="sheet" href="images/block-wall/BW01-1-block-wall-elevations-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-1-block-wall-elevations-RevG-thumb.png" width="640" height="453" alt="Sheet 1 of 3" loading="lazy"></a>
+    <div class="cap">Sheet 1 &ndash; Elevations, back and front &middot; <a href="images/block-wall/BW01-1-block-wall-elevations-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-2-block-wall-plan-schedule-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-2-block-wall-plan-schedule-RevG-thumb.png" width="640" height="453" alt="Sheet 2 of 3" loading="lazy"></a>
+    <div class="cap">Sheet 2 &ndash; Plan, step and landing, schedule &middot; <a href="images/block-wall/BW01-2-block-wall-plan-schedule-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-3-block-wall-section-opening-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-3-block-wall-section-opening-RevG-thumb.png" width="640" height="453" alt="Sheet 3 of 3" loading="lazy"></a>
+    <div class="cap">Sheet 3 &ndash; Section and the gate opening &middot; <a href="images/block-wall/BW01-3-block-wall-section-opening-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <div class="how">Tap a sheet to open it full size (pinch to zoom), or the PDF to print at A3. Revision G, 8 November 2026 &ndash; preliminary, for certification; not for construction.</div>
+  </div></details>
   <details><summary>Materials and quantities</summary><div id="mat"></div></details>
   <div style="margin-top:8px;color:#555">Concept view only. Sizes, colours and fittings are indicative.<br>Bonville Forestry and Excavations</div>
 </div>
@@ -48,16 +71,17 @@
   if (!window.THREE) { document.getElementById('err').style.display = 'block'; return; }
   var mm = 0.001;
 
-  var W = { col: 390, open: 1180, c1c2: 4327, c3c4: 3827, c4c7: 11200, wallH: 600, tall: 1600, colH: 1200,
+  var W = { col: 390, open: 1180, c1c2: 4327, c3c4: 3827, c4c7: 11175, bay: 3330, wallH: 600, tall: 1600, colH: 1200,
             wallStep: 400, block: 190, footW: 500, footD: 600, buried: 200, drop: 400, slope: 200,
             ven: 40,
             capT: 40, capO: 10, capRise: 30, capSeat: 150, capSeatUp: 21 };
   var bare = { c7end: 1 };
-  var run47 = W.c4c7 + (bare.c7end ? W.ven : 0);
-  var c = W.col, eq = (run47 - 3 * c) / 3, secs = [W.c1c2 - 2 * c, W.c3c4 - 2 * c, eq, eq, eq];
+  var run47 = W.c4c7;
+  var c = W.col, eq = W.bay, c57 = (run47 - 3 * eq) / 3,
+      secs = [W.c1c2 - 2 * c, W.c3c4 - 2 * c, eq, eq, eq];
   var cols = [], walls = [], opening = null, x = 0;
   for (var n = 1; n <= 7; n++) {
-    cols.push({ a: x, b: x + c, n: n }); x += c;
+    var cw = n >= 5 ? c57 : c; cols.push({ a: x, b: x + cw, n: n }); x += cw;
     if (n === 7) break;
     if (n === 2) { opening = { a: x, b: x + W.open }; x += W.open; }
     else { var s = secs[walls.length]; walls.push({ a: x, b: x + s }); x += s; }
@@ -157,16 +181,24 @@
     fixture: new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.6, metalness: 0.4 }),
     lens: new THREE.MeshStandardMaterial({ color: 0xfff1cf, emissive: 0xffd89a, emissiveIntensity: 0.9 })
   };
-  var washMat = (function () {
+  var CCT = { 3000: { name: 'Warm white 3000K', core: '255,228,175', mid: '255,214,150', edge: '255,200,120', lens: 0xffd89a },
+              4000: { name: 'Neutral white 4000K', core: '255,242,216', mid: '255,234,200', edge: '255,226,184', lens: 0xffedcc },
+              5500: { name: 'Cool white 5500K', core: '242,246,255', mid: '230,238,255', edge: '218,229,255', lens: 0xe8f0ff } };
+  function washTex(k, soft) {
     var cv = document.createElement('canvas'); cv.width = 64; cv.height = 128;
-    var g = cv.getContext('2d');
+    var g = cv.getContext('2d'), tint = CCT[k];
     g.scale(1, 4.2);
     var gr = g.createRadialGradient(32, 0, 1, 32, 0, 30);
-    gr.addColorStop(0, 'rgba(255,228,175,.95)'); gr.addColorStop(0.4, 'rgba(255,214,150,.4)'); gr.addColorStop(1, 'rgba(255,200,120,0)');
+    gr.addColorStop(0, 'rgba(' + tint.core + (soft ? ',.7)' : ',.95)')); gr.addColorStop(soft ? 0.6 : 0.4, 'rgba(' + tint.mid + (soft ? ',.33)' : ',.4)'));
+    gr.addColorStop(1, 'rgba(' + tint.edge + ',0)');
     g.fillStyle = gr; g.fillRect(0, 0, 64, 32);
-    return new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, opacity: 0.3, depthWrite: false,
+    return new THREE.CanvasTexture(cv);
+  }
+  function washMaterial(k, soft) {
+    return new THREE.MeshBasicMaterial({ map: washTex(k, soft), transparent: true, opacity: 0.3, depthWrite: false,
                                          blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
-  })();
+  }
+  var washMat = washMaterial(3000, false);
 
   function box(x0, y0, z0, x1, y1, z1, mat, shadow) {
     var P = [], U = [], I = [], tu = 600, tv = 300;
@@ -423,17 +455,130 @@
       strut.castShadow = true;
     });
   })();
-  cols.forEach(function (q) {
-    var xc = (q.a + q.b) / 2, yf = colTop(q.n) - 170;
-    [[zF - v, -1], [zBc + v, 1]].forEach(function (f) {
-      var z0 = f[0], dir = f[1];
-      box(xc - 45, yf - 45, Math.min(z0, z0 + dir * 35), xc + 45, yf + 45, Math.max(z0, z0 + dir * 35), M.fixture);
-      box(xc - 32, yf - 53, Math.min(z0 + dir * 4, z0 + dir * 30), xc + 32, yf - 45, Math.max(z0 + dir * 4, z0 + dir * 30), M.lens, false);
-      var wash = new THREE.Mesh(new THREE.PlaneGeometry(340 * mm, 620 * mm), washMat);
-      wash.position.set(xc * mm, (yf - 45 - 310) * mm, (z0 + dir * 3) * mm);
-      scene.add(wash);
+  var FIN = { blk: ['Black', 0x2a2a2a], wht: ['White', 0xf1f1ec], ss: ['316 stainless steel', 0xb4b8bc], br: ['Solid brass', 0xb08d3e],
+              ab: ['Antique brass', 0x6e5c3c], cp: ['Copper', 0xb06a45], gph: ['Graphite', 0x4b4c4e] };
+  var LIGHTS = [
+    { id: 'generic', name: 'Column lights: as first drawn' },
+    { id: 'reces', name: 'Havit Reces round (recessed)', code: 'HV3205T', shape: 'scoop', round: 1, w: 80, h: 80, t: 3, size: 'face 80 dia',
+      fix: 'recessed, cut-out 76 dia with its canister', watt: '2.5 W', lm: [180, 185, 190], ip: 'IP67', volt: '12 V',
+      fin: ['blk', 'wht', 'ss', 'br', 'ab'], wash: [300, 560], url: 'hv3205t-blk-12v-reces-black-round-tri-colour-recessed-led-step-light' },
+    { id: 'recessq', name: 'Havit Reces square (recessed)', code: 'HV3215T', shape: 'scoop', round: 0, w: 80, h: 80, t: 3, size: 'face 80 x 80',
+      fix: 'recessed, cut-out 76 dia with its canister', watt: '2.5 W', lm: [180, 185, 190], ip: 'IP67', volt: '12 V',
+      fin: ['blk', 'wht', 'ss', 'br', 'ab'], wash: [300, 560], url: 'hv3215t-blk-12v-reces-black-square-tri-colour-recessed-led-step-light' },
+    { id: 'mini', name: 'Havit Mini Reces round (recessed)', code: 'HV3206T', shape: 'scoop', round: 1, w: 55, h: 55, t: 2, size: 'face 55 dia',
+      fix: 'recessed, cut-out 50 dia with its canister', watt: '1 W', lm: [55, 57, 60], ip: 'IP67', volt: '12 V',
+      fin: ['blk', 'wht', 'ss', 'br', 'ab'], wash: [220, 380], url: 'hv3206t-blk-12v-mini-reces-black-round-tri-colour-recessed-led-step-light' },
+    { id: 'ollo', name: 'Havit Ollo with eyelid (recessed)', code: 'HV19012T', shape: 'eyelid', w: 92, h: 92, size: 'face 92 dia, eyelid 17 proud',
+      fix: 'recessed, cut-out 87 dia with its canister, 125 deep', watt: '5 W globe', lm: [270, 285, 300], ip: 'IP65', volt: '12 V',
+      fin: ['blk', 'ss', 'br', 'ab', 'cp', 'gph'], wash: [400, 700], url: 'hv19012t-blk-ollo-black-tri-colour-led-step-light-with-eyelid' },
+    { id: 'veko', name: 'Havit Veko with eyelid (surface)', code: 'HV2927T', shape: 'dome', w: 68, h: 68, size: '68 dia, 54 proud',
+      fix: 'surface mounted', watt: '2 W', lm: [100, 110, 105], ip: 'IP65', volt: '12 V or 240 V',
+      fin: ['blk', 'wht', 'ss', 'br'], wash: [300, 480], url: 'hv2927t-blk-12v-hv2927t-blk-240v-veko-black-step-lights-with-eyelid' },
+    { id: 'pinta', name: 'Havit Pinta louvred (surface)', code: 'HV2925T', shape: 'louvre', w: 98, h: 98, size: '98 dia, 46 proud',
+      fix: 'surface mounted', watt: '2.3 W', lm: [160, 170, 180], ip: 'IP65', volt: '12 V', soft: 1,
+      fin: ['blk', 'wht'], wash: [380, 520], url: 'hv2925-pinta-black-louvered-step-lights' },
+    { id: 'stylez', name: 'Havit Stylez up and down (surface)', code: 'HV3289T', shape: 'slab', w: 80, h: 120, size: '80 x 120, 14 proud',
+      fix: 'surface mounted', watt: '2 x 3 W', lm: [240, 245, 250], ip: 'IP65', volt: '12 V',
+      fin: ['blk', 'wht', 'ss', 'br', 'ab'], wash: [260, 720], url: 'hv3289t-blk-12v-stylez-black-up-down-led-wall-light' },
+    { id: 'virsma', name: 'Havit Virsma square (surface)', code: 'HV3276T', shape: 'hood', w: 148, h: 148, size: '148 x 148, 37 proud',
+      fix: 'surface mounted', watt: '4 W', lm: [110, 115, 120], ip: 'IP54', volt: '12 V or 240 V', soft: 1,
+      fin: ['blk', 'wht'], wash: [440, 420], url: 'hv3276t-wht-virsma-white-square-led-step-lights' }
+  ];
+  function lightById(id) { for (var n = 0; n < LIGHTS.length; n++) if (LIGHTS[n].id === id) return LIGHTS[n]; return LIGHTS[0]; }
+  var lightState = { id: 'generic', fin: 'blk', cct: 3000, dusk: false };
+  (function () {
+    var a = /[?&]light=(\w+)/.exec(location.search), b = /[?&]finish=(\w+)/.exec(location.search), k = /[?&]cct=(\d+)/.exec(location.search);
+    if (a) lightState.id = lightById(a[1]).id;
+    if (b && FIN[b[1]]) lightState.fin = b[1];
+    if (k && CCT[k[1]]) lightState.cct = +k[1];
+    var L = lightById(lightState.id);
+    if (L.fin && L.fin.indexOf(lightState.fin) < 0) lightState.fin = L.fin[0];
+  })();
+  var lightGroup = new THREE.Group(); scene.add(lightGroup);
+  var finMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.5, metalness: 0.35, side: THREE.DoubleSide });
+  var darkMat = new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: 0.95 });
+  var havitWash = null;
+  function put(m) { m.castShadow = false; lightGroup.add(m); return m; }
+  function blockAt(xa, ya, xb, yb, z0, dir, o0, o1, mat) {
+    return put(box(xa, ya, Math.min(z0 + dir * o0, z0 + dir * o1), xb, yb, Math.max(z0 + dir * o0, z0 + dir * o1), mat, false));
+  }
+  function disc(xc, yc, z0, dir, r, t, mat) {
+    var m = new THREE.Mesh(new THREE.CylinderGeometry(r * mm, r * mm, t * mm, 40), mat);
+    m.rotation.x = Math.PI / 2; m.position.set(xc * mm, yc * mm, (z0 + dir * t / 2) * mm); return put(m);
+  }
+  function flat(xc, yc, z0, dir, off, rx, ry, mat, a0, a1) {
+    var m = new THREE.Mesh(new THREE.CircleGeometry(mm, 32, a0 || 0, a1 === undefined ? Math.PI * 2 : a1), mat);
+    m.scale.set(rx, ry, 1); if (dir < 0) m.rotation.y = Math.PI;
+    m.position.set(xc * mm, yc * mm, (z0 + dir * off) * mm); return put(m);
+  }
+  function hood(xc, yc, z0, dir, off, r, proj, mat) {
+    var m = new THREE.Mesh(new THREE.SphereGeometry(r * mm, 24, 12, dir > 0 ? 0 : Math.PI, Math.PI, 0, Math.PI / 2), mat);
+    m.scale.z = proj / r; m.position.set(xc * mm, yc * mm, (z0 + dir * off) * mm); return put(m);
+  }
+  function washAt(xc, y0, z0, dir, w, h, mat, up) {
+    var m = new THREE.Mesh(new THREE.PlaneGeometry(w * mm, h * mm), mat);
+    if (up) m.rotation.z = Math.PI;
+    m.position.set(xc * mm, (up ? y0 + h / 2 : y0 - h / 2) * mm, (z0 + dir * 3) * mm); lightGroup.add(m); return m;
+  }
+  function lightLevels() {
+    var on = lightState.dusk;
+    washMat.opacity = on ? 0.95 : 0.3; M.lens.emissiveIntensity = on ? 1.6 : 0.9;
+    if (havitWash) havitWash.opacity = Math.min(1, havitWash.userData.gain * (on ? 0.85 : 0.27));
+  }
+  function buildLights() {
+    while (lightGroup.children.length) { var gone = lightGroup.children[0]; lightGroup.remove(gone); if (gone.geometry) gone.geometry.dispose(); }
+    var L = lightById(lightState.id), k = lightState.cct, ci = k === 3000 ? 0 : (k === 4000 ? 1 : 2);
+    M.lens.emissive.setHex(CCT[k].lens);
+    var old = washMat.map; washMat.map = washTex(k, false); if (old) old.dispose();
+    if (havitWash) { havitWash.map.dispose(); havitWash.dispose(); havitWash = null; }
+    if (L.id !== 'generic') {
+      havitWash = washMaterial(k, !!L.soft); havitWash.userData.gain = Math.pow(L.lm[ci] / 180, 0.55);
+      finMat.color.setHex(FIN[lightState.fin][1]);
+    }
+    cols.forEach(function (q) {
+      var xc = (q.a + q.b) / 2, yf = colTop(q.n) - 170;
+      [[zF - v, -1], [zBc + v, 1]].forEach(function (f) {
+        var z0 = f[0], dir = f[1], hw, n, y;
+        if (L.id === 'generic') {
+          lightGroup.add(box(xc - 45, yf - 45, Math.min(z0, z0 + dir * 35), xc + 45, yf + 45, Math.max(z0, z0 + dir * 35), M.fixture));
+          lightGroup.add(box(xc - 32, yf - 53, Math.min(z0 + dir * 4, z0 + dir * 30), xc + 32, yf - 45, Math.max(z0 + dir * 4, z0 + dir * 30), M.lens, false));
+          washAt(xc, yf - 45, z0, dir, 340, 620, washMat);
+          return;
+        }
+        if (L.shape === 'scoop') {
+          if (L.round) disc(xc, yf, z0, dir, L.w / 2, L.t, finMat);
+          else blockAt(xc - L.w / 2, yf - L.h / 2, xc + L.w / 2, yf + L.h / 2, z0, dir, 0, L.t, finMat);
+          flat(xc, yf - L.w * 0.05, z0, dir, L.t + 0.4, L.w * 0.14, L.w * 0.25, darkMat);
+          flat(xc, yf + L.w * 0.11, z0, dir, L.t + 0.8, L.w * 0.07, L.w * 0.07, M.lens);
+        } else if (L.shape === 'eyelid') {
+          disc(xc, yf, z0, dir, L.w / 2, 5, finMat);
+          hood(xc, yf, z0, dir, 5, L.w / 2, 12, finMat);
+          flat(xc, yf, z0, dir, 5.6, L.w * 0.27, L.w * 0.27, M.lens, Math.PI, Math.PI);
+        } else if (L.shape === 'dome') {
+          disc(xc, yf, z0, dir, L.w / 2, 26, finMat);
+          hood(xc, yf, z0, dir, 26, L.w / 2, 28, finMat);
+          flat(xc, yf, z0, dir, 26.4, L.w / 2 - 4, L.w / 2 - 4, darkMat, Math.PI, Math.PI);
+          blockAt(xc - 20, yf - 6, xc + 20, yf - 2, z0, dir, 27, 45, M.lens);
+        } else if (L.shape === 'louvre') {
+          disc(xc, yf, z0, dir, L.w / 2, 30, finMat);
+          flat(xc, yf, z0, dir, 30.5, 35.5, 35.5, M.lens);
+          for (n = -2; n <= 2; n++) { y = n * 12; hw = Math.sqrt(35.5 * 35.5 - y * y) - 2; blockAt(xc - hw, yf + y - 2, xc + hw, yf + y + 2, z0, dir, 30.5, 44, finMat); }
+        } else if (L.shape === 'slab') {
+          blockAt(xc - 40, yf - 60, xc + 40, yf + 60, z0, dir, 0, 14, finMat);
+          blockAt(xc - 30, yf + 60, xc + 30, yf + 61.5, z0, dir, 3, 11, M.lens);
+          blockAt(xc - 30, yf - 61.5, xc + 30, yf - 60, z0, dir, 3, 11, M.lens);
+          washAt(xc, yf + 60, z0, dir, L.wash[0], colTop(q.n) - yf - 60, havitWash, true);
+        } else if (L.shape === 'hood') {
+          blockAt(xc - 74, yf + 24, xc + 74, yf + 74, z0, dir, 0, 37, finMat);
+          blockAt(xc - 74, yf - 74, xc + 74, yf + 24, z0, dir, 0, 20, finMat);
+          blockAt(xc - 64, yf + 21, xc + 64, yf + 24, z0, dir, 21, 35, M.lens);
+        }
+        washAt(xc, yf - L.h / 2, z0, dir, L.wash[0], L.wash[1], havitWash);
+      });
     });
-  });
+    lightLevels();
+  }
+  buildLights();
 
   var tags = [];
   cols.forEach(function (q) {
@@ -622,10 +767,39 @@
   function setDusk(on) {
     hemi.intensity = on ? 0.22 : 0.5; sun.intensity = on ? 0.1 : 0.6;
     scene.background.set(on ? 0x1d2733 : 0xcfd8dc);
-    washMat.opacity = on ? 0.95 : 0.3; M.lens.emissiveIntensity = on ? 1.6 : 0.9;
+    lightState.dusk = on; lightLevels();
   }
   document.getElementById('dusk').addEventListener('change', function (ev) { setDusk(ev.target.checked); });
   if (/[?&]dusk=1/.test(location.search)) { document.getElementById('dusk').checked = true; setDusk(true); }
+  (function () {
+    var sel = document.getElementById('lightSel'), fs = document.getElementById('finishSel'), cs = document.getElementById('cctSel'),
+        note = document.getElementById('lightNote');
+    LIGHTS.forEach(function (L) { var o = document.createElement('option'); o.value = L.id; o.textContent = L.name; sel.appendChild(o); });
+    [3000, 4000, 5500].forEach(function (k) {
+      var o = document.createElement('option'); o.value = k; o.textContent = 'Light colour: ' + CCT[k].name.charAt(0).toLowerCase() + CCT[k].name.slice(1); cs.appendChild(o);
+    });
+    function finishes() {
+      var L = lightById(lightState.id), list = L.fin || ['blk'];
+      while (fs.firstChild) fs.removeChild(fs.firstChild);
+      list.forEach(function (f) { var o = document.createElement('option'); o.value = f; o.textContent = 'Finish: ' + FIN[f][0].toLowerCase(); fs.appendChild(o); });
+      if (list.indexOf(lightState.fin) < 0) lightState.fin = list[0];
+      fs.value = lightState.fin; fs.style.display = L.id === 'generic' ? 'none' : '';
+    }
+    function describe() {
+      var L = lightById(lightState.id), i = lightState.cct === 3000 ? 0 : (lightState.cct === 4000 ? 1 : 2), cells = document.querySelectorAll('#mat td'), n;
+      note.innerHTML = L.id === 'generic' ? 'Pick a Havit fitting to see it on the columns, then tick Evening to see its light.' :
+        L.code + ' &middot; ' + L.fix + ' &middot; ' + L.size + ' &middot; ' + L.watt + ', ' + (L.shape === 'slab' ? '2 x ' : '') + L.lm[i] + ' lumens &middot; ' + L.ip + ' &middot; ' + L.volt +
+        '<br><a href="https://havit.com.au/products/' + L.url + '" target="_blank" rel="noopener">Havit page for this fitting</a>' +
+        '<br>The light shown is an impression from the fitting\'s shape and lumens, not a lighting design.';
+      for (n = 0; n < cells.length; n++) {
+        if (/^Column lights/.test(cells[n].textContent)) cells[n].textContent = 'Column lights' + (L.id === 'generic' ? '' : ': ' + L.name + ', ' + L.code + ', ' + FIN[lightState.fin][0].toLowerCase());
+      }
+    }
+    sel.value = lightState.id; cs.value = lightState.cct; finishes(); describe();
+    sel.addEventListener('change', function () { lightState.id = sel.value; finishes(); buildLights(); describe(); });
+    fs.addEventListener('change', function () { lightState.fin = fs.value; buildLights(); describe(); });
+    cs.addEventListener('change', function () { lightState.cct = +cs.value; buildLights(); describe(); });
+  })();
   function showTags(on) { tags.forEach(function (t) { t.visible = on; }); }
   document.getElementById('tags').addEventListener('change', function (ev) { showTags(ev.target.checked); });
   if (/[?&]tags=1/.test(location.search)) { document.getElementById('tags').checked = true; showTags(true); }
