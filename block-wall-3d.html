@@ -18,6 +18,9 @@
   #lights select { display: block; width: 100%; margin-top: 4px; padding: 4px; font-size: 12px; }
   #lights .note { color: #555; font-size: 12px; line-height: 1.3; margin-top: 4px; }
   #lights a { color: #1a4d8a; }
+  #stonebox select { display: block; width: 100%; margin-top: 8px; padding: 4px; font-size: 12px; }
+  #stonebox .note { color: #555; font-size: 12px; line-height: 1.3; margin-top: 4px; }
+  #stonebox a { color: #1a4d8a; }
   #panel { max-height: calc(100% - 96px); overflow-y: auto; }
   #mat { margin-top: 4px; font-size: 12px; line-height: 1.3; }
   #mat table { border-collapse: collapse; width: 100%; }
@@ -41,6 +44,10 @@
   Drag to turn &middot; scroll or pinch to zoom in on the pointer.
   <div>
     <button data-v="front">Front</button><button data-v="c7">Left end</button><button data-v="c1">Right end</button><button data-v="back">Back</button><button data-v="top">From above</button>
+  </div>
+  <div id="stonebox">
+    <select id="stoneSel" aria-label="Stone colour"></select>
+    <div class="note" id="stoneNote"></div>
   </div>
   <label><input type="checkbox" id="dusk"> Evening (see the column lights)</label>
   <div id="lights">
@@ -116,58 +123,112 @@
   sun.shadow.camera.near = 1; sun.shadow.camera.far = 40; sun.shadow.bias = -0.0006;
   scene.add(sun); scene.add(sun.target);
 
-  function stoneTexture() {
-    var TW = 1800, TH = 1200, S = 1.5, joint = 6;
-    var cv = document.createElement('canvas'); cv.width = TW * S; cv.height = TH * S;
-    var g = cv.getContext('2d'), seed = 29;
+  var STONES = [
+    { id: 'drawn', name: 'Stone colour: as first drawn', label: '', vary: 1, stain: 1, joint: [52, 44, 36],
+      pal: [[216, 199, 165], [203, 181, 141], [225, 210, 178], [191, 167, 127], [181, 158, 120], [219, 203, 167], [199, 177, 137],
+            [171, 149, 112], [228, 217, 191], [207, 189, 155], [194, 173, 138]] },
+    { id: 'limestone', name: 'Stone: Limestone', label: 'Limestone', vary: 0.4, stain: 0.1, joint: [126, 128, 122],
+      pal: [[250, 253, 250], [245, 248, 245], [240, 243, 240], [234, 238, 236], [235, 236, 227], [229, 233, 231], [225, 228, 225], [220, 223, 219], [215, 218, 213]] },
+    { id: 'travertine', name: 'Stone: Travertine', label: 'Travertine', vary: 0.8, stain: 0.2, joint: [59, 53, 51],
+      pal: [[221, 213, 207], [200, 191, 187], [186, 178, 174], [176, 168, 164], [168, 160, 156], [160, 152, 148], [152, 144, 140], [144, 135, 132], [135, 127, 123]] },
+    { id: 'dune', name: 'Stone: Dune', label: 'Dune', vary: 0.7, stain: 0.3, joint: [96, 88, 80],
+      pal: [[229, 223, 220], [216, 210, 206], [205, 198, 194], [197, 189, 183], [186, 180, 176], [183, 172, 163], [167, 163, 160], [175, 160, 147], [161, 150, 138]] },
+    { id: 'earth', name: 'Stone: Earth', label: 'Earth', vary: 1, stain: 1, joint: [88, 64, 44],
+      pal: [[227, 203, 170], [217, 182, 141], [207, 167, 124], [190, 158, 127], [192, 150, 106], [174, 145, 117], [168, 134, 102], [147, 129, 112], [156, 123, 92]] },
+    { id: 'sandstone', name: 'Stone: Sandstone', label: 'Sandstone', vary: 0.75, stain: 0.6, joint: [100, 88, 67],
+      pal: [[217, 212, 191], [206, 200, 178], [199, 190, 168], [191, 183, 161], [193, 178, 150], [182, 173, 152], [184, 168, 140], [174, 164, 142], [174, 157, 130]] },
+    { id: 'naturalgrey', name: 'Stone: Natural Grey', label: 'Natural Grey', vary: 0.8, stain: 0.5, joint: [92, 79, 63],
+      pal: [[201, 201, 195], [204, 189, 167], [187, 188, 182], [196, 178, 154], [176, 176, 168], [189, 168, 143], [183, 160, 131], [169, 158, 142], [175, 151, 123]] },
+    { id: 'granite', name: 'Stone: Granite', label: 'Granite', vary: 0.8, stain: 0, joint: [43, 45, 53],
+      pal: [[230, 233, 244], [203, 204, 215], [185, 187, 197], [173, 176, 184], [164, 166, 173], [155, 157, 164], [146, 147, 154], [133, 135, 142], [118, 119, 127]] },
+    { id: 'bluestone', name: 'Stone: Bluestone', label: 'Bluestone', vary: 0.9, stain: 0.2, joint: [28, 31, 37],
+      pal: [[217, 201, 182], [193, 183, 172], [175, 167, 159], [160, 153, 146], [136, 139, 144], [148, 137, 124], [122, 123, 125], [99, 107, 119], [112, 108, 100]] }
+  ];
+  function stoneById(id) { for (var n = 0; n < STONES.length; n++) if (STONES[n].id === id) return STONES[n]; return STONES[0]; }
+  function stoneMaps(st, repaint) {
+    var TW = 1800, TH = 1200, joint = 4, relief = RELIEF_MM, seed = 29;
     function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
     function pick(a) { return a[Math.floor(rnd() * a.length)]; }
-    g.fillStyle = '#2a2521'; g.fillRect(0, 0, cv.width, cv.height);
-    var pal = ['#d8c7a5', '#cbb58d', '#e1d2b2', '#bfa77f', '#b59e78', '#dbcba7', '#c7b189', '#ab9570', '#e4d9bf', '#cfbd9b', '#c2ad8a'];
-    function stone(x, y, len, h) {
-      var col = pick(pal), bev = 3, ix = x + joint / 2, iy = y + joint / 2, iw = len - joint, ih = h - joint;
-      [x - TW, x, x + TW].forEach(function (dx) {
-        var xx = ix + (dx - x);
-        g.fillStyle = col; g.fillRect(xx * S, iy * S, iw * S, ih * S);
-        g.fillStyle = 'rgba(255,250,238,.26)'; g.fillRect(xx * S, iy * S, iw * S, bev * S);
-        g.fillStyle = 'rgba(40,30,20,.32)'; g.fillRect(xx * S, (iy + ih - bev) * S, iw * S, bev * S);
-        g.fillStyle = 'rgba(40,30,20,.18)'; g.fillRect((xx + iw - bev) * S, iy * S, bev * S, ih * S);
-      });
+    function lattice(cell, salt) {
+      var nx = TW / cell, ny = TH / cell, G = new Float32Array(nx * ny), s = salt, i;
+      for (i = 0; i < G.length; i++) { s = (s * 16807) % 2147483647; G[i] = s / 2147483647; }
+      return function (x, y) {
+        var fx = x / cell, fy = y / cell, xi = Math.floor(fx), yi = Math.floor(fy), ax = fx - xi, ay = fy - yi;
+        ax = ax * ax * (3 - 2 * ax); ay = ay * ay * (3 - 2 * ay);
+        var xa = ((xi % nx) + nx) % nx, xb = (xa + 1) % nx, ya = ((yi % ny) + ny) % ny, yb = (ya + 1) % ny;
+        var a = G[ya * nx + xa], b = G[ya * nx + xb], c2 = G[yb * nx + xa], d = G[yb * nx + xb];
+        return a + (b - a) * ax + (c2 - a) * ay + (a - b - c2 + d) * ax * ay;
+      };
     }
-    var stacks = [[200], [200], [200], [120, 80], [80, 120], [100, 100], [160, 40], [40, 160], [80, 40, 80], [40, 80, 80], [80, 80, 40], [120, 40, 40]];
-    for (var band = 0; band < TH; band += 200) {
-      var x = -rnd() * 450;
+    var nBig = lattice(120, 7), nMid = lattice(40, 11), nFine = lattice(8, 13), nGrain = lattice(3, 17);
+    var H = new Float32Array(TW * TH), C = new Uint8ClampedArray(TW * TH * 4), N = new Uint8ClampedArray(TW * TH * 4), i, k;
+    for (i = 0; i < TW * TH; i++) { k = i * 4; C[k] = st.joint[0]; C[k + 1] = st.joint[1]; C[k + 2] = st.joint[2]; C[k + 3] = 255; }
+    var pal = st.pal;
+    function stone(x, y, len, h) {
+      var col = pick(pal), lift = 0.45 + rnd() * 0.55, tiltX = (rnd() - 0.5) * 0.5, tiltY = (rnd() - 0.5) * 0.5, warm = rnd() < 0.3 ? rnd() : 0,
+          bev = 7 + rnd() * 8, gap = joint / 2 + rnd() * 1.5,
+          x0 = Math.round(x + gap), x1 = Math.round(x + len - gap), y0 = Math.round(y + gap), y1 = Math.round(y + h - gap), px, py;
+      for (py = y0; py < y1; py++) {
+        for (px = x0; px < x1; px++) {
+          var wx = ((px % TW) + TW) % TW, de = Math.min(px - x0, x1 - 1 - px, py - y0, y1 - 1 - py),
+              edge = de >= bev ? 1 : Math.pow((de + 0.5) / bev, 0.55), mid = nMid(wx, py), big = nBig(wx, py),
+              hgt = edge * (lift + tiltX * ((px - x0) / (x1 - x0) - 0.5) + tiltY * ((py - y0) / (y1 - y0) - 0.5)) * (0.6 + 0.3 * mid + 0.25 * nFine(wx, py)),
+              tone = (0.96 + st.vary * (0.22 * big + 0.1 * mid + 0.1 * (nGrain(wx, py) - 0.5) - 0.16)) * (0.7 + 0.3 * edge),
+              stain = st.stain * warm * mid * mid, n = py * TW + wx, q = n * 4;
+          H[n] = hgt;
+          C[q] = col[0] * tone + 30 * stain; C[q + 1] = col[1] * tone + 6 * stain; C[q + 2] = col[2] * tone - 22 * stain;
+        }
+      }
+    }
+    var bands = [180, 230, 160, 250, 170, 210],
+        stacks = [[1], [1], [0.6, 0.4], [0.4, 0.6], [0.5, 0.5], [0.65, 0.35], [0.35, 0.65], [0.78, 0.22], [0.4, 0.2, 0.4], [0.3, 0.4, 0.3], [0.45, 0.3, 0.25]];
+    var top = 0;
+    bands.forEach(function (bh) {
+      var off = Math.floor(rnd() * TW), x = 0;
       while (x < TW) {
-        var len = 140 + Math.pow(rnd(), 1.3) * 360, rows = pick(stacks), y = band;
-        rows.forEach(function (h) {
-          var sx = x, left = len;
+        var len = 130 + Math.pow(rnd(), 1.3) * 340, rows = pick(stacks), y = top, used = 0;
+        if (TW - x - len < 130) len = TW - x;
+        rows.forEach(function (f, r) {
+          var h = r === rows.length - 1 ? bh - used : Math.round(bh * f), sx = x, left = len;
           while (left > 0) {
-            var l = left <= 220 || rnd() < 0.45 ? left : 50 + rnd() * (left - 100);
-            stone(sx, y, l, h); sx += l; left -= l;
+            var l = left <= 200 || rnd() < 0.4 ? left : 60 + rnd() * (left - 120);
+            stone(sx + off, y, l, h); sx += l; left -= l;
           }
-          y += h;
+          y += h; used += h;
         });
         x += len;
       }
+      top += bh;
+    });
+    for (var yy = 0; !repaint && yy < TH; yy++) {
+      for (var xx = 0; xx < TW; xx++) {
+        var xl = (xx + TW - 1) % TW, xr = (xx + 1) % TW, yu = (yy + TH - 1) % TH, yd = (yy + 1) % TH,
+            dx = (H[yy * TW + xr] - H[yy * TW + xl]) * 0.5 * relief, dy = (H[yd * TW + xx] - H[yu * TW + xx]) * 0.5 * relief,
+            inv = 1 / Math.sqrt(dx * dx + dy * dy + 1);
+        k = (yy * TW + xx) * 4;
+        N[k] = (-dx * inv * 0.5 + 0.5) * 255; N[k + 1] = (dy * inv * 0.5 + 0.5) * 255; N[k + 2] = (inv * 0.5 + 0.5) * 255; N[k + 3] = 255;
+      }
     }
-    for (var i = 0; i < 1400; i++) {
-      var sx2 = rnd() * TW, sy = rnd() * TH, ln = 15 + rnd() * 60;
-      g.strokeStyle = rnd() < 0.5 ? 'rgba(255,250,235,.16)' : 'rgba(110,90,60,.14)';
-      g.lineWidth = (0.6 + rnd() * 1.4) * S;
-      g.beginPath(); g.moveTo(sx2 * S, sy * S); g.lineTo((sx2 + ln) * S, (sy + (rnd() - 0.5) * 4) * S); g.stroke();
+    if (repaint) {
+      var g0 = STONE.map.image.getContext('2d'), im0 = g0.createImageData(TW, TH); im0.data.set(C); g0.putImageData(im0, 0, 0);
+      STONE.map.needsUpdate = true; STONE.clones.forEach(function (c) { c.needsUpdate = true; });
+      return STONE;
     }
-    for (var j = 0; j < 16000; j++) {
-      g.fillStyle = rnd() < 0.5 ? 'rgba(90,72,48,.18)' : 'rgba(255,248,230,.18)';
-      g.fillRect(rnd() * TW * S, rnd() * TH * S, (1 + rnd() * 2) * S, (1 + rnd() * 1.5) * S);
+    function tex(data, colour) {
+      var cv = document.createElement('canvas'); cv.width = TW; cv.height = TH;
+      var g = cv.getContext('2d'), im = g.createImageData(TW, TH); im.data.set(data); g.putImageData(im, 0, 0);
+      var t = new THREE.CanvasTexture(cv);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping; if (colour) t.encoding = THREE.sRGBEncoding;
+      t.repeat.set(600 / TW, 300 / TH);
+      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return t;
     }
-    var t = new THREE.CanvasTexture(cv);
-    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding;
-    t.repeat.set(600 / TW, 300 / TH);
-    t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    return t;
+    return { map: tex(C, true), normalMap: tex(N, false), clones: [] };
   }
+  var RELIEF_MM = 9, stoneId = (function () { var m = /[?&]stone=(\w+)/.exec(location.search); return stoneById(m ? m[1] : 'drawn').id; })(),
+      STONE = stoneMaps(stoneById(stoneId));
   var M = {
-    veneer: new THREE.MeshStandardMaterial({ map: stoneTexture(), roughness: 0.95, metalness: 0 }),
+    veneer: new THREE.MeshStandardMaterial({ map: STONE.map, normalMap: STONE.normalMap, roughness: 0.95, metalness: 0 }),
     cap: new THREE.MeshStandardMaterial({ color: 0xd8cdb2, roughness: 0.85 }),
     block: new THREE.MeshStandardMaterial({ color: 0x8e8e8a, roughness: 0.95 }),
     footing: new THREE.MeshStandardMaterial({ color: 0x6f6f6b, roughness: 0.95 }),
@@ -348,8 +409,8 @@
     var top = retTop + cap.t, yBase = -W.drop - 60;
     var treadMat = new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
     treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
-    var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), roughness: 0.92 });
-    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 1800, 1 / 1200);
+    var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), normalMap: M.veneer.normalMap, roughness: 0.92 });
+    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 1800, 1 / 1200); STONE.clones.push(riserMat.map);
     function solid(hw, deep, yTop) {
       var xo = xf + deep, sh = new THREE.Shape();
       var tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
@@ -497,7 +558,7 @@
   var lightGroup = new THREE.Group(); scene.add(lightGroup);
   var finMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.5, metalness: 0.35, side: THREE.DoubleSide });
   var darkMat = new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: 0.95 });
-  var havitWash = null;
+  var spots = [], SPOT = { dusk: 5.5, day: 0.7, out: 45, lean: 0.3 };
   function put(m) { m.castShadow = false; lightGroup.add(m); return m; }
   function blockAt(xa, ya, xb, yb, z0, dir, o0, o1, mat) {
     return put(box(xa, ya, Math.min(z0 + dir * o0, z0 + dir * o1), xb, yb, Math.max(z0 + dir * o0, z0 + dir * o1), mat, false));
@@ -520,19 +581,30 @@
     if (up) m.rotation.z = Math.PI;
     m.position.set(xc * mm, (up ? y0 + h / 2 : y0 - h / 2) * mm, (z0 + dir * 3) * mm); lightGroup.add(m); return m;
   }
+  function spotAt(xc, y0, z0, dir, w, h, gain, soft, up) {
+    var sp = new THREE.SpotLight(CCT[lightState.cct].lens, 1, (up ? 240 : h * 1.9 + 200) * mm, Math.atan2(0.9 * w, h) + 0.06, soft ? 0.95 : 0.7, 2);
+    sp.position.set(xc * mm, y0 * mm, (z0 + dir * SPOT.out) * mm);
+    sp.target.position.set(xc * mm, (up ? y0 + h : y0 - h) * mm, (z0 + dir * (SPOT.out - h * Math.tan(up ? 0.12 : SPOT.lean))) * mm);
+    sp.userData.gain = gain; sp.userData.dir = dir;
+    lightGroup.add(sp); lightGroup.add(sp.target); spots.push(sp); return sp;
+  }
   function lightLevels() {
     var on = lightState.dusk;
     washMat.opacity = on ? 0.95 : 0.3; M.lens.emissiveIntensity = on ? 1.6 : 0.9;
-    if (havitWash) havitWash.opacity = Math.min(1, havitWash.userData.gain * (on ? 0.85 : 0.27));
+    spots.forEach(function (sp) { sp.intensity = sp.userData.gain * (on ? SPOT.dusk : SPOT.day); });
+  }
+  function lightSides(camZ) {
+    var front = camZ < (zF + zBc) / 2 * mm;
+    spots.forEach(function (sp) { sp.visible = (sp.userData.dir < 0) === front; });
   }
   function buildLights() {
     while (lightGroup.children.length) { var gone = lightGroup.children[0]; lightGroup.remove(gone); if (gone.geometry) gone.geometry.dispose(); }
-    var L = lightById(lightState.id), k = lightState.cct, ci = k === 3000 ? 0 : (k === 4000 ? 1 : 2);
+    spots = [];
+    var L = lightById(lightState.id), k = lightState.cct, ci = k === 3000 ? 0 : (k === 4000 ? 1 : 2), gain = 1;
     M.lens.emissive.setHex(CCT[k].lens);
     var old = washMat.map; washMat.map = washTex(k, false); if (old) old.dispose();
-    if (havitWash) { havitWash.map.dispose(); havitWash.dispose(); havitWash = null; }
     if (L.id !== 'generic') {
-      havitWash = washMaterial(k, !!L.soft); havitWash.userData.gain = Math.pow(L.lm[ci] / 180, 0.55);
+      gain = Math.pow(L.lm[ci] / 180, 0.55);
       finMat.color.setHex(FIN[lightState.fin][1]);
     }
     cols.forEach(function (q) {
@@ -542,7 +614,7 @@
         if (L.id === 'generic') {
           lightGroup.add(box(xc - 45, yf - 45, Math.min(z0, z0 + dir * 35), xc + 45, yf + 45, Math.max(z0, z0 + dir * 35), M.fixture));
           lightGroup.add(box(xc - 32, yf - 53, Math.min(z0 + dir * 4, z0 + dir * 30), xc + 32, yf - 45, Math.max(z0 + dir * 4, z0 + dir * 30), M.lens, false));
-          washAt(xc, yf - 45, z0, dir, 340, 620, washMat);
+          spotAt(xc, yf - 45, z0, dir, 340, 620, 1, false);
           return;
         }
         if (L.shape === 'scoop') {
@@ -567,13 +639,13 @@
           blockAt(xc - 40, yf - 60, xc + 40, yf + 60, z0, dir, 0, 14, finMat);
           blockAt(xc - 30, yf + 60, xc + 30, yf + 61.5, z0, dir, 3, 11, M.lens);
           blockAt(xc - 30, yf - 61.5, xc + 30, yf - 60, z0, dir, 3, 11, M.lens);
-          washAt(xc, yf + 60, z0, dir, L.wash[0], colTop(q.n) - yf - 60, havitWash, true);
+          spotAt(xc, yf + 60, z0, dir, L.wash[0], 300, gain, false, true);
         } else if (L.shape === 'hood') {
           blockAt(xc - 74, yf + 24, xc + 74, yf + 74, z0, dir, 0, 37, finMat);
           blockAt(xc - 74, yf - 74, xc + 74, yf + 24, z0, dir, 0, 20, finMat);
           blockAt(xc - 64, yf + 21, xc + 64, yf + 24, z0, dir, 21, 35, M.lens);
         }
-        washAt(xc, yf - L.h / 2, z0, dir, L.wash[0], L.wash[1], havitWash);
+        spotAt(xc, yf - L.h * 0.2, z0, dir, L.wash[0], L.wash[1], gain, !!L.soft);
       });
     });
     lightLevels();
@@ -800,6 +872,21 @@
     fs.addEventListener('change', function () { lightState.fin = fs.value; buildLights(); describe(); });
     cs.addEventListener('change', function () { lightState.cct = +cs.value; buildLights(); describe(); });
   })();
+  (function () {
+    var sel = document.getElementById('stoneSel'), note = document.getElementById('stoneNote');
+    STONES.forEach(function (st) { var o = document.createElement('option'); o.value = st.id; o.textContent = st.name; sel.appendChild(o); });
+    function describe() {
+      var st = stoneById(stoneId), cells = document.querySelectorAll('#mat td'), n;
+      note.innerHTML = st.id === 'drawn' ? '' : 'Veneer Stone Dry Stack, ' + st.label +
+        '<br><a href="https://veneerstone.com.au/dry-stack-stone-cladding" target="_blank" rel="noopener">Veneer Stone page for this stone range</a>' +
+        '<br>Colour matched to the supplier\'s sample photo. A screen is only a guide, so choose from a real sample.';
+      for (n = 0; n < cells.length; n++) {
+        if (/^Dry stack stone/.test(cells[n].textContent)) cells[n].textContent = 'Dry stack stone, webbed panels (bodies)' + (st.id === 'drawn' ? '' : ', Veneer Stone ' + st.label);
+      }
+    }
+    sel.value = stoneId; describe();
+    sel.addEventListener('change', function () { stoneId = sel.value; stoneMaps(stoneById(stoneId), true); describe(); });
+  })();
   function showTags(on) { tags.forEach(function (t) { t.visible = on; }); }
   document.getElementById('tags').addEventListener('change', function (ev) { showTags(ev.target.checked); });
   if (/[?&]tags=1/.test(location.search)) { document.getElementById('tags').checked = true; showTags(true); }
@@ -828,7 +915,7 @@
     pe('pointerdown', 800, 450, true); pe('pointermove', 900, 450, true); pe('pointerup', 900, 450, true);
     document.title = 'SELFTEST turned=' + turned.toFixed(3) + ' zoom=' + zoom.toFixed(3) + ' spot-moved=' + moved.toFixed(1) + 'px slid=' + (tgt.x - x0).toFixed(3);
   }
-  (function loop() { renderer.render(scene, cam); requestAnimationFrame(loop); })();
+  (function loop() { lightSides(cam.position.z); renderer.render(scene, cam); requestAnimationFrame(loop); })();
 })();
 </script>
 </body>
