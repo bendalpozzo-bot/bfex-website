@@ -517,7 +517,7 @@
     });
   })();
   var FIN = { blk: ['Black', 0x2a2a2a], wht: ['White', 0xf1f1ec], ss: ['316 stainless steel', 0xb4b8bc], br: ['Solid brass', 0xb08d3e],
-              ab: ['Antique brass', 0x6e5c3c], cp: ['Copper', 0xb06a45], gph: ['Graphite', 0x4b4c4e] };
+              ab: ['Antique brass', 0x3d3128], cp: ['Copper', 0xb06a45], gph: ['Graphite', 0x4b4c4e] };
   var LIGHTS = [
     { id: 'generic', name: 'Column lights: as first drawn' },
     { id: 'reces', name: 'Havit Reces round (recessed)', code: 'HV3205T', shape: 'scoop', round: 1, w: 80, h: 80, t: 3, size: 'face 80 dia',
@@ -535,6 +535,9 @@
     { id: 'veko', name: 'Havit Veko with eyelid (surface)', code: 'HV2927T', shape: 'dome', w: 68, h: 68, size: '68 dia, 54 proud',
       fix: 'surface mounted', watt: '2 W', lm: [100, 110, 105], ip: 'IP65', volt: '12 V or 240 V',
       fin: ['blk', 'wht', 'ss', 'br'], wash: [300, 480], url: 'hv2927t-blk-12v-hv2927t-blk-240v-veko-black-step-lights-with-eyelid' },
+    { id: 'curva', name: 'Havit Curva (surface)', code: 'HV3251T', shape: 'curva', w: 109, h: 34, size: '109 x 34, 40 proud',
+      fix: 'surface mounted', watt: '3 W', lm: [240, 245, 250], ip: 'IP65', volt: '12 V', pref: 'ab', drop: 19,
+      fin: ['ab', 'blk', 'br', 'wht'], wash: [440, 620], url: 'hv3251t-ab-12v-curva-antique-brass-led-step-light' },
     { id: 'pinta', name: 'Havit Pinta louvred (surface)', code: 'HV2925T', shape: 'louvre', w: 98, h: 98, size: '98 dia, 46 proud',
       fix: 'surface mounted', watt: '2.3 W', lm: [160, 170, 180], ip: 'IP65', volt: '12 V', soft: 1,
       fin: ['blk', 'wht'], wash: [380, 520], url: 'hv2925-pinta-black-louvered-step-lights' },
@@ -553,6 +556,7 @@
     if (b && FIN[b[1]]) lightState.fin = b[1];
     if (k && CCT[k[1]]) lightState.cct = +k[1];
     var L = lightById(lightState.id);
+    if (L.pref && !b) lightState.fin = L.pref;
     if (L.fin && L.fin.indexOf(lightState.fin) < 0) lightState.fin = L.fin[0];
   })();
   var lightGroup = new THREE.Group(); scene.add(lightGroup);
@@ -631,6 +635,9 @@
           hood(xc, yf, z0, dir, 26, L.w / 2, 28, finMat);
           flat(xc, yf, z0, dir, 26.4, L.w / 2 - 4, L.w / 2 - 4, darkMat, Math.PI, Math.PI);
           blockAt(xc - 20, yf - 6, xc + 20, yf - 2, z0, dir, 27, 45, M.lens);
+        } else if (L.shape === 'curva') {
+          hood(xc, yf - L.h / 2, z0, dir, 0, L.w / 2, 40, finMat).scale.y = L.h / (L.w / 2);
+          blockAt(xc - 34, yf - L.h / 2 - 1.5, xc + 34, yf - L.h / 2, z0, dir, 8, 30, M.lens);
         } else if (L.shape === 'louvre') {
           disc(xc, yf, z0, dir, L.w / 2, 30, finMat);
           flat(xc, yf, z0, dir, 30.5, 35.5, 35.5, M.lens);
@@ -645,7 +652,7 @@
           blockAt(xc - 74, yf - 74, xc + 74, yf + 24, z0, dir, 0, 20, finMat);
           blockAt(xc - 64, yf + 21, xc + 64, yf + 24, z0, dir, 21, 35, M.lens);
         }
-        spotAt(xc, yf - L.h * 0.2, z0, dir, L.wash[0], L.wash[1], gain, !!L.soft);
+        spotAt(xc, yf - (L.drop || L.h * 0.2), z0, dir, L.wash[0], L.wash[1], gain, !!L.soft);
       });
     });
     lightLevels();
@@ -868,7 +875,10 @@
       }
     }
     sel.value = lightState.id; cs.value = lightState.cct; finishes(); describe();
-    sel.addEventListener('change', function () { lightState.id = sel.value; finishes(); buildLights(); describe(); });
+    sel.addEventListener('change', function () {
+      lightState.id = sel.value; if (lightById(sel.value).pref) lightState.fin = lightById(sel.value).pref;
+      finishes(); buildLights(); describe();
+    });
     fs.addEventListener('change', function () { lightState.fin = fs.value; buildLights(); describe(); });
     cs.addEventListener('change', function () { lightState.cct = +cs.value; buildLights(); describe(); });
   })();
