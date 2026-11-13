@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block wall - 3D view, dry stack stone | Bonville Forestry and Excavations</title>
+<title>Block wall - 3D view | Bonville Forestry and Excavations</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
   html, body { margin: 0; height: 100%; overflow: hidden; background: #cfd8dc; font-family: Arial, Helvetica, sans-serif; }
@@ -12,6 +12,11 @@
            background: rgba(255,255,255,.93); box-shadow: 0 2px 8px rgba(0,0,0,.25); font-size: 13px; line-height: 1.4; color: #222; }
   #panel h1 { font-size: 15px; margin: 0 0 4px; }
   #panel button { margin: 4px 4px 0 0; padding: 6px 10px; font-size: 12px; cursor: pointer; }
+  #panel button.minbtn { position: absolute; right: 8px; top: 8px; margin: 0; width: 28px; height: 26px; padding: 0;
+                         font-size: 18px; line-height: 22px; font-weight: bold; }
+  #panel h1 { padding-right: 34px; }
+  #panel.min > *:not(h1):not(.minbtn) { display: none; }
+  #panel.min h1 { margin: 0; }
   #panel label { display: block; margin-top: 8px; cursor: pointer; }
   #panel ul { margin: 4px 0 0; padding-left: 18px; }
   #panel summary { cursor: pointer; margin-top: 8px; }
@@ -40,8 +45,9 @@
 </head>
 <body>
 <div id="panel">
-  <h1>Block wall &ndash; 3D view, dry stack stone</h1>
-  Drag to turn &middot; scroll or pinch to zoom in on the pointer.
+  <button class="minbtn" id="minBtn" type="button" title="Minimise the menu" aria-label="Minimise the menu" aria-expanded="true">&minus;</button>
+  <h1>Block wall &ndash; 3D view</h1>
+  <span class="hint">Drag to turn &middot; scroll or pinch to zoom in on the pointer.</span>
   <div>
     <button data-v="front">Front</button><button data-v="c7">Left end</button><button data-v="c1">Right end</button><button data-v="back">Back</button><button data-v="top">From above</button>
   </div>
@@ -57,14 +63,18 @@
     <div class="note" id="lightNote"></div>
   </div>
   <input type="checkbox" id="below" hidden><input type="checkbox" id="tags" hidden>
-  <details><summary>2D drawings &ndash; 3 sheets, Rev G</summary><div id="dwg">
-    <a class="sheet" href="images/block-wall/BW01-1-block-wall-elevations-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-1-block-wall-elevations-RevG-thumb.png" width="640" height="453" alt="Sheet 1 of 3" loading="lazy"></a>
-    <div class="cap">Sheet 1 &ndash; Elevations, back and front &middot; <a href="images/block-wall/BW01-1-block-wall-elevations-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
-    <a class="sheet" href="images/block-wall/BW01-2-block-wall-plan-schedule-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-2-block-wall-plan-schedule-RevG-thumb.png" width="640" height="453" alt="Sheet 2 of 3" loading="lazy"></a>
-    <div class="cap">Sheet 2 &ndash; Plan, step and landing, schedule &middot; <a href="images/block-wall/BW01-2-block-wall-plan-schedule-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
-    <a class="sheet" href="images/block-wall/BW01-3-block-wall-section-opening-RevG.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-3-block-wall-section-opening-RevG-thumb.png" width="640" height="453" alt="Sheet 3 of 3" loading="lazy"></a>
-    <div class="cap">Sheet 3 &ndash; Section and the gate opening &middot; <a href="images/block-wall/BW01-3-block-wall-section-opening-RevG.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
-    <div class="how">Tap a sheet to open it full size (pinch to zoom), or the PDF to print at A3. Revision G, 8 November 2026 &ndash; preliminary, for certification; not for construction.</div>
+  <details><summary>2D drawings &ndash; 5 sheets</summary><div id="dwg">
+    <a class="sheet" href="images/block-wall/BW01-1-block-wall-elevations-RevH.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-1-block-wall-elevations-RevH-thumb.png" width="640" height="453" alt="Sheet 1 of 5" loading="lazy"></a>
+    <div class="cap">Sheet 1 &ndash; Elevations, back and front &middot; <a href="images/block-wall/BW01-1-block-wall-elevations-RevH.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-2-block-wall-plan-schedule-RevH.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-2-block-wall-plan-schedule-RevH-thumb.png" width="640" height="453" alt="Sheet 2 of 5" loading="lazy"></a>
+    <div class="cap">Sheet 2 &ndash; Plan, step and landing, schedule &middot; <a href="images/block-wall/BW01-2-block-wall-plan-schedule-RevH.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-3-block-wall-section-opening-RevH.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-3-block-wall-section-opening-RevH-thumb.png" width="640" height="453" alt="Sheet 3 of 5" loading="lazy"></a>
+    <div class="cap">Sheet 3 &ndash; Section and the gate opening &middot; <a href="images/block-wall/BW01-3-block-wall-section-opening-RevH.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-4-column-lights-curva-schematic.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-4-column-lights-curva-schematic-thumb.png" width="640" height="453" alt="Sheet 4 of 5" loading="lazy"></a>
+    <div class="cap">Sheet 4 &ndash; Column lights: wiring and mounting (Havit Curva) &middot; <a href="images/block-wall/BW01-4-column-lights-curva-schematic.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <a class="sheet" href="images/block-wall/BW01-5-column-lights-drill-pattern.png" target="_blank" rel="noopener"><img src="images/block-wall/BW01-5-column-lights-drill-pattern-thumb.png" width="640" height="453" alt="Sheet 5 of 5" loading="lazy"></a>
+    <div class="cap">Sheet 5 &ndash; Column lights: drill and cut pattern, top course &middot; <a href="images/block-wall/BW01-5-column-lights-drill-pattern.pdf" target="_blank" rel="noopener">PDF (A3)</a></div>
+    <div class="how">Tap a sheet to open it full size (pinch to zoom), or the PDF to print at A3. Sheets 1 to 3: Revision H, 11 November 2026 &ndash; preliminary, for certification. Sheets 4 and 5: column lights, 13 November 2026 &ndash; preliminary, for the electrician to confirm. Not for construction.</div>
   </div></details>
   <details><summary>Materials and quantities</summary><div id="mat"></div></details>
   <div style="margin-top:8px;color:#555">Concept view only. Sizes, colours and fittings are indicative.<br>Bonville Forestry and Excavations</div>
@@ -78,9 +88,9 @@
   if (!window.THREE) { document.getElementById('err').style.display = 'block'; return; }
   var mm = 0.001;
 
-  var W = { col: 390, open: 1180, c1c2: 4327, c3c4: 3827, c4c7: 11175, bay: 3330, wallH: 600, tall: 1600, colH: 1200,
+  var W = { col: 390, open: 1140, c1c2: 4347, c3c4: 3847, c4c7: 11175, bay: 3330, wallH: 600, tall: 1600, colH: 1200,
             wallStep: 400, block: 190, footW: 500, footD: 600, buried: 200, drop: 400, slope: 200,
-            ven: 40,
+            ven: 20,
             capT: 40, capO: 10, capRise: 30, capSeat: 150, capSeatUp: 21 };
   var bare = { c7end: 1 };
   var run47 = W.c4c7;
@@ -124,25 +134,41 @@
   scene.add(sun); scene.add(sun.target);
 
   var STONES = [
-    { id: 'drawn', name: 'Stone colour: as first drawn', label: '', vary: 1, stain: 1, joint: [52, 44, 36],
+    { id: 'drawn', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone colour: as first drawn', label: '', vary: 1, stain: 1, joint: [52, 44, 36],
       pal: [[216, 199, 165], [203, 181, 141], [225, 210, 178], [191, 167, 127], [181, 158, 120], [219, 203, 167], [199, 177, 137],
             [171, 149, 112], [228, 217, 191], [207, 189, 155], [194, 173, 138]] },
-    { id: 'limestone', name: 'Stone: Limestone', label: 'Limestone', vary: 0.4, stain: 0.1, joint: [126, 128, 122],
+    { id: 'limestone', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Limestone', label: 'Limestone', vary: 0.4, stain: 0.1, joint: [126, 128, 122],
       pal: [[250, 253, 250], [245, 248, 245], [240, 243, 240], [234, 238, 236], [235, 236, 227], [229, 233, 231], [225, 228, 225], [220, 223, 219], [215, 218, 213]] },
-    { id: 'travertine', name: 'Stone: Travertine', label: 'Travertine', vary: 0.8, stain: 0.2, joint: [59, 53, 51],
+    { id: 'travertine', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Travertine', label: 'Travertine', vary: 0.8, stain: 0.2, joint: [59, 53, 51],
       pal: [[221, 213, 207], [200, 191, 187], [186, 178, 174], [176, 168, 164], [168, 160, 156], [160, 152, 148], [152, 144, 140], [144, 135, 132], [135, 127, 123]] },
-    { id: 'dune', name: 'Stone: Dune', label: 'Dune', vary: 0.7, stain: 0.3, joint: [96, 88, 80],
+    { id: 'dune', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Dune', label: 'Dune', vary: 0.7, stain: 0.3, joint: [96, 88, 80],
       pal: [[229, 223, 220], [216, 210, 206], [205, 198, 194], [197, 189, 183], [186, 180, 176], [183, 172, 163], [167, 163, 160], [175, 160, 147], [161, 150, 138]] },
-    { id: 'earth', name: 'Stone: Earth', label: 'Earth', vary: 1, stain: 1, joint: [88, 64, 44],
+    { id: 'earth', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Earth', label: 'Earth', vary: 1, stain: 1, joint: [88, 64, 44],
       pal: [[227, 203, 170], [217, 182, 141], [207, 167, 124], [190, 158, 127], [192, 150, 106], [174, 145, 117], [168, 134, 102], [147, 129, 112], [156, 123, 92]] },
-    { id: 'sandstone', name: 'Stone: Sandstone', label: 'Sandstone', vary: 0.75, stain: 0.6, joint: [100, 88, 67],
+    { id: 'sandstone', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Sandstone', label: 'Sandstone', vary: 0.75, stain: 0.6, joint: [100, 88, 67],
       pal: [[217, 212, 191], [206, 200, 178], [199, 190, 168], [191, 183, 161], [193, 178, 150], [182, 173, 152], [184, 168, 140], [174, 164, 142], [174, 157, 130]] },
-    { id: 'naturalgrey', name: 'Stone: Natural Grey', label: 'Natural Grey', vary: 0.8, stain: 0.5, joint: [92, 79, 63],
+    { id: 'naturalgrey', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Natural Grey', label: 'Natural Grey', vary: 0.8, stain: 0.5, joint: [92, 79, 63],
       pal: [[201, 201, 195], [204, 189, 167], [187, 188, 182], [196, 178, 154], [176, 176, 168], [189, 168, 143], [183, 160, 131], [169, 158, 142], [175, 151, 123]] },
-    { id: 'granite', name: 'Stone: Granite', label: 'Granite', vary: 0.8, stain: 0, joint: [43, 45, 53],
+    { id: 'granite', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Granite', label: 'Granite', vary: 0.8, stain: 0, joint: [43, 45, 53],
       pal: [[230, 233, 244], [203, 204, 215], [185, 187, 197], [173, 176, 184], [164, 166, 173], [155, 157, 164], [146, 147, 154], [133, 135, 142], [118, 119, 127]] },
-    { id: 'bluestone', name: 'Stone: Bluestone', label: 'Bluestone', vary: 0.9, stain: 0.2, joint: [28, 31, 37],
-      pal: [[217, 201, 182], [193, 183, 172], [175, 167, 159], [160, 153, 146], [136, 139, 144], [148, 137, 124], [122, 123, 125], [99, 107, 119], [112, 108, 100]] }
+    { id: 'bluestone', kind: 'drystack', ven: 40, fmt: 'drystack', name: 'Stone: Bluestone', label: 'Bluestone', vary: 0.9, stain: 0.2, joint: [28, 31, 37],
+      pal: [[217, 201, 182], [193, 183, 172], [175, 167, 159], [160, 153, 146], [136, 139, 144], [148, 137, 124], [122, 123, 125], [99, 107, 119], [112, 108, 100]] },
+    { id: 'classic610', kind: 'tile', ven: 20, fmt: 'f610', name: 'Classic Travertine tile 610 x 406', label: 'Classic Travertine', size: '610 x 406 x 12',
+      supplier: 'Stone Oasis', url: 'https://stoneoasis.com.au/products/classic-blend-travertine', vary: 1, stain: 0, joint: [178, 164, 150],
+      pal: [[174, 156, 140], [184, 167, 150], [193, 174, 159], [200, 183, 166], [209, 190, 173], [216, 198, 179], [221, 204, 188], [227, 211, 194], [231, 216, 200]],
+      note: 'Laid in a brick pattern with thin grout joints.' },
+    { id: 'silver610', kind: 'tile', ven: 20, fmt: 'f610', name: 'Silver Travertine tile 610 x 406', label: 'Silver Travertine', size: '610 x 406 x 12',
+      supplier: 'Stone Oasis', url: 'https://stoneoasis.com.au/products/premium-turkish-silver-travertine-pavers', vary: 1, stain: 0, joint: [150, 146, 141],
+      pal: [[224, 220, 217], [216, 212, 209], [210, 205, 203], [205, 200, 198], [201, 195, 192], [196, 189, 186], [189, 183, 180], [181, 176, 172], [171, 167, 162]],
+      note: 'Laid in a brick pattern with thin grout joints.' },
+    { id: 'tumbled75', kind: 'tile', ven: 20, fmt: 't75', name: 'Tumbled travertine 75 x 150', label: 'tumbled travertine', size: '75 x 150 x 12, on mesh',
+      supplier: 'Stone 101', url: 'https://stone101.com.au/product/travertine-tumbled-bricks-75x150-interlock/', vary: 1, stain: 0, joint: [168, 152, 130],
+      pal: [[220, 202, 166], [207, 186, 147], [228, 214, 184], [196, 171, 130], [214, 194, 158], [187, 162, 123], [222, 205, 171], [202, 181, 143], [209, 189, 152]],
+      note: 'Sold on 305 x 305 mesh sheets, laid in a brick pattern.' },
+    { id: 'splitface', kind: 'split', ven: 25, fmt: 'split', name: 'Classic Travertine split face', label: 'Classic Travertine split face', size: '100 high, random lengths, 20 thick',
+      supplier: 'Stone Oasis', url: 'https://stoneoasis.com.au/products/classic-travertine-split-face-cladding', vary: 1, stain: 0, joint: [96, 90, 80],
+      pal: [[221, 218, 205], [196, 197, 193], [212, 199, 174], [182, 183, 179], [194, 181, 155], [171, 170, 165], [162, 159, 151], [152, 148, 138], [141, 136, 125]],
+      note: 'The stone is 20 thick; with its adhesive about 25 off the blockwork - to be confirmed with the supplier.' }
   ];
   function stoneById(id) { for (var n = 0; n < STONES.length; n++) if (STONES[n].id === id) return STONES[n]; return STONES[0]; }
   function stoneMaps(st, repaint) {
@@ -225,8 +251,99 @@
     }
     return { map: tex(C, true), normalMap: tex(N, false), clones: [] };
   }
-  var RELIEF_MM = 9, stoneId = (function () { var m = /[?&]stone=(\w+)/.exec(location.search); return stoneById(m ? m[1] : 'drawn').id; })(),
-      STONE = stoneMaps(stoneById(stoneId));
+  var FORMATS = {
+    f610: { w: 610, h: 406, cols: 3, rows: 4, joint: 3, bev: 2.5, rough: 0.05, relief: 3, pits: 1, bands: 1, random: 0 },
+    t75: { w: 150, h: 75, cols: 8, rows: 16, joint: 3, bev: 6, rough: 0.2, relief: 5, pits: 1.4, bands: 0.6, random: 0 },
+    split: { w: 300, h: 100, cols: 6, rows: 12, joint: 2, bev: 5, rough: 1, relief: 9, pits: 0.6, bands: 0.4, random: 1 }
+  };
+  function tileMaps(st, repaint) {
+    var F = FORMATS[st.fmt], TW = F.w * F.cols, TH = F.h * F.rows, seed = 41;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function pick(a) { return a[Math.floor(rnd() * a.length)]; }
+    function lattice(cell, salt, cellY) {
+      var nx = Math.max(1, Math.round(TW / cell)), ny = Math.max(1, Math.round(TH / (cellY || cell))), cx = TW / nx, cy = TH / ny,
+          G = new Float32Array(nx * ny), s = salt, i;
+      for (i = 0; i < G.length; i++) { s = (s * 16807) % 2147483647; G[i] = s / 2147483647; }
+      return function (x, y) {
+        var fx = x / cx, fy = y / cy, xi = Math.floor(fx), yi = Math.floor(fy), ax = fx - xi, ay = fy - yi;
+        ax = ax * ax * (3 - 2 * ax); ay = ay * ay * (3 - 2 * ay);
+        var xa = ((xi % nx) + nx) % nx, xb = (xa + 1) % nx, ya = ((yi % ny) + ny) % ny, yb = (ya + 1) % ny;
+        var a = G[ya * nx + xa], b = G[ya * nx + xb], c2 = G[yb * nx + xa], d = G[yb * nx + xb];
+        return a + (b - a) * ax + (c2 - a) * ay + (a - b - c2 + d) * ax * ay;
+      };
+    }
+    var nBig = lattice(160, 7), nMid = lattice(45, 11), nFine = lattice(9, 13), nGrain = lattice(3, 17),
+        nStreak = lattice(140, 19, 7), nStreak2 = lattice(55, 23, 3),
+        MEANP = [0, 1, 2].map(function (c) { return st.pal.reduce(function (s, p) { return s + p[c]; }, 0) / st.pal.length; });
+    var H = new Float32Array(TW * TH), C = new Uint8ClampedArray(TW * TH * 4), N = new Uint8ClampedArray(TW * TH * 4), i, k;
+    for (i = 0; i < TW * TH; i++) { k = i * 4; C[k] = st.joint[0]; C[k + 1] = st.joint[1]; C[k + 2] = st.joint[2]; C[k + 3] = 255; }
+    function tile(x, y, len, h) {
+      var p0 = pick(st.pal), col = [0, 1, 2].map(function (c) { return MEANP[c] + (p0[c] - MEANP[c]) * 0.5; }),
+          lift = F.random ? 0.5 + rnd() * 0.5 : 1, tone0 = 0.96 + rnd() * 0.08, gap = F.joint / 2, x0 = Math.round(x + gap), x1 = Math.round(x + len - gap),
+          y0 = Math.round(y + gap), y1 = Math.round(y + h - gap), px, py, pits = [], np = Math.round(len * h / 9000 * F.pits * (0.5 + rnd())), j;
+      for (j = 0; j < np; j++) pits.push([x0 + rnd() * (x1 - x0), y0 + rnd() * (y1 - y0), 1 + rnd() * 5, 0.6 + rnd() * 1.4]);
+      for (py = y0; py < y1; py++) {
+        for (px = x0; px < x1; px++) {
+          var wx = ((px % TW) + TW) % TW, de = Math.min(px - x0, x1 - 1 - px, py - y0, y1 - 1 - py),
+              edge = de >= F.bev ? 1 : Math.pow((de + 0.5) / F.bev, 0.6),
+              band = F.bands * (0.08 * (nStreak(wx, py) - 0.5) + 0.04 * (nStreak2(wx, py) - 0.5)),
+              tone = (tone0 + band + st.vary * (0.12 * (nBig(wx, py) - 0.5) + 0.07 * (nMid(wx, py) - 0.5) + 0.05 * (nGrain(wx, py) - 0.5))) * (0.82 + 0.18 * edge),
+              n = py * TW + wx, q = n * 4;
+          H[n] = edge * lift * (1 - F.rough + F.rough * (0.55 * nMid(wx, py) + 0.45 * nFine(wx, py)));
+          C[q] = col[0] * tone; C[q + 1] = col[1] * tone; C[q + 2] = col[2] * tone;
+        }
+      }
+      pits.forEach(function (p) {
+        var yy, xx, dx, dy, r2, pit, n2, q2;
+        for (yy = Math.max(y0, Math.floor(p[1] - p[3])); yy <= Math.min(y1 - 1, Math.ceil(p[1] + p[3])); yy++) {
+          for (xx = Math.max(x0, Math.floor(p[0] - p[2])); xx <= Math.min(x1 - 1, Math.ceil(p[0] + p[2])); xx++) {
+            dx = (xx - p[0]) / p[2]; dy = (yy - p[1]) / p[3]; r2 = dx * dx + dy * dy;
+            if (r2 >= 1) continue;
+            pit = 1 - r2; n2 = yy * TW + (((xx % TW) + TW) % TW); q2 = n2 * 4;
+            H[n2] -= 0.5 * pit; C[q2] *= 1 - 0.35 * pit; C[q2 + 1] *= 1 - 0.38 * pit; C[q2 + 2] *= 1 - 0.42 * pit;
+          }
+        }
+      });
+    }
+    var r, cc, start, xr, ln;
+    for (r = 0; r < F.rows; r++) {
+      if (!F.random) { for (cc = 0; cc < F.cols; cc++) tile(cc * F.w + (r % 2) * F.w / 2, r * F.h, F.w, F.h); continue; }
+      start = Math.floor(rnd() * 300); xr = start;
+      while (xr < start + TW) { ln = 150 + rnd() * 300; if (start + TW - xr - ln < 150) ln = start + TW - xr; tile(xr, r * F.h, ln, F.h); xr += ln; }
+    }
+    if (repaint) {
+      var g0 = STONE.map.image.getContext('2d'), im0 = g0.createImageData(TW, TH); im0.data.set(C); g0.putImageData(im0, 0, 0);
+      STONE.map.needsUpdate = true; STONE.clones.forEach(function (c) { c.needsUpdate = true; });
+      return STONE;
+    }
+    for (var yy = 0; yy < TH; yy++) {
+      for (var xx = 0; xx < TW; xx++) {
+        var xl = (xx + TW - 1) % TW, xr2 = (xx + 1) % TW, yu = Math.max(0, yy - 1), yd = Math.min(TH - 1, yy + 1),
+            dx = (H[yy * TW + xr2] - H[yy * TW + xl]) * 0.5 * F.relief, dy = (H[yd * TW + xx] - H[yu * TW + xx]) * 0.5 * F.relief,
+            inv = 1 / Math.sqrt(dx * dx + dy * dy + 1);
+        k = (yy * TW + xx) * 4;
+        N[k] = (-dx * inv * 0.5 + 0.5) * 255; N[k + 1] = (dy * inv * 0.5 + 0.5) * 255; N[k + 2] = (inv * 0.5 + 0.5) * 255; N[k + 3] = 255;
+      }
+    }
+    function tex(data, colour) {
+      var cv = document.createElement('canvas'); cv.width = TW; cv.height = TH;
+      var g = cv.getContext('2d'), im = g.createImageData(TW, TH); im.data.set(data); g.putImageData(im, 0, 0);
+      var t = new THREE.CanvasTexture(cv);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping; if (colour) t.encoding = THREE.sRGBEncoding;
+      t.repeat.set(600 / TW, 300 / TH);
+      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return t;
+    }
+    return { map: tex(C, true), normalMap: tex(N, false), clones: [] };
+  }
+  function finishMaps(st, repaint) { return st.kind === 'drystack' ? stoneMaps(st, repaint) : tileMaps(st, repaint); }
+  function finishRowName(st) {
+    if (st.kind === 'drystack') return 'Dry stack stone, webbed panels (bodies)' + (st.id === 'drawn' ? '' : ', Veneer Stone ' + st.label);
+    return (st.kind === 'tile' ? 'Wall tiles, travertine ' : 'Split face cladding, travertine ') + st.size + ', ' + st.label + ', ' + st.supplier;
+  }
+  var RELIEF_MM = 9, stoneId = (function () { var m = /[?&]stone=(\w+)/.exec(location.search); return stoneById(m ? m[1] : 'classic610').id; })(),
+      STONE = finishMaps(stoneById(stoneId));
+  W.ven = stoneById(stoneId).ven;   // the build-up follows the stone or tile picked: caps, capping, gate and panels resize with it
   var M = {
     veneer: new THREE.MeshStandardMaterial({ map: STONE.map, normalMap: STONE.normalMap, roughness: 0.95, metalness: 0 }),
     cap: new THREE.MeshStandardMaterial({ color: 0xd8cdb2, roughness: 0.85 }),
@@ -410,7 +527,7 @@
     var treadMat = new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
     treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
     var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), normalMap: M.veneer.normalMap, roughness: 0.92 });
-    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(1 / 1800, 1 / 1200); STONE.clones.push(riserMat.map);
+    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(STONE.map.repeat.x / 600, STONE.map.repeat.y / 300); STONE.clones.push(riserMat.map);
     function solid(hw, deep, yTop) {
       var xo = xf + deep, sh = new THREE.Shape();
       var tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
@@ -744,10 +861,16 @@
     row('Concrete blocks ' + take.blockL + ' x ' + W.block + ' x ' + take.blockH + ' (200 series)', blocks, Math.ceil(up(blocks) - 1e-9));
     row('N12 upright bars at ' + take.barCtrs + ' centres, in the walls, ' + (barLen / 1000).toFixed(1) + ' m in all', bars);
     grp('Stone, tiles and capping');
-    row('Dry stack stone, webbed panels (bodies)', f2(bodies) + ' m&sup2;', f2(upS(bodies)) + ' m&sup2; = ' + boxes(upS(bodies), take.bodyBox) + ' boxes');
-    row('Dry stack corners, prefabricated, at every outside corner', f2(cornerM) + ' m', f2(upS(cornerM)) + ' m = ' + boxes(upS(cornerM), take.cornerBox) + ' boxes');
+    var stK = stoneById(stoneId);
+    if (stK.kind === 'drystack') {
+      row(finishRowName(stK), f2(bodies) + ' m&sup2;', f2(upS(bodies)) + ' m&sup2; = ' + boxes(upS(bodies), take.bodyBox) + ' boxes');
+      row('Dry stack corners, prefabricated, at every outside corner', f2(cornerM) + ' m', f2(upS(cornerM)) + ' m = ' + boxes(upS(cornerM), take.cornerBox) + ' boxes');
+    } else {
+      row(finishRowName(stK), f2(stoneFace) + ' m&sup2;', f2(up(stoneFace)) + ' m&sup2;');
+      if (stK.kind === 'split') row('Split face corners, at every outside corner', f2(cornerM) + ' m', f2(up(cornerM)) + ' m');
+    }
     row('Flat tiles, travertine ' + path.tileW + ' x ' + path.tileL, f2(flatTiles) + ' m&sup2;', f2(up(flatTiles)) + ' m&sup2;');
-    row('Dark tile adhesive for the stone (dry joint)', f2(stoneFace) + ' m&sup2;');
+    row(stK.kind === 'drystack' ? 'Dark tile adhesive for the stone (dry joint)' : 'Tile adhesive for the wall ' + (stK.kind === 'tile' ? 'tiles' : 'cladding'), f2(stoneFace) + ' m&sup2;');
     row('Tile glue for the flat tiles', f2(flatTiles) + ' m&sup2;');
     row('Capping to the walls, ' + (W.block + 2 * v + 2 * W.capO) + ' wide *', f2(capRun / 1000) + ' m', f2(up(capRun / 1000)) + ' m');
     row('Column caps, ' + (W.col + 2 * v + 2 * W.capO) + ' square, shallow pyramid (flat seat under the arbor posts) *', cols.length);
@@ -766,14 +889,20 @@
     row('Column lights', cols.length * 2);
     row('Step lights, recessed', 2);
     row('Stepping stones ' + stone.w + ' x ' + stone.d + ' *', 3);
-    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. To order adds 10% for cuts and breakage, and 15% on the dry stack stone (the supplier\'s allowance for dry joints).</div>' +
+    var DRY_FOOT = 'The dry stack stone (Veneer Stone, Dry Stack collection, sizes from its technical guide of December 2025) covers every face above the ground that was to be tiled: both faces of the walls, the columns, the face of the retaining wall and the step riser; it stands 40 off the blockwork (stone up to 35 thick on 5 of adhesive), so the walls finish 270 thick and the columns 470. Flat tiles are the top of the retaining wall, the step and the landing. ' +
+      'Bodies are webbed panels about 200 high x 500 long, 48.5 kg to the square metre, 0.55 m&sup2; to a box; the area is the stone face less 0.2 m&sup2; for every metre of corners, as the supplier says. Corners are prefabricated and sold by the metre, 1 m to a box, measured at every outside corner of the stone from the ground (or the wall capping) to the top; none at the far end of C7, which is bare. ' +
+      'Capping and column caps are the supplier\'s matching pieces: capping 280-300 wide, 35-45 thick; its listed pier cap is 390 square, smaller than the 490 drawn. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the top is flat, 150 square and 21 above the rim, for the arbor post plates - to be confirmed. Colour, dry or 8-12 mortar joint, sealer and any mechanical fixing to be confirmed. ';
+    var vB = W.block + 2 * v, vC = W.col + 2 * v, capWide = W.block + 2 * v + 2 * W.capO, capSq = W.col + 2 * v + 2 * W.capO;
+    var finishFoot = stK.kind === 'drystack' ? DRY_FOOT :
+      (stK.kind === 'tile' ? 'The wall tiles (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') cover every face above the ground that is clad: both faces of the walls, the columns, the face of the retaining wall and the step riser; they stand ' + v + ' off the blockwork (12 tile on about 8 of adhesive), so the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; outside corners are cut and butted or mitred, so there are no corner pieces. Flat tiles are the top of the retaining wall, the step and the landing. '
+        : 'The split face cladding (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') covers every face above the ground that is clad: both faces of the walls, the columns, the face of the retaining wall and the step riser; at about ' + v + ' off the blockwork (20 thick stone on about 5 of adhesive, to be confirmed) the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; the corner pieces are sold by the metre and counted on top of it - check the take-off with the supplier. Flat tiles are the top of the retaining wall, the step and the landing. ') +
+      'Capping ' + capWide + ' wide and column caps ' + capSq + ' square follow this build-up with a 10 overhang; their stone and supplier are still to be chosen. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the top is flat, 150 square and 21 above the rim, for the arbor post plates - to be confirmed. Colour, grout or joint, sealer and any mechanical fixing to be confirmed. ';
+    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. To order adds 10% for cuts and breakage' + (stK.kind === 'drystack' ? ', and 15% on the dry stack stone (the supplier\'s allowance for dry joints)' : '') + '.</div>' +
       '<table><tr><th>Material</th><th>Net</th><th>To order</th></tr>' + rows.join('') + '</table>' +
       '<div class="mnote">* size indicative, to be confirmed. Blocks are counted at ' + (1e6 / perBlock) + ' to the square metre of wall, from the footing to the top, ' +
       'with ' + take.colBlocks + ' to a course in each column. Bars are measured from ' + take.barUp + ' above the underside of the footing to the top of the blockwork, ' +
       'without cogs or laps; how they are fixed into the poured footing is to be confirmed. ' +
-      'The dry stack stone (Veneer Stone, Dry Stack collection, sizes from its technical guide of December 2025) covers every face above the ground that was to be tiled: both faces of the walls, the columns, the face of the retaining wall and the step riser; it stands 40 off the blockwork (stone up to 35 thick on 5 of adhesive), so the walls finish 270 thick and the columns 470. Flat tiles are the top of the retaining wall, the step and the landing. ' +
-      'Bodies are webbed panels about 200 high x 500 long, 48.5 kg to the square metre, 0.55 m&sup2; to a box; the area is the stone face less 0.2 m&sup2; for every metre of corners, as the supplier says. Corners are prefabricated and sold by the metre, 1 m to a box, measured at every outside corner of the stone from the ground (or the wall capping) to the top; none at the far end of C7, which is bare. ' +
-      'Capping and column caps are the supplier\'s matching pieces: capping 280-300 wide, 35-45 thick; its listed pier cap is 390 square, smaller than the 490 drawn. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the top is flat, 150 square and 21 above the rim, for the arbor post plates - to be confirmed. Colour, dry or 8-12 mortar joint, sealer and any mechanical fixing to be confirmed. ' +
+      finishFoot +
       'Not counted: mortar, core filling, column steel, the core of the step and landing, fixings, gate hinges and latch, wiring, paint. ' +
       'Already built, so not in this list: the footings, the footpath and the retaining wall are poured, and the footpath is tiled.</div>';
     if (/[?&]mat=1/.test(location.search)) out.parentNode.open = true;
@@ -789,6 +918,21 @@
     back: { x: total * mm / 2, y: 0.2, z: 0, r: 27, th: 0.35, ph: 1.3 },
     top: { x: total * mm / 2, y: 0, z: 0, r: 30, th: Math.PI, ph: 0.12 }
   };
+  (function () {
+    var panel = document.getElementById('panel'), btn = document.getElementById('minBtn');
+    function setMin(on) {
+      panel.classList.toggle('min', on);
+      btn.innerHTML = on ? '+' : '&minus;';
+      btn.title = on ? 'Open the menu' : 'Minimise the menu';
+      btn.setAttribute('aria-label', btn.title); btn.setAttribute('aria-expanded', on ? 'false' : 'true');
+      try { localStorage.setItem('bw01-menu-min', on ? '1' : '0'); } catch (e) {}
+    }
+    btn.addEventListener('click', function () { setMin(!panel.classList.contains('min')); });
+    var start = false;
+    try { start = localStorage.getItem('bw01-menu-min') === '1'; } catch (e) {}
+    if (/[?&]min=1/.test(location.search)) start = true;
+    if (start) setMin(true);
+  })();
   function setView(name) { var q = VIEWS[name]; tgt.set(q.x, q.y, q.z); sph.r = q.r; sph.th = q.th; sph.ph = q.ph; place(); }
   function place() {
     sph.ph = Math.max(0.08, Math.min(1.56, sph.ph)); sph.r = Math.max(1.5, Math.min(80, sph.r));
@@ -837,7 +981,7 @@
     else { sph.th -= dx * 0.006; sph.ph -= dy * 0.006; place(); }
   });
   el.addEventListener('wheel', function (ev) { ev.preventDefault(); zoomAt(ev.clientX, ev.clientY, Math.exp(ev.deltaY * 0.0012)); }, { passive: false });
-  Array.prototype.forEach.call(document.querySelectorAll('#panel button'), function (b) {
+  Array.prototype.forEach.call(document.querySelectorAll('#panel button[data-v]'), function (b) {
     b.addEventListener('click', function () { setView(b.getAttribute('data-v')); });
   });
   document.getElementById('below').addEventListener('change', function (ev) {
@@ -884,18 +1028,49 @@
   })();
   (function () {
     var sel = document.getElementById('stoneSel'), note = document.getElementById('stoneNote');
-    STONES.forEach(function (st) { var o = document.createElement('option'); o.value = st.id; o.textContent = st.name; sel.appendChild(o); });
+    [['drystack', 'Veneer Stone dry stack'], ['tile', 'Travertine tile'], ['split', 'Travertine split face']].forEach(function (gr) {
+      var og = document.createElement('optgroup'), ven = 0;
+      STONES.forEach(function (st) {
+        if (st.kind !== gr[0]) return;
+        var o = document.createElement('option'); o.value = st.id; ven = st.ven;
+        o.textContent = st.kind === 'drystack' ? (st.id === 'drawn' ? 'Dry stack, colour as first drawn' : st.label) : st.name;
+        og.appendChild(o);
+      });
+      og.label = gr[1] + ', ' + ven + ' off the blocks'; sel.appendChild(og);
+    });
     function describe() {
-      var st = stoneById(stoneId), cells = document.querySelectorAll('#mat td'), n;
-      note.innerHTML = st.id === 'drawn' ? '' : 'Veneer Stone Dry Stack, ' + st.label +
-        '<br><a href="https://veneerstone.com.au/dry-stack-stone-cladding" target="_blank" rel="noopener">Veneer Stone page for this stone range</a>' +
-        '<br>Colour matched to the supplier\'s sample photo. A screen is only a guide, so choose from a real sample.';
+      var st = stoneById(stoneId), cells = document.querySelectorAll('#mat td'), n,
+          over = W.ven - (opening.b - opening.a - path.wide) / 2,
+          sizes = '<br>At ' + W.ven + ' off the blocks: column caps ' + (W.col + 2 * W.ven + 2 * W.capO) + ' square, wall capping ' +
+                  (W.block + 2 * W.ven + 2 * W.capO) + ' wide, gate ' + (opening.b - opening.a - 2 * W.ven - 2 * gate.side) + ' wide.' +
+                  (over > 0 ? ' The finish stands ' + over + ' over each edge of the ' + path.wide + ' path.' : '');
+      if (st.kind === 'drystack') {
+        note.innerHTML = (st.id === 'drawn' ? 'Dry stack stone, colour as first drawn.' : 'Veneer Stone Dry Stack, ' + st.label +
+          '<br><a href="https://veneerstone.com.au/dry-stack-stone-cladding" target="_blank" rel="noopener">Veneer Stone page for this stone range</a>') + sizes +
+          (st.id === 'drawn' ? '' : '<br>Colour matched to the supplier\'s sample photo. A screen is only a guide, so choose from a real sample.');
+      } else {
+        note.innerHTML = st.label + ', ' + st.size + ', ' + st.supplier +
+          '<br><a href="' + st.url + '" target="_blank" rel="noopener">' + st.supplier + ' page for this ' + (st.kind === 'tile' ? 'tile' : 'cladding') + '</a>' + sizes +
+          '<br>' + st.note + ' Colour matched to the supplier\'s photos. A screen is only a guide, so choose from a real sample.';
+      }
       for (n = 0; n < cells.length; n++) {
-        if (/^Dry stack stone/.test(cells[n].textContent)) cells[n].textContent = 'Dry stack stone, webbed panels (bodies)' + (st.id === 'drawn' ? '' : ', Veneer Stone ' + st.label);
+        if (/^(Dry stack stone|Wall tiles|Split face cladding)/.test(cells[n].textContent)) cells[n].textContent = finishRowName(st);
       }
     }
+    function reloadWith(id) {
+      var p = ['stone=' + id, 'light=' + lightState.id, 'finish=' + lightState.fin, 'cct=' + lightState.cct,
+               'cam=' + [tgt.x, tgt.y, tgt.z, sph.r, sph.th, sph.ph].map(function (n) { return n.toFixed(4); }).join(',')];
+      if (lightState.dusk) p.push('dusk=1');
+      if (document.getElementById('mat').parentNode.open) p.push('mat=1');
+      if (document.getElementById('dwg') && document.getElementById('dwg').parentNode.open) p.push('dwg=1');
+      location.replace(location.pathname + '?' + p.join('&'));
+    }
     sel.value = stoneId; describe();
-    sel.addEventListener('change', function () { stoneId = sel.value; stoneMaps(stoneById(stoneId), true); describe(); });
+    sel.addEventListener('change', function () {
+      var next = stoneById(sel.value), cur = stoneById(stoneId);
+      if (next.ven !== cur.ven || next.fmt !== cur.fmt) { note.innerHTML = 'Rebuilding the wall at ' + next.ven + ' off the blocks...'; reloadWith(next.id); return; }
+      stoneId = next.id; finishMaps(next, true); describe();
+    });
   })();
   function showTags(on) { tags.forEach(function (t) { t.visible = on; }); }
   document.getElementById('tags').addEventListener('change', function (ev) { showTags(ev.target.checked); });
@@ -904,6 +1079,12 @@
   window.addEventListener('resize', resize);
   resize();
   var q0 = /[?&]view=(\w+)/.exec(location.search); setView(q0 && VIEWS[q0[1]] ? q0[1] : 'start');
+  (function () {
+    var m = /[?&]cam=([-\d.,]+)/.exec(location.search); if (!m) return;
+    var c = m[1].split(',').map(Number);
+    if (c.length === 6 && c.every(isFinite)) { tgt.set(c[0], c[1], c[2]); sph.r = c[3]; sph.th = c[4]; sph.ph = c[5]; place(); }
+  })();
+  if (/[?&]dwg=1/.test(location.search) && document.getElementById('dwg')) document.getElementById('dwg').parentNode.open = true;
   if (/[?&]below=1/.test(location.search)) { document.getElementById('below').checked = true; M.ground.opacity = 0.22; M.ground.depthWrite = false; }
   if (/[?&]selftest=1/.test(location.search)) {
     var t0 = sph.th, r0 = sph.r, x0 = tgt.x;
