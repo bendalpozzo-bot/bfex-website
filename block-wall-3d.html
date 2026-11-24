@@ -26,6 +26,10 @@
   #stonebox select { display: block; width: 100%; margin-top: 8px; padding: 4px; font-size: 12px; }
   #stonebox .note { color: #555; font-size: 12px; line-height: 1.3; margin-top: 4px; }
   #stonebox a { color: #1a4d8a; }
+  #stepbox label { display: block; margin-top: 8px; font-size: 12px; font-weight: bold; }
+  #stepbox select { display: block; width: 100%; margin-top: 4px; padding: 4px; font-size: 12px; }
+  #stepbox .note { color: #555; font-size: 12px; line-height: 1.3; margin-top: 4px; }
+  #stepbox a { color: #1a4d8a; }
   #panel { max-height: calc(100% - 96px); overflow-y: auto; }
   #mat { margin-top: 4px; font-size: 12px; line-height: 1.3; }
   #mat table { border-collapse: collapse; width: 100%; }
@@ -54,6 +58,14 @@
   <div id="stonebox">
     <select id="stoneSel" aria-label="Stone colour"></select>
     <div class="note" id="stoneNote"></div>
+  </div>
+  <div id="stepbox">
+    <label for="faceSel">Step faces: retaining wall face and step risers</label>
+    <select id="faceSel" aria-label="Step faces"></select>
+    <div class="note" id="faceNote"></div>
+    <label for="topSel">Step tops: capping, step and landing</label>
+    <select id="topSel" aria-label="Step tops"></select>
+    <div class="note" id="topNote"></div>
   </div>
   <label><input type="checkbox" id="dusk"> Evening (see the column lights)</label>
   <div id="lights">
@@ -173,6 +185,22 @@
       note: 'The stone is 20 thick; with its adhesive about 25 off the blockwork - to be confirmed with the supplier.' }
   ];
   function stoneById(id) { for (var n = 0; n < STONES.length; n++) if (STONES[n].id === id) return STONES[n]; return STONES[0]; }
+  var STEP_ROWS = [
+    { id: 'path600', kind: 'paver', ven: 0, fmt: 'path', name: 'Travertine flat tiles 600 x 850 (as first drawn)', label: 'travertine flat tiles', size: '600 x 850' },
+    { id: 'bl_frozen', kind: 'limestone', ven: 20, fmt: 'freeform', name: 'Barefoot Living limestone - Frozen', label: 'Barefoot Living limestone - Frozen',
+      size: 'size not published - drawn 12 thick, to be confirmed with Barefoot Living', supplier: 'Barefoot Living', vary: 1, stain: 0, joint: [220, 212, 200],
+      pal: [[190, 190, 193], [173, 171, 169], [161, 158, 153], [151, 146, 140], [142, 136, 129], [134, 128, 120], [127, 120, 113], [120, 113, 106], [112, 105, 98]],
+      note: 'Sold by Barefoot Living; no product page. Shown laid as wall cladding in lime mortar. Colours taken from a photo of a room in dull light, not brightened.' },
+    { id: 'bl_freeform', kind: 'limestone', ven: 20, fmt: 'freeform', name: 'Barefoot Living limestone - European free form', label: 'Barefoot Living limestone - European free form',
+      size: 'size not published - drawn 12 thick, to be confirmed with Barefoot Living', supplier: 'Barefoot Living', vary: 1, stain: 0, joint: [220, 212, 200],
+      pal: [[250, 241, 228], [238, 228, 214], [238, 220, 197], [225, 216, 203], [226, 204, 178], [216, 205, 192], [206, 194, 180], [208, 183, 155], [194, 182, 169]],
+      note: 'Sold by Barefoot Living; no product page. Shown laid as wall cladding in lime mortar. Colours taken from a photo of a wall in strong sun.' }
+  ];
+  var FACE_IDS = STONES.map(function (s) { return s.id; }).concat(['bl_frozen', 'bl_freeform']),
+      TOP_IDS = ['path600', 'classic610', 'silver610', 'tumbled75', 'bl_frozen', 'bl_freeform'];
+  function stepRowById(id) { for (var n = 0; n < STEP_ROWS.length; n++) if (STEP_ROWS[n].id === id) return STEP_ROWS[n]; return stoneById(id); }
+  function faceById(id) { return stepRowById(FACE_IDS.indexOf(id) >= 0 ? id : 'classic610'); }
+  function topById(id) { return stepRowById(TOP_IDS.indexOf(id) >= 0 ? id : 'path600'); }
   function stoneMaps(st, repaint) {
     var TW = 1800, TH = 1200, joint = 4, relief = RELIEF_MM, seed = 29;
     function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
@@ -338,16 +366,104 @@
     }
     return { map: tex(C, true), normalMap: tex(N, false), clones: [] };
   }
-  function finishMaps(st, repaint) { return st.kind === 'drystack' ? stoneMaps(st, repaint) : tileMaps(st, repaint); }
+  function freeformMaps(st) {
+    // irregular stones in mortar joints (the Barefoot Living limestones): jittered Voronoi cells that wrap; never repainted
+    var TW = 1800, TH = 1200, CW = 300, CH = 200, NX = TW / CW, NY = TH / CH, JH = 10, BEV = 14, seed = 53;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function lattice(cell, salt) {
+      var nx = Math.max(1, Math.round(TW / cell)), ny = Math.max(1, Math.round(TH / cell)), cx = TW / nx, cy = TH / ny,
+          G = new Float32Array(nx * ny), s = salt, i;
+      for (i = 0; i < G.length; i++) { s = (s * 16807) % 2147483647; G[i] = s / 2147483647; }
+      return function (x, y) {
+        var fx = x / cx, fy = y / cy, xi = Math.floor(fx), yi = Math.floor(fy), ax = fx - xi, ay = fy - yi;
+        ax = ax * ax * (3 - 2 * ax); ay = ay * ay * (3 - 2 * ay);
+        var xa = ((xi % nx) + nx) % nx, xb = (xa + 1) % nx, ya = ((yi % ny) + ny) % ny, yb = (ya + 1) % ny;
+        var a = G[ya * nx + xa], b = G[ya * nx + xb], c2 = G[yb * nx + xa], d = G[yb * nx + xb];
+        return a + (b - a) * ax + (c2 - a) * ay + (a - b - c2 + d) * ax * ay;
+      };
+    }
+    var nBig = lattice(160, 7), nMid = lattice(45, 11), nFine = lattice(9, 13), nGrain = lattice(3, 17),
+        MEANP = [0, 1, 2].map(function (c) { return st.pal.reduce(function (s, p) { return s + p[c]; }, 0) / st.pal.length; }),
+        SX = [], SY = [], COL = [], LIFT = [], i, k, p0;
+    function towards(c) { return MEANP[c] + (p0[c] - MEANP[c]) * 0.8; }
+    for (i = 0; i < NX * NY; i++) {
+      SX.push((i % NX + 0.15 + 0.7 * rnd()) * CW); SY.push((Math.floor(i / NX) + 0.15 + 0.7 * rnd()) * CH);
+      p0 = st.pal[Math.floor(rnd() * st.pal.length)]; COL.push([0, 1, 2].map(towards)); LIFT.push(0.7 + 0.3 * rnd());
+    }
+    var H = new Float32Array(TW * TH), C = new Uint8ClampedArray(TW * TH * 4), N = new Uint8ClampedArray(TW * TH * 4);
+    var x, y, gx, gy, ox, oy, cx, cy, wx, wy, j, sx, sy, dx, dy, d, b1, b2, i1, ax, ay, bx, by, e, n, q, g, m, tone, de, edge, tj;
+    for (y = 0; y < TH; y++) {
+      gy = Math.floor(y / CH);
+      for (x = 0; x < TW; x++) {
+        gx = Math.floor(x / CW); b1 = 1e12; b2 = 1e12; i1 = 0; ax = 0; ay = 0; bx = 0; by = 0;
+        for (oy = -1; oy <= 1; oy++) {
+          for (ox = -1; ox <= 1; ox++) {
+            cx = gx + ox; cy = gy + oy; wx = (cx + NX) % NX; wy = (cy + NY) % NY; j = wy * NX + wx;
+            sx = SX[j] + (cx - wx) * CW; sy = SY[j] + (cy - wy) * CH; dx = x - sx; dy = y - sy; d = dx * dx + dy * dy;
+            if (d < b1) { b2 = b1; bx = ax; by = ay; b1 = d; ax = sx; ay = sy; i1 = j; }
+            else if (d < b2) { b2 = d; bx = sx; by = sy; }
+          }
+        }
+        e = (b2 - b1) / (2 * Math.sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)) + 1e-9);
+        n = y * TW + x; q = n * 4; g = nGrain(x, y); m = nMid(x, y);
+        if (e < JH) {
+          tj = 1 + 0.08 * (g - 0.5) + 0.05 * (m - 0.5);
+          C[q] = st.joint[0] * tj; C[q + 1] = st.joint[1] * tj; C[q + 2] = st.joint[2] * tj;
+          H[n] = 0.12 + 0.1 * g;
+        } else {
+          de = e - JH; edge = de >= BEV ? 1 : Math.pow((de + 0.5) / BEV, 0.6);
+          tone = (1 + st.vary * (0.1 * (nBig(x, y) - 0.5) + 0.07 * (m - 0.5) + 0.05 * (g - 0.5))) * (0.86 + 0.14 * edge);
+          C[q] = COL[i1][0] * tone; C[q + 1] = COL[i1][1] * tone; C[q + 2] = COL[i1][2] * tone;
+          H[n] = 0.3 + 0.7 * edge * LIFT[i1] * (0.65 + 0.2 * m + 0.15 * nFine(x, y));
+        }
+        C[q + 3] = 255;
+      }
+    }
+    for (y = 0; y < TH; y++) {
+      for (x = 0; x < TW; x++) {
+        var xl = (x + TW - 1) % TW, xr2 = (x + 1) % TW, yu = (y + TH - 1) % TH, yd = (y + 1) % TH,
+            ddx = (H[y * TW + xr2] - H[y * TW + xl]) * 0.5 * 6, ddy = (H[yd * TW + x] - H[yu * TW + x]) * 0.5 * 6,
+            inv = 1 / Math.sqrt(ddx * ddx + ddy * ddy + 1);
+        k = (y * TW + x) * 4;
+        N[k] = (-ddx * inv * 0.5 + 0.5) * 255; N[k + 1] = (ddy * inv * 0.5 + 0.5) * 255; N[k + 2] = (inv * 0.5 + 0.5) * 255; N[k + 3] = 255;
+      }
+    }
+    function tex(data, colour) {
+      var cv = document.createElement('canvas'); cv.width = TW; cv.height = TH;
+      var g2 = cv.getContext('2d'), im = g2.createImageData(TW, TH); im.data.set(data); g2.putImageData(im, 0, 0);
+      var t = new THREE.CanvasTexture(cv);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping; if (colour) t.encoding = THREE.sRGBEncoding;
+      t.repeat.set(600 / TW, 300 / TH);
+      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return t;
+    }
+    return { map: tex(C, true), normalMap: tex(N, false), clones: [] };
+  }
+  function finishMaps(st, repaint) { return st.kind === 'drystack' ? stoneMaps(st, repaint) : st.kind === 'limestone' ? freeformMaps(st) : tileMaps(st, repaint); }
   function finishRowName(st) {
+    if (st.kind === 'limestone') return st.label + ' (size not published)';
     if (st.kind === 'drystack') return 'Dry stack stone, webbed panels (bodies)' + (st.id === 'drawn' ? '' : ', Veneer Stone ' + st.label);
     return (st.kind === 'tile' ? 'Wall tiles, travertine ' : 'Split face cladding, travertine ') + st.size + ', ' + st.label + ', ' + st.supplier;
   }
-  var RELIEF_MM = 9, stoneId = (function () { var m = /[?&]stone=(\w+)/.exec(location.search); return stoneById(m ? m[1] : 'classic610').id; })(),
+  var RELIEF_MM = 9, stoneId = (function () { var m = /[?&]stone=(?!bl_)(\w+)/.exec(location.search); return stoneById(m ? m[1] : 'classic610').id; })(),
       STONE = finishMaps(stoneById(stoneId));
+  var faceId = (function () { var m = /[?&]face=(\w+)/.exec(location.search); return faceById(m ? m[1] : 'classic610').id; })();
+  var topId = (function () { var m = /[?&]top=(\w+)/.exec(location.search); return topById(m ? m[1] : 'path600').id; })();
+  function copyMaps(src) {
+    // a canvas copy of a texture set, so the wall's in-place repaint never reaches the step faces or tops
+    var cv = document.createElement('canvas'); cv.width = src.map.image.width; cv.height = src.map.image.height;
+    cv.getContext('2d').drawImage(src.map.image, 0, 0);
+    var t = new THREE.CanvasTexture(cv);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding;
+    t.repeat.copy(src.map.repeat); t.anisotropy = src.map.anisotropy;
+    return { map: t, normalMap: src.normalMap, clones: [] };
+  }
+  var FACE = faceId === stoneId ? copyMaps(STONE) : finishMaps(faceById(faceId));
+  var TOP = topId === 'path600' ? null : topId === faceId ? FACE : topId === stoneId ? copyMaps(STONE) : finishMaps(topById(topId));
   W.ven = stoneById(stoneId).ven;   // the build-up follows the stone or tile picked: caps, capping, gate and panels resize with it
   var M = {
     veneer: new THREE.MeshStandardMaterial({ map: STONE.map, normalMap: STONE.normalMap, roughness: 0.95, metalness: 0 }),
+    face: new THREE.MeshStandardMaterial({ map: FACE.map, normalMap: FACE.normalMap, roughness: 0.95, metalness: 0 }),
     cap: new THREE.MeshStandardMaterial({ color: 0xd8cdb2, roughness: 0.85 }),
     block: new THREE.MeshStandardMaterial({ color: 0x8e8e8a, roughness: 0.95 }),
     footing: new THREE.MeshStandardMaterial({ color: 0x6f6f6b, roughness: 0.95 }),
@@ -425,6 +541,7 @@
   }
 
   var v = W.ven, zF = -W.block, zBw = 0, zBc = zF + W.col;
+  var fv = faceById(faceId).ven;   // the step faces' build-up: the retaining wall's clad face, its capping and the step follow it
   walls.forEach(function (w, k) {
     var gl = Math.min(groundR(w.a), groundL(w.b)), ft = footTop(w.a), top = wallTop(k);
     box(w.a, ft, zF, w.b, gl, zBw, M.block);
@@ -465,7 +582,7 @@
   slab([[xl, deep], [fallA, deep], [fallA, 0], [xl, 0]], M.ground, zMid, zBackEnd);
   slab([[fallA, deep], [xr, deep], [xr, lowGround(total)], [total, lowGround(total)], [fallA, -W.drop]], M.ground, zMid, zBackEnd);
   slab([[xl, deep], [xr, deep], [xr, frontLow], [total, frontLow], [fallA, 0], [xl, 0]], M.ground, zFrontEnd, zMid);
-  box(fallA + v - retain.wide, -W.drop - 300, zBc + v, fallA + v, retTop, zF - v + retain.len, M.veneer);
+  box(fallA + fv - retain.wide, -W.drop - 300, zBc + v, fallA + fv, retTop, zF - v + retain.len, M.face);
   var pathTop = 12;
   var path = { wide: 1100, tileW: 600, tileL: 850 };
   function pathTexture(capWide, grid) {
@@ -510,27 +627,39 @@
     M.path.map.offset.set(-pa / path.wide, z0 / (2 * path.tileW));
     box(pa, -80, z0, pa + path.wide, pathTop, z0 + retain.len, M.path);
   })();
+  function flatMat(T, mmUV) {
+    // a TOPS pick laid flat, turned 90 deg so the long side runs along the wall (box UVs in 600 x 300 units, or mm UVs)
+    var t = T.map.clone(), TWm = 600 / T.map.repeat.x, THm = 300 / T.map.repeat.y;
+    t.needsUpdate = true; t.rotation = Math.PI / 2;
+    if (mmUV) t.repeat.set(1 / TWm, 1 / THm); else t.repeat.set(300 / TWm, 600 / THm);
+    return new THREE.MeshStandardMaterial({ map: t, normalMap: T.normalMap, roughness: 0.92, metalness: 0 });
+  }
   var cap = { t: 20, over: 20 };
   (function () {
-    var cx0 = fallA + v - retain.wide - cap.over, cx1 = fallA + v + cap.over, cz0 = zBc + v;
-    var capMat = new THREE.MeshStandardMaterial({ map: pathTexture(cx1 - cx0), roughness: 0.95 });
-    capMat.map.repeat.set(600 / (cx1 - cx0), 300 / path.tileL);
-    capMat.map.offset.set(-cx0 / (cx1 - cx0), cz0 / path.tileL);
+    var cx0 = fallA + fv - retain.wide - cap.over, cx1 = fallA + fv + cap.over, cz0 = zBc + v;
+    var capMat = TOP ? flatMat(TOP, false) : new THREE.MeshStandardMaterial({ map: pathTexture(cx1 - cx0), roughness: 0.95 });
+    if (!TOP) {
+      capMat.map.repeat.set(600 / (cx1 - cx0), 300 / path.tileL);
+      capMat.map.offset.set(-cx0 / (cx1 - cx0), cz0 / path.tileL);
+    }
     box(cx0, retTop, cz0, cx1, retTop + cap.t, zF - v + retain.len + cap.over, capMat);
   })();
   var wallSteps = { wide: 1200, riser: 190, going: 320, landing: 400 };
   (function () {
-    var xf = fallA + v, zm = (zBc + v + zF - v + retain.len) / 2;
+    var xf = fallA + fv, zm = (zBc + v + zF - v + retain.len) / 2;
     var halfW = wallSteps.wide / 2;
     var top = retTop + cap.t, yBase = -W.drop - 60;
-    var treadMat = new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
-    treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
-    var riserMat = new THREE.MeshStandardMaterial({ map: M.veneer.map.clone(), normalMap: M.veneer.normalMap, roughness: 0.92 });
-    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(STONE.map.repeat.x / 600, STONE.map.repeat.y / 300); STONE.clones.push(riserMat.map);
+    var treadMat = TOP ? flatMat(TOP, true) : new THREE.MeshStandardMaterial({ map: pathTexture(0, true), roughness: 0.95 });
+    if (!TOP) treadMat.map.repeat.set(1 / (2 * path.tileW), 1 / path.tileL);
+    var riserMat = new THREE.MeshStandardMaterial({ map: M.face.map.clone(), normalMap: M.face.normalMap, roughness: 0.92 });
+    riserMat.map.needsUpdate = true; riserMat.map.repeat.set(FACE.map.repeat.x / 600, FACE.map.repeat.y / 300); FACE.clones.push(riserMat.map);
     function solid(hw, deep, yTop) {
       var xo = xf + deep, sh = new THREE.Shape();
-      var tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
-      tread.map.offset.set(-xo / (2 * path.tileW) + 0.5, zm / path.tileL + 0.5);
+      var tread = treadMat;
+      if (!TOP) {
+        tread = treadMat.clone(); tread.map = treadMat.map.clone(); tread.map.needsUpdate = true;
+        tread.map.offset.set(-xo / (2 * path.tileW) + 0.5, zm / path.tileL + 0.5);
+      }
       sh.moveTo(xf * mm, -(zm - hw) * mm); sh.lineTo(xo * mm, -(zm - hw) * mm); sh.lineTo(xo * mm, -(zm + hw) * mm); sh.lineTo(xf * mm, -(zm + hw) * mm);
       var uv = {
         generateTopUV: function (g0, vv, ia, ib, ic) {
@@ -832,12 +961,12 @@
     });
     var half = (W.block + 2 * v) / 2, proud = W.col - W.block, courses = 0;
     var wallL = { 2: 0, 4: 1, 5: 2, 6: 3, 7: 4 }, wallR = { 1: 0, 3: 1, 4: 2, 5: 3, 6: 4 };
-    var rx0 = fallA + v - retain.wide, rx1 = fallA + v;
+    var rx0 = fallA + fv - retain.wide, rx1 = fallA + fv;
     cols.forEach(function (q) {
       var top = colTop(q.n), bareEnd = q.n === 7 && bare.c7end, xr = bareEnd ? q.b : q.b + v;
       courses += (top - footTop(q.a)) / (take.blockH + take.joint);
       cf += strip(q.a - v, xr, top, gFront); cb += strip(q.a - v, xr, top, gBack);
-      if (q.n === 4) cb -= strip(rx0, rx1, retTop, gBack);
+      if (q.n === 4) cb -= strip(rx0, Math.min(rx1, fallA + v), retTop, gBack);
       [[q.a - v, wallL], [q.b + v, wallR]].forEach(function (s, i) {
         if (bareEnd && i === 1) return;
         if (s[1][q.n] !== undefined) cs += 2 * half * Math.max(0, top - wallTop(s[1][q.n]) - W.capT) + proud * (top - gBack(s[0]));
@@ -856,13 +985,13 @@
         else corners += top - gFront(s[0]);
       });
     });
-    corners += 4 * wallSteps.riser;
+    var stepCornerM = 4 * wallSteps.riser / 1000;   // the step's outside corners follow the step faces pick
     var retFace = retTop - gBack(rx1), retLen = retain.len - (W.col + 2 * v);
     var capArea = (retain.wide + 2 * cap.over) * (retLen + cap.over);
     var sw = wallSteps.wide, sd = wallSteps.going, lw = sw + 2 * wallSteps.landing, ld = sd + wallSteps.landing;
     var stepTread = sw * sd, landTread = lw * ld - stepTread, stepRiser = (2 * sd + sw) * wallSteps.riser;
-    var stoneFace = (wf + wb + cf + cb + cs + retFace * retLen + stepRiser) / 1e6, flatTiles = (capArea + stepTread + landTread) / 1e6;
-    var cornerM = corners / 1000, bodies = stoneFace - take.cornerOff * cornerM;
+    var stoneFace = (wf + wb + cf + cb + cs) / 1e6, stepFace = (retFace * retLen + stepRiser) / 1e6, flatTiles = (capArea + stepTread + landTread) / 1e6;
+    var cornerM = corners / 1000, bodies = stoneFace - take.cornerOff * cornerM, stepBodies = stepFace - take.cornerOff * stepCornerM;
     var perBlock = (take.blockL + take.joint) * (take.blockH + take.joint);
     var blocks = Math.ceil(blockArea / perBlock - 1e-9) + Math.round(courses) * take.colBlocks;
     var c2 = (cols[1].a + cols[1].b) / 2, c3 = (cols[2].a + cols[2].b) / 2, xm = (c2 + c3) / 2, rise = Math.tan(arbor.pitch * Math.PI / 180);
@@ -896,11 +1025,26 @@
       row(finishRowName(stK), f2(stoneFace) + ' m&sup2;', f2(up(stoneFace)) + ' m&sup2;');
       if (stK.kind === 'split') row('Split face corners, at every outside corner', f2(cornerM) + ' m', f2(up(cornerM)) + ' m');
     }
-    row('Flat tiles, travertine ' + path.tileW + ' x ' + path.tileL, f2(flatTiles) + ' m&sup2;', f2(up(flatTiles)) + ' m&sup2;');
     row(stK.kind === 'drystack' ? 'Dark tile adhesive for the stone (dry joint)' : 'Tile adhesive for the wall ' + (stK.kind === 'tile' ? 'tiles' : 'cladding'), f2(stoneFace) + ' m&sup2;');
-    row('Tile glue for the flat tiles', f2(flatTiles) + ' m&sup2;');
     row('Capping to the walls, ' + (W.block + 2 * v + 2 * W.capO) + ' wide *', f2(capRun / 1000) + ' m', f2(up(capRun / 1000)) + ' m');
     row('Column caps, ' + (W.col + 2 * v + 2 * W.capO) + ' square, shallow pyramid (flat on C2 and C3, under the arbor posts) *', cols.length);
+    grp('Retaining wall face, step and landing');
+    var fK = faceById(faceId), tK = topById(topId);
+    function topRowName(st) {
+      if (st.kind === 'limestone') return finishRowName(st);
+      return 'Flat tiles, travertine ' + st.size + (st.id === 'path600' ? '' : ', ' + st.label + ', ' + st.supplier);
+    }
+    if (fK.kind === 'drystack') {
+      row('Step faces: ' + finishRowName(fK), f2(stepBodies) + ' m&sup2;', f2(upS(stepBodies)) + ' m&sup2; = ' + boxes(upS(stepBodies), take.bodyBox) + ' boxes');
+      row('Step faces: dry stack corners, prefabricated, at the outside corners of the step', f2(stepCornerM) + ' m', f2(upS(stepCornerM)) + ' m = ' + boxes(upS(stepCornerM), take.cornerBox) + ' boxes');
+    } else {
+      row('Step faces: ' + finishRowName(fK), f2(stepFace) + ' m&sup2;', f2(up(stepFace)) + ' m&sup2;');
+      if (fK.kind === 'split') row('Step faces: split face corners, at the outside corners of the step', f2(stepCornerM) + ' m', f2(up(stepCornerM)) + ' m');
+    }
+    row('Step faces: ' + (fK.kind === 'drystack' ? 'dark tile adhesive for the stone (dry joint)' : fK.kind === 'limestone' ? 'adhesive or mortar for the limestone, to be confirmed with the supplier' :
+      'tile adhesive for the ' + (fK.kind === 'tile' ? 'tiles' : 'cladding')), f2(stepFace) + ' m&sup2;');
+    row('Step tops: ' + topRowName(tK), f2(flatTiles) + ' m&sup2;', f2(up(flatTiles)) + ' m&sup2;');
+    row('Step tops: ' + (tK.kind === 'limestone' ? 'adhesive or mortar for the limestone, to be confirmed with the supplier' : 'tile glue for the flat tiles'), f2(flatTiles) + ' m&sup2;');
     grp('Panels and gate, white powder coat');
     row('Infill panels, vertical slats: ' + panelText, panels.length);
     row('Gate to match, ' + mm0(gateW) + ' x ' + mm0(gateH), 1);
@@ -918,20 +1062,30 @@
     row('Column lights', cols.length * 2);
     row('Step lights, recessed', 2);
     row('Stepping stones ' + stone.w + ' x ' + stone.d + ' *', 3);
-    var DRY_FOOT = 'The dry stack stone (Veneer Stone, Dry Stack collection, sizes from its technical guide of December 2025) covers every face above the ground that was to be tiled: both faces of the walls, the columns, the face of the retaining wall and the step riser; it stands 40 off the blockwork (stone up to 35 thick on 5 of adhesive), so the walls finish 270 thick and the columns 470. Flat tiles are the top of the retaining wall, the step and the landing. ' +
+    var DRY_FOOT = 'The dry stack stone (Veneer Stone, Dry Stack collection, sizes from its technical guide of December 2025) covers the walls and the columns above the ground: both faces of the walls and the columns; it stands 40 off the blockwork (stone up to 35 thick on 5 of adhesive), so the walls finish 270 thick and the columns 470. ' +
       'Bodies are webbed panels about 200 high x 500 long, 48.5 kg to the square metre, 0.55 m&sup2; to a box; the area is the stone face less 0.2 m&sup2; for every metre of corners, as the supplier says. Corners are prefabricated and sold by the metre, 1 m to a box, measured at every outside corner of the stone from the ground (or the wall capping) to the top; none at the far end of C7, which is bare. ' +
       'Capping and column caps are the supplier\'s matching pieces: capping 280-300 wide, 35-45 thick; its listed pier cap is 390 square, smaller than the 490 drawn. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the cap is flat, for the three arbor posts on each - to be confirmed. Colour, dry or 8-12 mortar joint, sealer and any mechanical fixing to be confirmed. ';
     var vB = W.block + 2 * v, vC = W.col + 2 * v, capWide = W.block + 2 * v + 2 * W.capO, capSq = W.col + 2 * v + 2 * W.capO;
     var finishFoot = stK.kind === 'drystack' ? DRY_FOOT :
-      (stK.kind === 'tile' ? 'The wall tiles (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') cover every face above the ground that is clad: both faces of the walls, the columns, the face of the retaining wall and the step riser; they stand ' + v + ' off the blockwork (12 tile on about 8 of adhesive), so the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; outside corners are cut and butted or mitred, so there are no corner pieces. Flat tiles are the top of the retaining wall, the step and the landing. '
-        : 'The split face cladding (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') covers every face above the ground that is clad: both faces of the walls, the columns, the face of the retaining wall and the step riser; at about ' + v + ' off the blockwork (20 thick stone on about 5 of adhesive, to be confirmed) the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; the corner pieces are sold by the metre and counted on top of it - check the take-off with the supplier. Flat tiles are the top of the retaining wall, the step and the landing. ') +
+      (stK.kind === 'tile' ? 'The wall tiles (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') cover the walls and the columns above the ground: both faces of the walls and the columns; they stand ' + v + ' off the blockwork (12 tile on about 8 of adhesive), so the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; outside corners are cut and butted or mitred, so there are no corner pieces. '
+        : 'The split face cladding (' + stK.label + ', ' + stK.size + ', ' + stK.supplier + ') covers the walls and the columns above the ground: both faces of the walls and the columns; at about ' + v + ' off the blockwork (20 thick stone on about 5 of adhesive, to be confirmed) the walls finish ' + vB + ' thick and the columns ' + vC + '. The area is the clad face, net; the corner pieces are sold by the metre and counted on top of it - check the take-off with the supplier. ') +
       'Capping ' + capWide + ' wide and column caps ' + capSq + ' square follow this build-up with a 10 overhang; their stone and supplier are still to be chosen. The column caps are shallow pyramids rising 30 to the centre on a 40 rim; on C2 and C3 the cap is flat, for the three arbor posts on each - to be confirmed. Colour, grout or joint, sealer and any mechanical fixing to be confirmed. ';
-    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. To order adds 10% for cuts and breakage' + (stK.kind === 'drystack' ? ', and 15% on the dry stack stone (the supplier\'s allowance for dry joints)' : '') + '.</div>' +
+    function stepText(st) {
+      if (st.id === 'path600') return 'travertine flat tiles ' + st.size + ', as first drawn';
+      if (st.kind === 'drystack') return st.id === 'drawn' ? 'dry stack stone, colour as first drawn' : 'Veneer Stone dry stack, ' + st.label;
+      if (st.kind === 'limestone') return st.name;
+      return st.label + ', ' + st.size + ', ' + st.supplier;
+    }
+    var stepFoot = 'The step faces (' + stepText(fK) + ') cover the face of the retaining wall and both step risers, ' + fv + ' off the concrete; the step and the landing keep their size, and the clad face of the retaining wall moves with the build-up. ' +
+      'The step tops (' + stepText(tK) + ') cover the capping of the retaining wall (' + (retain.wide + 2 * cap.over) + ' wide, ' + cap.t + ' thick, ' + cap.over + ' overhang), the step tread and the landing' + (tK.id === 'path600' ? '' : ', laid with the long side along the wall') + '. ' +
+      (fK.kind === 'limestone' || tK.kind === 'limestone' ? 'Barefoot Living limestone: no size is published - drawn 12 thick, to be confirmed with Barefoot Living' +
+        (tK.kind === 'limestone' ? '; shown online as wall cladding, so its use as capping or tread is to be confirmed with Barefoot Living' : '') + '. ' : '');
+    out.innerHTML = '<div class="mnote">Measured from this model; sizes in millimetres. Net is as drawn. To order adds 10% for cuts and breakage' + (stK.kind === 'drystack' || fK.kind === 'drystack' ? ', and 15% on the dry stack stone (the supplier\'s allowance for dry joints)' : '') + '.</div>' +
       '<table><tr><th>Material</th><th>Net</th><th>To order</th></tr>' + rows.join('') + '</table>' +
       '<div class="mnote">* size indicative, to be confirmed. Blocks are counted at ' + (1e6 / perBlock) + ' to the square metre of wall, from the footing to the top, ' +
       'with ' + take.colBlocks + ' to a course in each column. Bars are measured from ' + take.barUp + ' above the underside of the footing to the top of the blockwork, ' +
       'without cogs or laps; how they are fixed into the poured footing is to be confirmed. ' +
-      finishFoot +
+      finishFoot + stepFoot +
       'Not counted: mortar, core filling, column steel, the core of the step and landing, fixings, gate hinges and latch, wiring, paint. ' +
       'Already built, so not in this list: the footings, the footpath and the retaining wall are poured, and the footpath is tiled.</div>';
     if (/[?&]mat=1/.test(location.search)) out.parentNode.open = true;
@@ -1138,8 +1292,8 @@
         if (/^(Dry stack stone|Wall tiles|Split face cladding)/.test(cells[n].textContent)) cells[n].textContent = finishRowName(st);
       }
     }
-    function reloadWith(id) {
-      var p = ['stone=' + id, 'light=' + lightState.id, 'finish=' + lightState.fin, 'cct=' + lightState.cct,
+    function reloadWith(id, fid, tid) {
+      var p = ['stone=' + id, 'face=' + (fid || faceId), 'top=' + (tid || topId), 'light=' + lightState.id, 'finish=' + lightState.fin, 'cct=' + lightState.cct,
                'cam=' + [tgt.x, tgt.y, tgt.z, sph.r, sph.th, sph.ph].map(function (n) { return n.toFixed(4); }).join(',')];
       if (lightState.dusk) p.push('dusk=1');
       if (document.getElementById('mat').parentNode.open) p.push('mat=1');
@@ -1147,6 +1301,35 @@
       location.replace(location.pathname + '?' + p.join('&'));
     }
     sel.value = stoneId; describe();
+    var fSel = document.getElementById('faceSel'), fNote = document.getElementById('faceNote'),
+        tSel = document.getElementById('topSel'), tNote = document.getElementById('topNote');
+    function stepLabel(st) { return st.kind === 'drystack' ? (st.id === 'drawn' ? 'Dry stack, colour as first drawn' : st.label) : st.name; }
+    function stepGroup(s, title, ids) {
+      var og = document.createElement('optgroup'); og.label = title;
+      ids.forEach(function (id) { var o = document.createElement('option'); o.value = id; o.textContent = stepLabel(stepRowById(id)); og.appendChild(o); });
+      s.appendChild(og);
+    }
+    [['drystack', 'Veneer Stone dry stack'], ['tile', 'Travertine tile'], ['split', 'Travertine split face'], ['limestone', 'Barefoot Living limestone']].forEach(function (gr) {
+      var ids = FACE_IDS.filter(function (id) { return stepRowById(id).kind === gr[0]; });
+      stepGroup(fSel, gr[1] + ', ' + stepRowById(ids[0]).ven + ' off the concrete', ids);
+    });
+    stepGroup(tSel, 'Travertine, laid flat', ['path600', 'classic610', 'silver610', 'tumbled75']);
+    stepGroup(tSel, 'Barefoot Living limestone, laid flat', ['bl_frozen', 'bl_freeform']);
+    function stepNote(st, tops) {
+      var t = st.name;
+      if (st.id === 'path600') t += '<br>As first drawn.';
+      else if (st.kind === 'drystack') t += st.id === 'drawn' ? '' : '<br>Veneer Stone Dry Stack, ' + st.label +
+        '<br><a href="https://veneerstone.com.au/dry-stack-stone-cladding" target="_blank" rel="noopener">Veneer Stone page for this stone range</a>';
+      else if (st.kind === 'limestone') t += '<br>' + st.size + '<br>' + st.note + (tops ? '<br>Shown online as wall cladding; use as capping or tread to be confirmed with Barefoot Living.' : '');
+      else t += '<br>' + st.label + ', ' + st.size + ', ' + st.supplier + (st.url ? '<br><a href="' + st.url + '" target="_blank" rel="noopener">' + st.supplier + ' page for this ' + (st.kind === 'tile' ? 'tile' : 'cladding') + '</a>' : '');
+      t += tops ? '<br>Covers the capping of the retaining wall, the step tread and the landing' + (st.id === 'path600' ? '.' : ', laid with the long side along the wall.') :
+        '<br>Covers the face of the retaining wall and both step risers, ' + st.ven + ' off the concrete.';
+      return t + (st.id === 'path600' || st.id === 'drawn' ? '' : ' A screen is only a guide, so choose from a real sample.');
+    }
+    fSel.value = faceId; fNote.innerHTML = stepNote(faceById(faceId), false);
+    tSel.value = topId; tNote.innerHTML = stepNote(topById(topId), true);
+    fSel.addEventListener('change', function () { fNote.innerHTML = 'Rebuilding the step faces...'; reloadWith(stoneId, fSel.value, topId); });
+    tSel.addEventListener('change', function () { tNote.innerHTML = 'Rebuilding the step tops...'; reloadWith(stoneId, faceId, tSel.value); });
     sel.addEventListener('change', function () {
       var next = stoneById(sel.value), cur = stoneById(stoneId);
       if (next.ven !== cur.ven || next.fmt !== cur.fmt) { note.innerHTML = 'Rebuilding the wall at ' + next.ven + ' off the blocks...'; reloadWith(next.id); return; }
